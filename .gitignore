@@ -1,0 +1,8 @@
+*.Rproj
+*.dll
+*.o
+*.so
+.Rproj.user
+*.RData
+*.Rhistory
+*.Rbuildignore
