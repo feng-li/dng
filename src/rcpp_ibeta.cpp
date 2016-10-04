@@ -33,8 +33,5 @@ double ibeta(double x, double a, double b, bool log0, bool reg)
 }
 
 
-/*** R
 
-
-*/
 

@@ -50,7 +50,3 @@ NumericVector qsplitt(NumericVector p,NumericVector mu, NumericVector df, Numeri
   return out;
 }
 
-
-/*** R
-
-*/

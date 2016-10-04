@@ -57,9 +57,3 @@ NumericVector psplitt(NumericVector q, NumericVector mu, NumericVector df, Numer
 
 
 
-
-/*** R
-
-*/
-
-

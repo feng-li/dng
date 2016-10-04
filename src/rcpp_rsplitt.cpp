@@ -21,9 +21,3 @@ NumericVector rsplitt(int n, NumericVector mu, NumericVector df, NumericVector p
 
 
 
-
-/*** R
-
-*/
-
-
