@@ -2,7 +2,9 @@
 using namespace Rcpp;
 NumericVector dCplrcpp(std::string CplNM, NumericMatrix u, List parCpl, bool log0);
 NumericVector logDensFun(NumericMatrix u, NumericVector theta , NumericVector delta);
-
+NumericVector dmvNormVecFunRcpp(int i,NumericVector x, NumericVector rho, Function f);
+NumericVector dmvtRcpp(NumericVector x, NumericVector sigma, bool log0, Function f);
+NumericVector vech2mRcpp(NumericVector vech, bool diag, Function f);
 
 // [[Rcpp::export]]
 NumericVector dCpl_rcpp(std::string CplNM, NumericMatrix u, List parCpl, bool log0 = TRUE)
@@ -21,7 +23,8 @@ NumericVector dCpl_rcpp(std::string CplNM, NumericMatrix u, List parCpl, bool lo
 
   if(CplNM == "bb7")
   {
-    NumericVector density(u_nrow);
+    int preBits;
+    NumericVector density(u_nrow), out_logredoMPFR(u_nrow), out_logredo(u_nrow) ;
     delta = parCpl["delta"];
     theta = parCpl["theta"];
 
@@ -31,8 +34,22 @@ NumericVector dCpl_rcpp(std::string CplNM, NumericMatrix u, List parCpl, bool lo
     // BB7 density is very unstable numerically. Use "Multiple Precision Floating-Point
     // Reliable" based on GNU Multiple Precision Library for "those errors only (NA, NAN,
     // Inf)" found in the result.
-
-
+    precBits = 1024;
+    for(i=0;i<u_nrow;i++)
+    {
+      if(!is.finite(out_log[i]))
+      {
+        out_logredoMPFR[i] = logDensFun(u = mpfr(u[redo.idx, , drop = FALSE], precBits = precBits),
+                                      theta = mpfr(theta[redo.idx], precBits = precBits),
+                                      delta = mpfr(delta[redo.idx], precBits = precBits));
+        out_logredo[i] = as.numeric(out_logredoMPFR[i]);
+        out_log[i] = out_logredo[i];
+      }
+      else
+      {
+        warning("MPFR used with insufficient ", precBits, " precBits in BB7 density.");
+      }
+    }
   }
 
   else if(CplNM == "gaussian")
@@ -49,16 +66,26 @@ NumericVector dCpl_rcpp(std::string CplNM, NumericMatrix u, List parCpl, bool lo
       }
     }
     nObs = u_quantile.nrow();
-
     //The CplNM density function C_12(u1, u2)
-  }
+    NumericVector logDensUpper(nObs),logDensLower(nObs), logDens(nObs) ;
+    for(i=0;i<nObs;i++)
+    {
+      logDensUpper[i] = dmvNormVecFunRcpp(i,u_quantile(i,),rho[i],dmvNormVecFun);
+      logDensLower[i] = 0;
+      for(j=0;j<u_ncol;j++)
+      {logDensLower[i] = logDensLower[i] + R::dnorm4(u_quantile(i,j),df[i],TRUE);}
+      logDens[i] = logDensUpper[i] - logDensLower[i];
+    }
+    //The output
+    out_log = matrix(logDens);
+      }
 
 
-  else if(CplNM == "mtv")
-  {
+  else if(CplNM == "mtv")  //The multivariate t-copula
+  { //Demarta & McNeil (2005),  The t copula and related copulas
     // df, corr
-    df  = parCpl["df"];
-    rho = parCpl["rho"];
+    df  = parCpl["df"];  //n-by-1
+    rho = parCpl["rho"]; //n-by-lq
     NumericMatrix u_quantile(u_nrow,u_ncol);
     int nObs;
 
@@ -80,17 +107,20 @@ NumericVector dCpl_rcpp(std::string CplNM, NumericMatrix u, List parCpl, bool lo
 
     // The density of the t copula, Demarta & Department (2006) Eq(6)
 
-    NumericMatrix logDensUpper(nObs,1),logDensLower(nObs,1), logDens(nObs,1) ;
+    NumericVector logDensUpper(nObs),logDensLower(nObs), logDens(nObs) ;
     for(i=0;i<nObs;i++)
     {
-      logDensUpper(i,0)=1;/* dmvt(x = u.quantile[i, , drop = FALSE],
-                   sigma = vech2m(rho[i, ], diag = FALSE),
-      type = "shifted", # wikipedia type
-      df = df[i], log = TRUE)  */
+      logDensUpper[i] = dmvtRcpp(x     = u.quantile[i, , drop = FALSE],
+                                 sigma = vech2m(rho[i, ], diag = FALSE),
+                                 type  = "shifted", // wikipedia type
+                                 df    = df[i], 
+                                 log0  = TRUE
+                                 f    = dmvt);
+      logDensLower[i] = 0;
+      for(j=0;j<u_ncol;j++)
+        {logDensLower[i] = logDensLower[i] + R::dt(u_quantile(i,j),df[i],TRUE);}
+      logDens[i] = logDensUpper[i] - logDensLower[i];
     }
-
-    //logDensLower <- apply(dt(u.quantile, df = df, log = TRUE), 1, sum)
-    //logDens <- logDensUpper-logDensLower
 
   }
 
