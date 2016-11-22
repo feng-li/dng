@@ -2,7 +2,7 @@
 using namespace Rcpp;
 NumericVector dCplrcpp(std::string CplNM, NumericMatrix u, List parCpl, bool log0);
 NumericVector logDensFun(NumericMatrix u, NumericVector theta , NumericVector delta);
-NumericVector dmvNormVecFunRcpp(int i,NumericVector x, NumericVector rho, Function f);
+NumericVector dmvNormVecFun(int i,NumericVector x, NumericVector rho, Function f);
 NumericVector dmvtRcpp(NumericVector x, NumericVector sigma, bool log0, Function f);
 NumericVector vech2mRcpp(NumericVector vech, bool diag, Function f);
 
@@ -21,6 +21,7 @@ NumericVector dCpl_rcpp(std::string CplNM, NumericMatrix u, List parCpl, bool lo
       CplNM[i]=32+CplNM[i]; }
 
 
+
   if(CplNM == "bb7")
   {
     int preBits;
@@ -30,19 +31,22 @@ NumericVector dCpl_rcpp(std::string CplNM, NumericMatrix u, List parCpl, bool lo
 
     // The usual log density
     out_log = logDensFun(u, theta, delta);
-
     // BB7 density is very unstable numerically. Use "Multiple Precision Floating-Point
     // Reliable" based on GNU Multiple Precision Library for "those errors only (NA, NAN,
     // Inf)" found in the result.
-    precBits = 1024;
+    Environment Rmpfr("package:Rmpfr");
+    Function mpfr = Rmpfr["mpfr"];
+    int redo_idx;
+    int precBits = 1024;
     for(i=0;i<u_nrow;i++)
     {
-      if(!is.finite(out_log[i]))
+      if(!std::isfinite(out_log[i]))
       {
-        out_logredoMPFR[i] = logDensFun(u = mpfr(u[redo.idx, , drop = FALSE], precBits = precBits),
-                                      theta = mpfr(theta[redo.idx], precBits = precBits),
-                                      delta = mpfr(delta[redo.idx], precBits = precBits));
-        out_logredo[i] = as.numeric(out_logredoMPFR[i]);
+        out_logredoMPFR[i] = logDensFun(u = mpfr(u(i,_), precBits = precBits),
+                                        theta = mpfr(theta[i], precBits = precBits),
+                                        delta = mpfr(delta[i], precBits = precBits));
+        out_logredo[i] = out_logredoMPFR[i];
+        //out_logredo[i] = Rcpp::as<float>(out_logredoMPFR[i]);
         out_log[i] = out_logredo[i];
       }
       else
@@ -52,7 +56,7 @@ NumericVector dCpl_rcpp(std::string CplNM, NumericMatrix u, List parCpl, bool lo
     }
   }
 
-  else if(CplNM == "gaussian")
+  if(CplNM == "gaussian")
   {
     int nObs;
     NumericMatrix u_quantile(u_nrow,u_ncol);
@@ -70,16 +74,15 @@ NumericVector dCpl_rcpp(std::string CplNM, NumericMatrix u, List parCpl, bool lo
     NumericVector logDensUpper(nObs),logDensLower(nObs), logDens(nObs) ;
     for(i=0;i<nObs;i++)
     {
-      logDensUpper[i] = dmvNormVecFunRcpp(i,u_quantile(i,),rho[i],dmvNormVecFun);
+      logDensUpper[i] = dmvNormVecFun(i,u_quantile(i,_),rho[i]);
       logDensLower[i] = 0;
       for(j=0;j<u_ncol;j++)
-      {logDensLower[i] = logDensLower[i] + R::dnorm4(u_quantile(i,j),df[i],TRUE);}
+      {logDensLower[i] = logDensLower[i] + R::dnorm4(u_quantile(i,j),0,1,TRUE);}
       logDens[i] = logDensUpper[i] - logDensLower[i];
+      //The output
+      out_log = Rcpp::as<NumericMatrix>(logDens);
     }
-    //The output
-    out_log = matrix(logDens);
-      }
-
+  }
 
   else if(CplNM == "mtv")  //The multivariate t-copula
   { //Demarta & McNeil (2005),  The t copula and related copulas
@@ -110,19 +113,20 @@ NumericVector dCpl_rcpp(std::string CplNM, NumericMatrix u, List parCpl, bool lo
     NumericVector logDensUpper(nObs),logDensLower(nObs), logDens(nObs) ;
     for(i=0;i<nObs;i++)
     {
-      logDensUpper[i] = dmvtRcpp(x     = u.quantile[i, , drop = FALSE],
-                                 sigma = vech2m(rho[i, ], diag = FALSE),
-                                 type  = "shifted", // wikipedia type
-                                 df    = df[i], 
-                                 log0  = TRUE
-                                 f    = dmvt);
+      logDensUpper[i] = dmvt(u_quantile[i, , drop = FALSE],
+                             vech2m(rho[i, ], diag = FALSE),
+                             "shifted", // wikipedia type
+                             df[i],TRUE);
       logDensLower[i] = 0;
       for(j=0;j<u_ncol;j++)
-        {logDensLower[i] = logDensLower[i] + R::dt(u_quantile(i,j),df[i],TRUE);}
+      {logDensLower[i] = logDensLower[i] + R::dt(u_quantile(i,j),df[i],TRUE);}
       logDens[i] = logDensUpper[i] - logDensLower[i];
     }
 
   }
+
+
+
 
 
   else if(CplNM == "fgm")
