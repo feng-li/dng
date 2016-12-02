@@ -2,12 +2,12 @@
 using namespace Rcpp;
 NumericVector dCplrcpp(std::string CplNM, NumericMatrix u, List parCpl, bool log0);
 NumericVector logDensFun(NumericMatrix u, NumericVector theta , NumericVector delta);
-NumericVector dmvNormVecFun(int i,NumericVector x, NumericVector rho, Function f);
-NumericVector dmvtRcpp(NumericVector x, NumericVector sigma, bool log0, Function f);
-NumericVector vech2mRcpp(NumericVector vech, bool diag, Function f);
+NumericVector dmvNormVecFun(int i,NumericVector x, NumericVector rho);
+NumericVector dmvtRcpp(NumericVector x, NumericVector sigma, bool log0);
+NumericVector vech2mCpp(NumericVector vech, bool diag);
 
 // [[Rcpp::export]]
-NumericVector dCpl_rcpp(std::string CplNM, NumericMatrix u, List parCpl, bool log0 = TRUE)
+NumericVector dCplrcpp(std::string CplNM, NumericMatrix u, List parCpl, bool log0)
 {
   int i,j,a,n1,n2,u_nrow,u_ncol;
   n1 = CplNM.size();
@@ -38,13 +38,19 @@ NumericVector dCpl_rcpp(std::string CplNM, NumericMatrix u, List parCpl, bool lo
     Function mpfr = Rmpfr["mpfr"];
     int redo_idx;
     int precBits = 1024;
+    NumericVector ui(u_ncol),umpfr(u_ncol),thetampfr(u_ncol),deltampfr(u_ncol);
     for(i=0;i<u_nrow;i++)
     {
       if(!std::isfinite(out_log[i]))
       {
-        out_logredoMPFR[i] = logDensFun(u = mpfr(u(i,_), precBits = precBits),
-                                        theta = mpfr(theta[i], precBits = precBits),
-                                        delta = mpfr(delta[i], precBits = precBits));
+        for(j=0;j<u_ncol;i++)
+        {
+          ui[j] = u(i,j);
+        }
+        umpfr = mpfr(ui, precBits = precBits);
+        thetampfr = mpfr(theta, precBits = precBits);
+        deltampfr = mpfr(delta, precBits = precBits);
+        out_logredoMPFR[i] = logDensFun(umpfr, thetampfr, deltampfr);
         out_logredo[i] = out_logredoMPFR[i];
         //out_logredo[i] = Rcpp::as<float>(out_logredoMPFR[i]);
         out_log[i] = out_logredo[i];
@@ -71,10 +77,14 @@ NumericVector dCpl_rcpp(std::string CplNM, NumericMatrix u, List parCpl, bool lo
     }
     nObs = u_quantile.nrow();
     //The CplNM density function C_12(u1, u2)
-    NumericVector logDensUpper(nObs),logDensLower(nObs), logDens(nObs) ;
+    NumericVector logDensUpper(nObs),logDensLower(nObs), logDens(nObs),u_quantile_i(u_ncol);
     for(i=0;i<nObs;i++)
     {
-      logDensUpper[i] = dmvNormVecFun(i,u_quantile(i,_),rho[i]);
+      for(j=0;j<u_ncol;i++)
+      {
+        u_quantile_i = u_quantile(i,j);
+      }
+      logDensUpper[i] = dmvNormVecFun(i,u_quantile_i,rho[i]);
       logDensLower[i] = 0;
       for(j=0;j<u_ncol;j++)
       {logDensLower[i] = logDensLower[i] + R::dnorm4(u_quantile(i,j),0,1,TRUE);}
@@ -100,7 +110,7 @@ NumericVector dCpl_rcpp(std::string CplNM, NumericMatrix u, List parCpl, bool lo
         u_quantile(i,j) = R::qt(u(i,j),df[i],TRUE,FALSE);
       }
     }
-    // u.quantile <- X
+    // u_quantile = X
 
     // The log copula density function C_12(u1, u2)
     nObs = df.size();
@@ -110,13 +120,19 @@ NumericVector dCpl_rcpp(std::string CplNM, NumericMatrix u, List parCpl, bool lo
 
     // The density of the t copula, Demarta & Department (2006) Eq(6)
 
-    NumericVector logDensUpper(nObs),logDensLower(nObs), logDens(nObs) ;
+    Environment mvtnorm("package:mvtnorm");
+    Function dmvt = mvtnorm["dmvt"];
+    NumericVector logDensUpper(nObs),logDensLower(nObs), logDens(nObs),u_quantile_i(u_ncol),rho_i(u_ncol),delta_vech2m(u_ncol);
     for(i=0;i<nObs;i++)
     {
-      logDensUpper[i] = dmvt(u_quantile[i, , drop = FALSE],
-                             vech2m(rho[i, ], diag = FALSE),
-                             "shifted", // wikipedia type
-                             df[i],TRUE);
+      for(j=0;j<u_ncol;i++)
+      {
+        u_quantile_i[j] = u_quantile(i,j);
+        rho_i[j] = rho(i,j);
+        }
+      delta_vech2m = vech2mCpp(rho_i, FALSE);
+      logDensUpper[i] = dmvt(u_quantile_i,delta_vech2m, df[i],TRUE, "shifted");
+
       logDensLower[i] = 0;
       for(j=0;j<u_ncol;j++)
       {logDensLower[i] = logDensLower[i] + R::dt(u_quantile(i,j),df[i],TRUE);}
@@ -124,10 +140,6 @@ NumericVector dCpl_rcpp(std::string CplNM, NumericMatrix u, List parCpl, bool lo
     }
 
   }
-
-
-
-
 
   else if(CplNM == "fgm")
   {
