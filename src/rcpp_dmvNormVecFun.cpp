@@ -3,6 +3,7 @@ using namespace Rcpp;
 /*** R
 dmvNormVecFunR <- function(i, x, rho)
 {
+  require("mvtnorm")
   Sigma = vech2m(rho[i, ], diag = FALSE)
   out <- dmvnorm(x = x[i, , drop = FALSE],
                  sigma = Sigma,
