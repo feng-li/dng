@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // dsplitt
 NumericVector dsplitt(NumericVector x, NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd, LogicalVector log0);
-RcppExport SEXP splittV1_2_dsplitt(SEXP xSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP, SEXP log0SEXP) {
+RcppExport SEXP dng_dsplitt(SEXP xSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP, SEXP log0SEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -21,19 +21,9 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// rcpp_hello
-List rcpp_hello();
-RcppExport SEXP splittV1_2_rcpp_hello() {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    __result = Rcpp::wrap(rcpp_hello());
-    return __result;
-END_RCPP
-}
 // ibeta
 double ibeta(double x, double a, double b, bool log0, bool reg);
-RcppExport SEXP splittV1_2_ibeta(SEXP xSEXP, SEXP aSEXP, SEXP bSEXP, SEXP log0SEXP, SEXP regSEXP) {
+RcppExport SEXP dng_ibeta(SEXP xSEXP, SEXP aSEXP, SEXP bSEXP, SEXP log0SEXP, SEXP regSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -48,7 +38,7 @@ END_RCPP
 }
 // splitt_kurtosis
 NumericVector splitt_kurtosis(NumericVector df, NumericVector phi, NumericVector lmd);
-RcppExport SEXP splittV1_2_splitt_kurtosis(SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_splitt_kurtosis(SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -61,7 +51,7 @@ END_RCPP
 }
 // splitt_mean
 NumericVector splitt_mean(NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd);
-RcppExport SEXP splittV1_2_splitt_mean(SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_splitt_mean(SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -73,9 +63,22 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// pochhammer
+NumericMatrix pochhammer(NumericVector a, IntegerVector n, LogicalVector log0);
+RcppExport SEXP dng_pochhammer(SEXP aSEXP, SEXP nSEXP, SEXP log0SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericVector >::type a(aSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type n(nSEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type log0(log0SEXP);
+    __result = Rcpp::wrap(pochhammer(a, n, log0));
+    return __result;
+END_RCPP
+}
 // psplitt
 NumericVector psplitt(NumericVector q, NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd);
-RcppExport SEXP splittV1_2_psplitt(SEXP qSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_psplitt(SEXP qSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -90,7 +93,7 @@ END_RCPP
 }
 // qsplitt
 NumericVector qsplitt(NumericVector p, NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd);
-RcppExport SEXP splittV1_2_qsplitt(SEXP pSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_qsplitt(SEXP pSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -105,7 +108,7 @@ END_RCPP
 }
 // rsplitt
 NumericVector rsplitt(int n, NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd);
-RcppExport SEXP splittV1_2_rsplitt(SEXP nSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_rsplitt(SEXP nSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -120,7 +123,7 @@ END_RCPP
 }
 // splitt_skewness
 NumericVector splitt_skewness(NumericVector df, NumericVector phi, NumericVector lmd);
-RcppExport SEXP splittV1_2_splitt_skewness(SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_splitt_skewness(SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
@@ -133,7 +136,7 @@ END_RCPP
 }
 // splitt_var
 NumericVector splitt_var(NumericVector df, NumericVector phi, NumericVector lmd);
-RcppExport SEXP splittV1_2_splitt_var(SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_splitt_var(SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;

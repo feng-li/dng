@@ -2,42 +2,42 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 dsplitt <- function(x, mu, df, phi, lmd, log0) {
-    .Call('splittV1_2_dsplitt', PACKAGE = 'splittV1.2', x, mu, df, phi, lmd, log0)
-}
-
-rcpp_hello <- function() {
-    .Call('splittV1_2_rcpp_hello', PACKAGE = 'splittV1.2')
+    .Call('dng_dsplitt', PACKAGE = 'dng', x, mu, df, phi, lmd, log0)
 }
 
 ibeta <- function(x, a, b, log0, reg) {
-    .Call('splittV1_2_ibeta', PACKAGE = 'splittV1.2', x, a, b, log0, reg)
+    .Call('dng_ibeta', PACKAGE = 'dng', x, a, b, log0, reg)
 }
 
 splitt_kurtosis <- function(df, phi, lmd) {
-    .Call('splittV1_2_splitt_kurtosis', PACKAGE = 'splittV1.2', df, phi, lmd)
+    .Call('dng_splitt_kurtosis', PACKAGE = 'dng', df, phi, lmd)
 }
 
 splitt_mean <- function(mu, df, phi, lmd) {
-    .Call('splittV1_2_splitt_mean', PACKAGE = 'splittV1.2', mu, df, phi, lmd)
+    .Call('dng_splitt_mean', PACKAGE = 'dng', mu, df, phi, lmd)
+}
+
+pochhammer <- function(a, n, log0) {
+    .Call('dng_pochhammer', PACKAGE = 'dng', a, n, log0)
 }
 
 psplitt <- function(q, mu, df, phi, lmd) {
-    .Call('splittV1_2_psplitt', PACKAGE = 'splittV1.2', q, mu, df, phi, lmd)
+    .Call('dng_psplitt', PACKAGE = 'dng', q, mu, df, phi, lmd)
 }
 
 qsplitt <- function(p, mu, df, phi, lmd) {
-    .Call('splittV1_2_qsplitt', PACKAGE = 'splittV1.2', p, mu, df, phi, lmd)
+    .Call('dng_qsplitt', PACKAGE = 'dng', p, mu, df, phi, lmd)
 }
 
 rsplitt <- function(n, mu, df, phi, lmd) {
-    .Call('splittV1_2_rsplitt', PACKAGE = 'splittV1.2', n, mu, df, phi, lmd)
+    .Call('dng_rsplitt', PACKAGE = 'dng', n, mu, df, phi, lmd)
 }
 
 splitt_skewness <- function(df, phi, lmd) {
-    .Call('splittV1_2_splitt_skewness', PACKAGE = 'splittV1.2', df, phi, lmd)
+    .Call('dng_splitt_skewness', PACKAGE = 'dng', df, phi, lmd)
 }
 
 splitt_var <- function(df, phi, lmd) {
-    .Call('splittV1_2_splitt_var', PACKAGE = 'splittV1.2', df, phi, lmd)
+    .Call('dng_splitt_var', PACKAGE = 'dng', df, phi, lmd)
 }
 
