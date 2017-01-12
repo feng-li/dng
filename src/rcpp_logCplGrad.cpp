@@ -3,20 +3,26 @@ using namespace Rcpp;
 List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string parCaller);
 NumericVector gradFun4delta(NumericMatrix u, NumericVector theta , NumericVector delta);
 NumericVector gradFun4theta(NumericMatrix u, NumericVector theta , NumericVector delta);
-NumericVector gradFun4df(int i, NumericMatrix rho, NumericVector df , NumericVector u_quantile);
+NumericVector gradFun4df(int i, NumericMatrix rho, NumericVector df , NumericMatrix u_quantile);
 
 // [[Rcpp::export]]
 
 List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string parCaller)
 {
-  int i,j,a,n_cplnm,u_nrow,u_ncol,q;
-  n_cplnm = CplNM.size();
-  u_nrow = u.nrow();
-  u_ncol = u.ncol();
-  q = u.ncol();
-  NumericVector out_log(u_nrow), logCplGrad_delta(u_nrow), logCplGrad_u(u_nrow),logCplGrad_df(u_nrow);
+  Environment Callfunc("package:logCplGrad02");
+  int i,j,a;
+  int n_parCaller = parCaller.size();
+  int n_cplnm = CplNM.size();
+  int u_nrow = u.nrow();
+  int u_ncol = u.ncol();
+  int q = u.ncol();
+  NumericVector out_log(u_nrow), logCplGrad_delta(u_nrow), logCplGrad_u(u_nrow),logCplGrad_df(u_nrow)£¬logCplGrad_rho(u_nrow);
   NumericVector delta(u_nrow),theta(u_nrow), gradout(u_nrow), df(u_nrow),rho(u_nrow), u1(u_nrow) , u2(u_nrow),gradCpl_u(u_nrow);
 
+
+  for(i=0;i<n_parCaller;i++){
+    if(parCaller[i]>=65 && parCaller[i]<=90)
+      parCaller[i]=32+parCaller[i]; }
 
   for(i=0;i<n_cplnm;i++){
     if(CplNM[i]>=65 && CplNM[i]<=90)
@@ -30,7 +36,7 @@ List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string par
     delta = parCpl["delta"];
     theta = parCpl["theta"];
 
-    //if( "delta" %in% tolower(parCaller))
+//if( "delta" %in% tolower(parCaller))
     //################################################################################
     //### DEBUGGING
     //## u <- matrix(c(0.6, 0.3), 1, )
@@ -39,16 +45,14 @@ List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string par
     //### PASSED
     //################################################################################
     gradout = gradFun4delta(u = u, theta = theta, delta = delta);
-
-    precBits = 1024;
+    Function gradFun4delta_infinite = Callfunc["gradFun4delta_infinite"];
     for(i=0;i<u_nrow;i++)
     {
+      if(TRUE ==!R_FINITE(gradout[i]))
+      { gradout[i]  = gradFun4delta_infinite(u, delta, theta, i);}
+    }
 
-      gradout_redoMPFR[i] = gradFun4delta(u = mpfr(u(i, drop = FALSE), precBits = precBits),
-                                       theta = mpfr(theta[i], precBits = precBits),
-                                       delta = mpfr(delta[i], precBits = precBits));
-
-      //if( "theta" %in% tolower(parCaller))
+//if( "theta" %in% tolower(parCaller))
       //################################################################################
       //### DEBUGGING
       //## u <- matrix(c(0.6, 0.3), 1, )
@@ -56,17 +60,19 @@ List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string par
       //## delta <- 2.4
       //### PASSED
       //################################################################################
-      gradout = gradFun4theta(u = u, theta = theta, delta = delta);
-      gradout_redoMPFR = gradFun4theta(u = mpfr(u(i, drop = FALSE), precBits = precBits),
-                                       theta = mpfr(theta[i], precBits = precBits),
-                                       delta = mpfr(delta[i], precBits = precBits));
-
+    gradout = gradFun4theta(u = u, theta = theta, delta = delta);
+    Function gradFun4theta_infinite = Callfunc["gradFun4theta_infinite"];
+    for(i=0;i<u_nrow;i++)
+    {
+      if(TRUE ==!R_FINITE(gradout[i]))
+      { gradout[i]  = gradFun4theta_infinite(u, delta, theta, i);}
     }
+    
+
 
 
     //## Gradient w.r.t u. NOTE: The BB7 copula's marginal are exchangeable which means
     //## the expression for the gradient w.r.t u1 and u2 are the same if swap u1 and u2
-
 
     //################################################################################
     //## DEBUGGING
@@ -108,8 +114,7 @@ List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string par
       );
     }
 
-
-  }
+}
 
   else if(CplNM == "mvt")
   {
@@ -122,17 +127,13 @@ List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string par
     for(j=0; j<u_ncol; j++)
     {
       for(i=0; i<u_nrow; i++)
-      {
-        u_quantile[i] = R::qt(u(i,j),df(i), TRUE, FALSE);
-      }
+      { u_quantile[i] = R::qt(u(i,j),df(i), TRUE, FALSE);}
     }
 
     for(i=0; i<u_nrow; i++)
     {
       logCplGrad_df_upper[i] = 0 ;
-
       logCplGrad_df_lowerMat[i] = 0 ;
-
     }
 
   }

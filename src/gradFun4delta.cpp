@@ -57,7 +57,7 @@ NumericVector gradFun4delta(NumericMatrix u, NumericVector theta , NumericVector
 
 
 
-    out2[i] = ( pow(L1[i],2)*pow(delta[i],2)*theta[i]*(1+delta[i]*theta[i]+pow(L1[i],(2/delta[i]))*(1+delta[i])*theta[i]-
+    out2[i] = (pow(L1[i],2)*pow(delta[i],2)*theta[i]*(1+delta[i]*theta[i]+pow(L1[i],(2/delta[i]))*(1+delta[i])*theta[i]-
       pow(L1[i],(1/delta[i]))*(1+theta[i]+2*delta[i]*theta[i])));
 
     out[i]  =out1[i]/out2[i];

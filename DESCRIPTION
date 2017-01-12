@@ -1,13 +1,14 @@
 Package: dng
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Distribution and Gradients
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Feng Li; Jiayue Zen
+Maintainer: Jiayue Zen <zengjiayue@126.com>
+Description: This package includes common distributions and their gradients with
+respect to parameters.
+License: GPL (>=2)
 LazyData: TRUE
-Imports: 
+Imports:
     Rcpp (>= 0.12.6)
-LinkingTo: 
+LinkingTo:
     Rcpp
