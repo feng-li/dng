@@ -1,7 +1,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 /*** R
-vech2m <- function(vech, diag = TRUE)
+vech2m <- function(vech, diag)
 {
   c <- length(vech)
   p <- (1 - 2*diag +sqrt(8*c+1))/2 # n^2 -n  =  2c; or n^2 + n  =  2c
@@ -20,7 +20,7 @@ vech2m <- function(vech, diag = TRUE)
 */
 
 // [[Rcpp::export]]
-double vech2mCpp(Rcpp::NumericVector vech, bool diag)
+double vech2m(Rcpp::NumericVector vech, bool diag)
 {
   Rcpp::NumericVector res;
   Rcpp::Environment G = Rcpp::Environment::global_env();

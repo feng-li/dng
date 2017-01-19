@@ -9,7 +9,8 @@ NumericVector vech2mCpp(NumericVector vech, bool diag);
 // [[Rcpp::export]]
 NumericVector dCplrcpp(std::string CplNM, NumericMatrix u, List parCpl, bool log0)
 {
-  int i,j,a,n1,n2,u_nrow,u_ncol;
+  Environment CalldCpl("package:dng");
+  int i,j,n1,n2,u_nrow,u_ncol;
   n1 = CplNM.size();
   u_nrow = u.nrow();
   u_ncol = u.ncol();
@@ -21,10 +22,9 @@ NumericVector dCplrcpp(std::string CplNM, NumericMatrix u, List parCpl, bool log
       CplNM[i]=32+CplNM[i]; }
 
 
-
   if(CplNM == "bb7")
   {
-    int preBits;
+
     NumericVector density(u_nrow), out_logredoMPFR(u_nrow), out_logredo(u_nrow) ;
     delta = parCpl["delta"];
     theta = parCpl["theta"];
@@ -34,32 +34,13 @@ NumericVector dCplrcpp(std::string CplNM, NumericMatrix u, List parCpl, bool log
     // BB7 density is very unstable numerically. Use "Multiple Precision Floating-Point
     // Reliable" based on GNU Multiple Precision Library for "those errors only (NA, NAN,
     // Inf)" found in the result.
-    Environment Rmpfr("package:Rmpfr");
-    Function mpfr = Rmpfr["mpfr"];
-    int redo_idx;
-    int precBits = 1024;
-    NumericVector ui(u_ncol),umpfr(u_ncol),thetampfr(u_ncol),deltampfr(u_ncol);
+    Function logDensFun_infinite = CalldCpl["logDensFun_infinite"];
     for(i=0;i<u_nrow;i++)
     {
-      if(!std::isfinite(out_log[i]))
-      {
-        for(j=0;j<u_ncol;i++)
-        {
-          ui[j] = u(i,j);
-        }
-        umpfr = mpfr(ui, precBits = precBits);
-        thetampfr = mpfr(theta, precBits = precBits);
-        deltampfr = mpfr(delta, precBits = precBits);
-        out_logredoMPFR[i] = logDensFun(umpfr, thetampfr, deltampfr);
-        out_logredo[i] = out_logredoMPFR[i];
-        //out_logredo[i] = Rcpp::as<float>(out_logredoMPFR[i]);
-        out_log[i] = out_logredo[i];
-      }
-      else
-      {
-        warning("MPFR used with insufficient ", precBits, " precBits in BB7 density.");
-      }
+      if(TRUE ==!R_FINITE(out_log[i]))
+      { out_log[i]  = logDensFun_infinite(u, theta, delta, i);}
     }
+
   }
 
   if(CplNM == "gaussian")
@@ -84,7 +65,7 @@ NumericVector dCplrcpp(std::string CplNM, NumericMatrix u, List parCpl, bool log
       {
         u_quantile_i = u_quantile(i,j);
       }
-      logDensUpper[i] = dmvNormVecFun(i,u_quantile_i,rho[i]);
+      logDensUpper[i] = dmvNormVecFun(i,u_quantile_i,rho);
       logDensLower[i] = 0;
       for(j=0;j<u_ncol;j++)
       {logDensLower[i] = logDensLower[i] + R::dnorm4(u_quantile(i,j),0,1,TRUE);}

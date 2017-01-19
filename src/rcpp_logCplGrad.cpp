@@ -9,14 +9,14 @@ NumericVector gradFun4df(int i, NumericMatrix rho, NumericVector df , NumericMat
 
 List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string parCaller)
 {
-  Environment Callfunc("package:logCplGrad02");
+  Environment Callfunc("package:dng");
   int i,j,a;
   int n_parCaller = parCaller.size();
   int n_cplnm = CplNM.size();
   int u_nrow = u.nrow();
   int u_ncol = u.ncol();
   int q = u.ncol();
-  NumericVector out_log(u_nrow), logCplGrad_delta(u_nrow), logCplGrad_u(u_nrow),logCplGrad_df(u_nrow)£¬logCplGrad_rho(u_nrow);
+  NumericVector out_log(u_nrow), logCplGrad_delta(u_nrow), logCplGrad_u(u_nrow),logCplGrad_df(u_nrow)??logCplGrad_rho(u_nrow);
   NumericVector delta(u_nrow),theta(u_nrow), gradout(u_nrow), df(u_nrow),rho(u_nrow), u1(u_nrow) , u2(u_nrow),gradCpl_u(u_nrow);
 
 
@@ -52,7 +52,7 @@ List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string par
       { gradout[i]  = gradFun4delta_infinite(u, delta, theta, i);}
     }
 
-//if( "theta" %in% tolower(parCaller))
+      //if( "theta" %in% tolower(parCaller))
       //################################################################################
       //### DEBUGGING
       //## u <- matrix(c(0.6, 0.3), 1, )
@@ -67,8 +67,6 @@ List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string par
       if(TRUE ==!R_FINITE(gradout[i]))
       { gradout[i]  = gradFun4theta_infinite(u, delta, theta, i);}
     }
-    
-
 
 
     //## Gradient w.r.t u. NOTE: The BB7 copula's marginal are exchangeable which means
