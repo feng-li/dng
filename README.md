@@ -5,7 +5,7 @@ R package with combo of RCPP for univariate and multivariate distributions and t
 
 ## Contributors ##
 ```
-Jiayue Zen <zengjiayue@126.com> and Feng Li <feng.li@cufe.edu.cn>
+Jiayue Zeng <zengjiayue@126.com> and Feng Li <feng.li@cufe.edu.cn>
 School of Statistics and Mathematics
 Central University of Finance and Economics
 https://bitbucket.org/fli/dng
