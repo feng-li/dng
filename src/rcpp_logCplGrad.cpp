@@ -4,20 +4,21 @@ List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string par
 NumericVector gradFun4delta(NumericMatrix u, NumericVector theta , NumericVector delta);
 NumericVector gradFun4theta(NumericMatrix u, NumericVector theta , NumericVector delta);
 NumericVector gradFun4df(int i, NumericMatrix rho, NumericVector df , NumericMatrix u_quantile);
+List MargiModelGrad(NumericVector y, List par,std::string type, std::string parCaller,GenericVector denscaller);
 
 // [[Rcpp::export]]
 
 List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string parCaller)
 {
-  Environment Callfunc("package:dng");
-  int i,j,a;
+  Environment Callfunc("package:logCplGrad02");
+  int i,j;
   int n_parCaller = parCaller.size();
   int n_cplnm = CplNM.size();
   int u_nrow = u.nrow();
   int u_ncol = u.ncol();
   int q = u.ncol();
-  NumericVector out_log(u_nrow), logCplGrad_delta(u_nrow), logCplGrad_u(u_nrow),logCplGrad_df(u_nrow)??logCplGrad_rho(u_nrow);
-  NumericVector delta(u_nrow),theta(u_nrow), gradout(u_nrow), df(u_nrow),rho(u_nrow), u1(u_nrow) , u2(u_nrow),gradCpl_u(u_nrow);
+  NumericVector gradout(u_nrow),gradCpl_u(u_nrow), out_log(u_nrow), logCplGrad_delta(u_nrow), logCplGrad_u(u_nrow),logCplGrad_df(u_nrow);
+  NumericVector delta(u_nrow),theta(u_nrow), df(u_nrow), u1(u_nrow) , u2(u_nrow);
 
 
   for(i=0;i<n_parCaller;i++){
@@ -29,10 +30,10 @@ List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string par
       CplNM[i]=32+CplNM[i]; }
 
 
+
   if(CplNM == "bb7")
   {
-    NumericVector A,gradout_redoMPFR,gradout_redo;
-    int precBits;
+    //NumericVector A,gradout_redoMPFR,gradout_redo;
     delta = parCpl["delta"];
     theta = parCpl["theta"];
 
@@ -44,12 +45,18 @@ List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string par
     //## delta <- 2.4
     //### PASSED
     //################################################################################
+
+    NumericVector dinf(1);
     gradout = gradFun4delta(u = u, theta = theta, delta = delta);
     Function gradFun4delta_infinite = Callfunc["gradFun4delta_infinite"];
     for(i=0;i<u_nrow;i++)
     {
       if(TRUE ==!R_FINITE(gradout[i]))
-      { gradout[i]  = gradFun4delta_infinite(u, delta, theta, i);}
+      {
+        dinf=gradFun4delta_infinite(u, delta, theta, i, parCaller);
+        gradout[i]  = dinf[0];
+      }
+
     }
 
       //if( "theta" %in% tolower(parCaller))
@@ -62,10 +69,14 @@ List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string par
       //################################################################################
     gradout = gradFun4theta(u = u, theta = theta, delta = delta);
     Function gradFun4theta_infinite = Callfunc["gradFun4theta_infinite"];
+    NumericVector tinf(1);
     for(i=0;i<u_nrow;i++)
     {
       if(TRUE ==!R_FINITE(gradout[i]))
-      { gradout[i]  = gradFun4theta_infinite(u, delta, theta, i);}
+      {
+        tinf  = gradFun4theta_infinite(u, delta, theta, i, parCaller);
+        gradout[i] = tinf[0];
+        }
     }
 
 
@@ -80,7 +91,7 @@ List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string par
     //## PASSED
     //################################################################################
     NumericMatrix ub(u_nrow,u_ncol),D12(u_nrow,u_ncol);
-    NumericVector gradCpl_u(u_nrow), ub1(u_nrow), D1(u_nrow), D2(u_nrow), S1(u_nrow), S2(u_nrow), S3(u_nrow);
+    NumericVector ub1(u_nrow), D1(u_nrow), D2(u_nrow), S1(u_nrow), S2(u_nrow), S3(u_nrow);
     for(i=0;i<u_nrow;i++)
     {
       S1[i] = 1;
@@ -118,21 +129,93 @@ List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string par
   {
     int nObs;
     nObs = u.nrow();
-    NumericVector logCplGrad_df_upper(u_nrow), logCplGrad_df_lowerMat(u_nrow);
+    NumericVector logCplGrad_df_upper(u_nrow),logCplGrad_df_lower(u_nrow),logCplGrad_df_lowerMat(u_ncol);
     NumericMatrix u_quantile(u_nrow,u_ncol);
-    df = parCpl["rho"];
-    rho = parCpl["rho"];
+    NumericVector u_quantile_j(u_ncol);
+
+    df = parCpl["df"];
+    NumericMatrix rho = parCpl["rho"];
+
+   // if("df" %in% tolower(parCaller))
     for(j=0; j<u_ncol; j++)
     {
       for(i=0; i<u_nrow; i++)
-      { u_quantile[i] = R::qt(u(i,j),df(i), TRUE, FALSE);}
+      { u_quantile(i,j) = R::qt(u(i,j),df(i), TRUE, FALSE);
+        u_quantile_j(i) = u_quantile(i,j);}
     }
-
+    NumericVector dfupp(1);
+    List mat;
+    List parM = List::create(_["mu"] = 0,
+                             _["df"] = df,
+                             _["phi"] = 1,
+                             _["lmd"] = 1);
     for(i=0; i<u_nrow; i++)
     {
-      logCplGrad_df_upper[i] = 0 ;
-      logCplGrad_df_lowerMat[i] = 0 ;
+      dfupp = gradFun4df(i,rho,df,u_quantile) ;
+      logCplGrad_df_upper[i] = dfupp[0];
+      logCplGrad_df_lower[i] = 0;
+      for(j=0; j<u_ncol;j++)
+      {
+        mat = MargiModelGrad( u_quantile_j,parM , "splitt", "df", "d");
+        logCplGrad_df_lowerMat = mat["d"];
+        logCplGrad_df_lower[i] = logCplGrad_df_lower[i]+logCplGrad_df_lowerMat[j];
+      }
+      logCplGrad_df[i] = logCplGrad_df_upper[i] -logCplGrad_df_lower[i];
     }
+
+
+    //if("rho" %in% tolower(parCaller))
+    Environment Callfunc("package:grand");
+    Function mult = Callfunc["mult"];
+    Function vech2m = Callfunc["vech2m"];
+    Environment base("package:base");
+    Function solve = base["solve"];
+    Function t = base["t"];
+
+    int lq = rho.ncol();
+    NumericMatrix logCplGrad_rho(nObs, lq);  // n-by-lq
+    NumericMatrix Sigma;
+    NumericVector rhoi(lq);
+    for(j=0;j<lq;j++)
+    {    rhoi[j] = rho(i,j);  }
+      for(i=0;i<nObs;i++)
+      {
+        Sigma = vech2m(rhoi, 0);
+        double v = df[i];
+        NumericMatrix x(1,u_ncol);  //col-vector
+        for(j=0;j<u_ncol;j++)
+        { x(0,j) = u_quantile(i,j);  }
+        int mu = 0;
+        int p = Sigma.nrow();
+        int q = Sigma.ncol();
+
+     // C0 <- as.vector(t(x-mu)%*%solve(Sigma)%*%(x-mu))
+     NumericMatrix C1 = solve(Sigma, (x-mu));
+     NumericVector C0 = mult(t(x-mu),C1);
+     NumericMatrix solveSigma = solve(Sigma);
+     NumericMatrix multC1tC1 = mult((-C1),t(C1));
+     NumericVector powC0v;
+     for(j=0;j<u_ncol;j++)
+     {
+       powC0v[j]= pow((1+C0[j]/v),(-1));
+     }
+     NumericMatrix logGradCpl_Sigma(p,q);
+     for(int a;a<p;a++)
+     {
+       for(int b;b<q;b++)
+       {
+         logGradCpl_Sigma(a,b) = (-1/2*solveSigma(a,b)-(v+p)/2*powC0v[a]*multC1tC1(a,b)/v);
+       }
+     }
+
+     for(int a=0;a<lq;a++)
+       {
+       for(int b= a+1;b<lq;b++)
+       {logCplGrad_rho[j] = logGradCpl_Sigma(a,b);}
+        }
+
+      }
+    //if(any(paste("u", 1:q, sep = "") %in% tolower(parCaller)))
 
   }
 
@@ -211,8 +294,7 @@ List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string par
                           _["theta"] = gradout,
                           _["u"] = gradCpl_u,
                           _["df"] = logCplGrad_df,
-                          _["rho"] =  logCplGrad_rho
-                            );
+                          _["rho"] =  logCplGrad_rho);
 
   return out;
 }

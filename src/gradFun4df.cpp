@@ -14,7 +14,7 @@ NumericVector gradFun4df(int i, NumericMatrix rho, NumericVector df , NumericMat
 
   int j;
   int rho_ncol = rho.ncol();
-  //int u_quantile_ncol = u_quantile.ncol();
+  int u_quantile_ncol = u_quantile.ncol();
   NumericVector rhoi(rho_ncol);
   for(j=0;j<rho_ncol;j++)
   {    rhoi[j] = rho(i,j);  }
@@ -22,8 +22,6 @@ NumericVector gradFun4df(int i, NumericMatrix rho, NumericVector df , NumericMat
   Sigma = vech2m(rhoi, 0);
 
   double v = df[i];
-
-
   NumericMatrix x(1,u_quantile_ncol);
   for(j=0;j<u_quantile_ncol;j++)
   { x(0,j) = u_quantile(i,j);  }

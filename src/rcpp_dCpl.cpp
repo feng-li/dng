@@ -2,20 +2,21 @@
 using namespace Rcpp;
 NumericVector dCplrcpp(std::string CplNM, NumericMatrix u, List parCpl, bool log0);
 NumericVector logDensFun(NumericMatrix u, NumericVector theta , NumericVector delta);
-NumericVector dmvNormVecFun(int i,NumericVector x, NumericVector rho);
+double dmvNormVecFun(int i,NumericVector x, NumericVector rho);
 NumericVector dmvtRcpp(NumericVector x, NumericVector sigma, bool log0);
 NumericVector vech2mCpp(NumericVector vech, bool diag);
 
 // [[Rcpp::export]]
 NumericVector dCplrcpp(std::string CplNM, NumericMatrix u, List parCpl, bool log0)
 {
-  Environment CalldCpl("package:dng");
-  int i,j,n1,n2,u_nrow,u_ncol;
+  Environment CalldCpl("package:dCpl002");
+  int i,j,n1,u_nrow,u_ncol;
   n1 = CplNM.size();
   u_nrow = u.nrow();
   u_ncol = u.ncol();
   NumericVector out_log(u_nrow), out(u_nrow);
-  NumericVector delta(u_nrow),theta(u_nrow), df(u_nrow), rho(u_nrow), u1(u_nrow) , u2(u_nrow);
+  NumericVector delta(u_nrow),theta(u_nrow), df(u_nrow), u1(u_nrow) , u2(u_nrow);
+
 
   for(i=0;i<n1;i++){
     if(CplNM[i]>=65 && CplNM[i]<=90)
@@ -35,37 +36,46 @@ NumericVector dCplrcpp(std::string CplNM, NumericMatrix u, List parCpl, bool log
     // Reliable" based on GNU Multiple Precision Library for "those errors only (NA, NAN,
     // Inf)" found in the result.
     Function logDensFun_infinite = CalldCpl["logDensFun_infinite"];
+    NumericVector ldfinf(1);
     for(i=0;i<u_nrow;i++)
     {
       if(TRUE ==!R_FINITE(out_log[i]))
-      { out_log[i]  = logDensFun_infinite(u, theta, delta, i);}
+      {
+       ldfinf  = logDensFun_infinite(u, theta, delta, i);
+       out_log[i] = ldfinf[0];}
     }
 
   }
 
-  if(CplNM == "gaussian")
+  else if(CplNM == "gaussian")
   {
-    int nObs;
-    NumericMatrix u_quantile(u_nrow,u_ncol);
-    rho = parCpl["rho"]; // n-by-lq
+    int nObs,lq;
+    NumericMatrix rho = parCpl["rho"]; // n-by-lq
+    NumericMatrix u_quantile(u_nrow,u_ncol); // n-by-q
+    NumericVector logDensUpper(u_nrow),logDensLower(u_nrow), logDens(u_nrow);
+    NumericVector u_quantile_i(u_ncol),rhoi(lq);
     // The quantile for normal CDF
     for(i=0;i<u_nrow;i++)
     {
       for(j=0;j<u_ncol;j++)
       {
         u_quantile(i,j) = R::qnorm5(u(i,j), 0, 1, TRUE, FALSE);
+        u_quantile_i = u_quantile(i,j);
       }
     }
     nObs = u_quantile.nrow();
+    lq = rho.ncol();
+    for(i=0;i<u_nrow;i++)
+    {
+      for(j=0;j<lq;j++)
+      {
+        rhoi(j) = rho(i,j);
+      }
+    }
     //The CplNM density function C_12(u1, u2)
-    NumericVector logDensUpper(nObs),logDensLower(nObs), logDens(nObs),u_quantile_i(u_ncol);
     for(i=0;i<nObs;i++)
     {
-      for(j=0;j<u_ncol;i++)
-      {
-        u_quantile_i = u_quantile(i,j);
-      }
-      logDensUpper[i] = dmvNormVecFun(i,u_quantile_i,rho);
+      logDensUpper[i] = dmvNormVecFun(i,u_quantile_i,rhoi);
       logDensLower[i] = 0;
       for(j=0;j<u_ncol;j++)
       {logDensLower[i] = logDensLower[i] + R::dnorm4(u_quantile(i,j),0,1,TRUE);}
@@ -79,7 +89,7 @@ NumericVector dCplrcpp(std::string CplNM, NumericMatrix u, List parCpl, bool log
   { //Demarta & McNeil (2005),  The t copula and related copulas
     // df, corr
     df  = parCpl["df"];  //n-by-1
-    rho = parCpl["rho"]; //n-by-lq
+    NumericMatrix rho = parCpl["rho"]; //n-by-lq
     NumericMatrix u_quantile(u_nrow,u_ncol);
     int nObs;
 
@@ -104,6 +114,7 @@ NumericVector dCplrcpp(std::string CplNM, NumericMatrix u, List parCpl, bool log
     Environment mvtnorm("package:mvtnorm");
     Function dmvt = mvtnorm["dmvt"];
     NumericVector logDensUpper(nObs),logDensLower(nObs), logDens(nObs),u_quantile_i(u_ncol),rho_i(u_ncol),delta_vech2m(u_ncol);
+    NumericVector uppv(1);
     for(i=0;i<nObs;i++)
     {
       for(j=0;j<u_ncol;i++)
@@ -112,7 +123,8 @@ NumericVector dCplrcpp(std::string CplNM, NumericMatrix u, List parCpl, bool log
         rho_i[j] = rho(i,j);
         }
       delta_vech2m = vech2mCpp(rho_i, FALSE);
-      logDensUpper[i] = dmvt(u_quantile_i,delta_vech2m, df[i],TRUE, "shifted");
+      uppv = dmvt(u_quantile_i,delta_vech2m, df[i],1, "shifted");
+      logDensUpper[i] = uppv[0];
 
       logDensLower[i] = 0;
       for(j=0;j<u_ncol;j++)
