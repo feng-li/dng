@@ -5,6 +5,73 @@
 
 using namespace Rcpp;
 
+// gradFun4delta
+NumericVector gradFun4delta(NumericMatrix u, NumericVector theta, NumericVector delta);
+RcppExport SEXP dng_gradFun4delta(SEXP uSEXP, SEXP thetaSEXP, SEXP deltaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericMatrix >::type u(uSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type theta(thetaSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type delta(deltaSEXP);
+    __result = Rcpp::wrap(gradFun4delta(u, theta, delta));
+    return __result;
+END_RCPP
+}
+// gradFun4df
+NumericVector gradFun4df(int i, NumericMatrix rho, NumericVector df, NumericMatrix u_quantile);
+RcppExport SEXP dng_gradFun4df(SEXP iSEXP, SEXP rhoSEXP, SEXP dfSEXP, SEXP u_quantileSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< int >::type i(iSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type rho(rhoSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type df(dfSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type u_quantile(u_quantileSEXP);
+    __result = Rcpp::wrap(gradFun4df(i, rho, df, u_quantile));
+    return __result;
+END_RCPP
+}
+// gradFun4theta
+NumericVector gradFun4theta(NumericMatrix u, NumericVector theta, NumericVector delta);
+RcppExport SEXP dng_gradFun4theta(SEXP uSEXP, SEXP thetaSEXP, SEXP deltaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericMatrix >::type u(uSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type theta(thetaSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type delta(deltaSEXP);
+    __result = Rcpp::wrap(gradFun4theta(u, theta, delta));
+    return __result;
+END_RCPP
+}
+// dCpl
+NumericVector dCpl(std::string CplNM, NumericMatrix u, List parCpl, bool log0);
+RcppExport SEXP dng_dCpl(SEXP CplNMSEXP, SEXP uSEXP, SEXP parCplSEXP, SEXP log0SEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::string >::type CplNM(CplNMSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type u(uSEXP);
+    Rcpp::traits::input_parameter< List >::type parCpl(parCplSEXP);
+    Rcpp::traits::input_parameter< bool >::type log0(log0SEXP);
+    __result = Rcpp::wrap(dCpl(CplNM, u, parCpl, log0));
+    return __result;
+END_RCPP
+}
+// dmvNormVecFun
+NumericVector dmvNormVecFun(int i, NumericVector x, NumericVector rho);
+RcppExport SEXP dng_dmvNormVecFun(SEXP iSEXP, SEXP xSEXP, SEXP rhoSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< int >::type i(iSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type rho(rhoSEXP);
+    __result = Rcpp::wrap(dmvNormVecFun(i, x, rho));
+    return __result;
+END_RCPP
+}
 // dsplitt
 NumericVector dsplitt(NumericVector x, NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd, LogicalVector log0);
 RcppExport SEXP dng_dsplitt(SEXP xSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP, SEXP log0SEXP) {
@@ -18,6 +85,20 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type lmd(lmdSEXP);
     Rcpp::traits::input_parameter< LogicalVector >::type log0(log0SEXP);
     __result = Rcpp::wrap(dsplitt(x, mu, df, phi, lmd, log0));
+    return __result;
+END_RCPP
+}
+// ghypergeo
+NumericVector ghypergeo(NumericMatrix a, NumericMatrix b, NumericVector z, int k);
+RcppExport SEXP dng_ghypergeo(SEXP aSEXP, SEXP bSEXP, SEXP zSEXP, SEXP kSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericMatrix >::type a(aSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type b(bSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type z(zSEXP);
+    Rcpp::traits::input_parameter< int >::type k(kSEXP);
+    __result = Rcpp::wrap(ghypergeo(a, b, z, k));
     return __result;
 END_RCPP
 }
@@ -46,6 +127,48 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type phi(phiSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type lmd(lmdSEXP);
     __result = Rcpp::wrap(splitt_kurtosis(df, phi, lmd));
+    return __result;
+END_RCPP
+}
+// logCplGrad
+List logCplGrad(std::string CplNM, NumericMatrix u, List parCpl, std::string parCaller);
+RcppExport SEXP dng_logCplGrad(SEXP CplNMSEXP, SEXP uSEXP, SEXP parCplSEXP, SEXP parCallerSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< std::string >::type CplNM(CplNMSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type u(uSEXP);
+    Rcpp::traits::input_parameter< List >::type parCpl(parCplSEXP);
+    Rcpp::traits::input_parameter< std::string >::type parCaller(parCallerSEXP);
+    __result = Rcpp::wrap(logCplGrad(CplNM, u, parCpl, parCaller));
+    return __result;
+END_RCPP
+}
+// logDensFun
+NumericVector logDensFun(NumericMatrix u, NumericVector theta, NumericVector delta);
+RcppExport SEXP dng_logDensFun(SEXP uSEXP, SEXP thetaSEXP, SEXP deltaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericMatrix >::type u(uSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type theta(thetaSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type delta(deltaSEXP);
+    __result = Rcpp::wrap(logDensFun(u, theta, delta));
+    return __result;
+END_RCPP
+}
+// MargiModelGrad
+List MargiModelGrad(NumericVector y, List par, std::string type, std::string parCaller, GenericVector denscaller);
+RcppExport SEXP dng_MargiModelGrad(SEXP ySEXP, SEXP parSEXP, SEXP typeSEXP, SEXP parCallerSEXP, SEXP denscallerSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< List >::type par(parSEXP);
+    Rcpp::traits::input_parameter< std::string >::type type(typeSEXP);
+    Rcpp::traits::input_parameter< std::string >::type parCaller(parCallerSEXP);
+    Rcpp::traits::input_parameter< GenericVector >::type denscaller(denscallerSEXP);
+    __result = Rcpp::wrap(MargiModelGrad(y, par, type, parCaller, denscaller));
     return __result;
 END_RCPP
 }

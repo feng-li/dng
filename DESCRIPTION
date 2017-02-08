@@ -4,11 +4,9 @@ Title: Distribution and Gradients
 Version: 0.1.0
 Author: Feng Li; Jiayue Zeng
 Maintainer: Jiayue Zeng <zengjiayue@126.com>
-Description: This package includes common distributions and their gradients with
-respect to parameters.
+Description: This package includes common distributions and their gradients with respect to parameters.
 License: GPL (>=2)
-LazyData: TRUE
-Imports:
-    Rcpp (>= 0.12.6)
-LinkingTo:
-    Rcpp
+Encoding: UTF-8
+LazyData: true
+Imports: Rcpp (>= 0.12.6)
+LinkingTo: Rcpp
