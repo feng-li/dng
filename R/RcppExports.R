@@ -25,6 +25,10 @@ dsplitt <- function(x, mu, df, phi, lmd, log0) {
     .Call('dng_dsplitt', PACKAGE = 'dng', x, mu, df, phi, lmd, log0)
 }
 
+FUN <- function(i, x, mu, df, rho, uIdx) {
+    .Call('dng_FUN', PACKAGE = 'dng', i, x, mu, df, rho, uIdx)
+}
+
 ghypergeo <- function(a, b, z, k) {
     .Call('dng_ghypergeo', PACKAGE = 'dng', a, b, z, k)
 }

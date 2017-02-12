@@ -88,6 +88,22 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// FUN
+NumericMatrix FUN(int i, NumericMatrix x, NumericVector mu, NumericVector df, NumericMatrix rho, NumericVector uIdx);
+RcppExport SEXP dng_FUN(SEXP iSEXP, SEXP xSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP rhoSEXP, SEXP uIdxSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< int >::type i(iSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type df(dfSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type rho(rhoSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type uIdx(uIdxSEXP);
+    __result = Rcpp::wrap(FUN(i, x, mu, df, rho, uIdx));
+    return __result;
+END_RCPP
+}
 // ghypergeo
 NumericVector ghypergeo(NumericMatrix a, NumericMatrix b, NumericVector z, int k);
 RcppExport SEXP dng_ghypergeo(SEXP aSEXP, SEXP bSEXP, SEXP zSEXP, SEXP kSEXP) {
