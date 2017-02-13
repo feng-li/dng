@@ -1,0 +1,7 @@
+**/*.Rcheck/
+**/..Rcheck/
+*.RData
+*.Rhistrory
+*.Rbuildignore
+*.Rproj
+*.o
