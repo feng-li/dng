@@ -19,7 +19,6 @@ NumericVector dsplitt(NumericVector x,NumericVector mu, NumericVector df, Numeri
   {
     n=a[0];
     for(i=1;i<=5;i++)   { if(a[i]>n) n=a[i];}
-
     for(j=a[0];j<n;j++) { x[j]=x[j-a[0]];}
     for(j=a[1];j<n;j++) { mu[j]=mu[j-a[1]];}
     for(j=a[2];j<n;j++) { df[j]=df[j-a[2]];}
@@ -32,16 +31,32 @@ NumericVector dsplitt(NumericVector x,NumericVector mu, NumericVector df, Numeri
   NumericVector sign(n),densitylog(n),out(n);
   NumericVector lbeta0(n);
 
-  for(int i=0;i<n;i++)
+  if(log0[0])
   {
-    lbeta0[i]= R::lbeta(0.5*df[i],0.5);
-    I0[i]=(x[i]<=mu[i]); // Logical values. 1, if y <= mu; 0, if y >mu.
-    I[i]=(x[i]>mu[i]); //Logical values. 1, if y > mu; 0, if y <= mu.
-    sign[i]=1*I0[i]+lmd[i]*I[i]; // sign = 1 if y<=mu; sign = lmd.^2 if y>2
-    densitylog[i]=(log(2)+(1+df[i])/2*(log(df[i])-log(df[i]+pow((-mu[i]+x[i]),2)/(pow(phi[i],2)*pow(sign[i],2))))-log(phi[i])-log(df[i])/2-lbeta0[i]-log(1+lmd[i]));
+    for(int i=0;i<n;i++)
+    {
+      lbeta0[i]= R::lbeta(0.5*df[i],0.5);
+      I0[i]=(x[i]<=mu[i]); // Logical values. 1, if y <= mu; 0, if y >mu.
+      I[i]=(x[i]>mu[i]); //Logical values. 1, if y > mu; 0, if y <= mu.
+      sign[i]=1*I0[i]+lmd[i]*I[i]; // sign = 1 if y<=mu; sign = lmd.^2 if y>2
+      densitylog[i]=(log(2)+(1+df[i])/2*(log(df[i])-log(df[i]+pow((-mu[i]+x[i]),2)/(pow(phi[i],2)*pow(sign[i],2))))-log(phi[i])-log(df[i])/2-lbeta0[i]-log(1+lmd[i]));
+      out[i]=densitylog[i];
+    }
 
-    if(log0[0]) {out[i]=densitylog[i];}
-    else {out[i]=exp(densitylog[i]);}
+  }
+
+  else
+  {
+    for(int i=0;i<n;i++)
+    {
+      lbeta0[i]= R::lbeta(0.5*df[i],0.5);
+      I0[i]=(x[i]<=mu[i]); // Logical values. 1, if y <= mu; 0, if y >mu.
+      I[i]=(x[i]>mu[i]); //Logical values. 1, if y > mu; 0, if y <= mu.
+      sign[i]=1*I0[i]+lmd[i]*I[i]; // sign = 1 if y<=mu; sign = lmd.^2 if y>2
+      densitylog[i]=(log(2)+(1+df[i])/2*(log(df[i])-log(df[i]+pow((-mu[i]+x[i]),2)/(pow(phi[i],2)*pow(sign[i],2))))-log(phi[i])-log(df[i])/2-lbeta0[i]-log(1+lmd[i]));
+      out[i]=exp(densitylog[i]);
+    }
+
   }
 
   return out;

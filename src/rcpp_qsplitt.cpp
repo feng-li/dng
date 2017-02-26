@@ -26,27 +26,26 @@ NumericVector qsplitt(NumericVector p,NumericVector mu, NumericVector df, Numeri
   for(j=a[4];j<n;j++) { lmd[j]=lmd[j-a[4]];}
 
 
-  for(int i=0;i<n;i++){
+  for(i=0;i<n;i++)
+  {
     I0[i]=(p[i]<=(1/(1+lmd[i])));
     I[i]= 1-I0[i];
 
-    if(I0[i]==TRUE)
+    if(I0[i]==1)
     {
       p0std[i]=p[i]*(1+lmd[i])/2;
       y0std[i]=R::qt(p0std[i], df[i], TRUE, FALSE);
       out[i]=  y0std[i]*phi[i]+mu[i] ;
     }
 
-    if(I0[i]==FALSE)
+    else if(I0[i]==0)
     {
       p0std[i]=(p[i]-1/(1+lmd[i]))*(1+lmd[i])/(2*lmd[i])+0.5;
       y0std[i]=R::qt(p0std[i], df[i], TRUE, FALSE);
-      out[i]=  y0std[i]*(phi[i]+lmd[i])+mu[i] ;
+      out[i]=  y0std[i]*(phi[i]*lmd[i])+mu[i] ;
     }
 
   }
-
-
   return out;
 }
 

@@ -1,7 +1,6 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-
 // [[Rcpp::export]]
 NumericVector splitt_mean(NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd)
 {
@@ -30,10 +29,6 @@ NumericVector splitt_mean(NumericVector mu, NumericVector df, NumericVector phi,
     beta0[i]=R::beta(df[i]*0.5,0.5);
     h[i]=2*pow(df[i],0.5)*phi[i]*(lmd[i]-1)/((df[i]-1)*beta0[i]);
     mean[i]=mu[i]+h[i];
-
   }
   return mean;
 }
-
-
-
