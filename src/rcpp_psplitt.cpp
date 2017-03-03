@@ -30,7 +30,6 @@ NumericVector psplitt(NumericVector q, NumericVector mu, NumericVector df, Numer
   }
 
   NumericVector I0(n),I(n), sign(n), sign2(n);
-
   NumericVector A(n),BetaRegUpper(n);
   NumericVector out(n);
 

@@ -2,7 +2,7 @@
 using namespace Rcpp;
 
 // [[Rcpp::export]]
-NumericMatrix pochhammer(NumericVector a, IntegerVector n, LogicalVector log0) {
+NumericMatrix pochhammer(NumericVector a, IntegerVector n, bool log0) {
   int i,j,a_len, n_len;
   a_len = a.size();
   n_len = n.size();
@@ -24,7 +24,7 @@ NumericMatrix pochhammer(NumericVector a, IntegerVector n, LogicalVector log0) {
   }
 
 
-  if(log0[0])
+  if(log0)
   {
     out = out_log;
   }

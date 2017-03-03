@@ -111,8 +111,6 @@ List MargiModelGrad(NumericVector y, List par,std::string type, std::string parC
           outd[j] = -(1+df[j])*(mu[j]-y[j])/(pow((mu[j]-y[j]),2)+pow(phi[j],2)*df[j]*Sign[j]);
 
         }
-
-
       }
     }
 
@@ -248,8 +246,6 @@ List MargiModelGrad(NumericVector y, List par,std::string type, std::string parC
 
           }
           }
-
-
       }
 
 
@@ -268,7 +264,6 @@ List MargiModelGrad(NumericVector y, List par,std::string type, std::string parC
         for(j=0;j<n1;j++)
         {outd[j]=-1/(1+lmd[j])*Sign[j];}
 
-
       }
       }
 
@@ -277,8 +272,6 @@ List MargiModelGrad(NumericVector y, List par,std::string type, std::string parC
 
     else
     { stop("No such parameter!");}
-
-
 
   }
 
