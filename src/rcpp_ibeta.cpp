@@ -14,8 +14,8 @@ double ibeta(double x, double a, double b, bool log0, bool reg)
   double ibeta_log,lbeta0, pbeta0,out_log, out;
 
   pbeta0 = R::pbeta(x,a,b, TRUE, TRUE);
-  //lbeta0 = R::lbeta(a,b);
-  lbeta0 = ::Rf_lbeta(a,b);
+  lbeta0 = R::lbeta(a,b);
+  //lbeta0 = ::Rf_lbeta(a,b);
   //pbeta0 = Rcpp::stats::P2<RTYPE,NA,T>pbeta(Rcpp::VectorBase<RTYPE,NA,T>&x,a,b,TRUE,TRUE);
   ibeta_log = pbeta0 + lbeta0;
 

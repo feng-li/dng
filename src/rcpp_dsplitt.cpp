@@ -31,7 +31,7 @@ NumericVector dsplitt(NumericVector x,NumericVector mu, NumericVector df, Numeri
 
     for(i = 0;i<n;i++)
     {
-      lbeta0[i] = ::Rf_lbeta(0.5*df[i],0.5);//!!
+      lbeta0[i] = ::Rf_lbeta(0.5*df[i],0.5);
       //sugar::SugarBlock_2
       I0[i] = (x[i]<=mu[i]); // Logical values. 1, if y <= mu; 0, if y >mu.
       I[i] = (x[i]>mu[i]); //Logical values. 1, if y > mu; 0, if y <= mu.
@@ -43,8 +43,7 @@ NumericVector dsplitt(NumericVector x,NumericVector mu, NumericVector df, Numeri
 
   if(!log0)
   {
-    for(i = 0;i<n;i++)
-    { out[i] = exp(densitylog[i]);  }
+    for(i = 0;i<n;i++){ out[i] = exp(densitylog[i]);   }
   }
 
   return out;
