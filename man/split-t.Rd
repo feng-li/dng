@@ -1,0 +1,89 @@
+\name{split-t}
+
+\alias{splitt_mean}
+\alias{splitt_var}
+\alias{splitt_skewness}
+\alias{splitt_kurtosis}
+
+\title{
+Numerical Characteristics of the Split student-t distribution
+}
+\description{
+Computes the mean, variance, skewness and kurtosis for the split student-t distribution with \code{df} degrees of freedom.
+}
+
+\usage{
+splitt_mean(mu, df, phi, lmd)
+splitt_var(df, phi, lmd)
+splitt_skewness(df, phi, lmd)
+splitt_kurtosis(df, phi, lmd)
+}
+
+
+\arguments{
+  \item{mu}{
+  vector of modes.
+}
+  \item{df}{
+  degrees of freedom (> 0, maybe non-integer). df = Inf is allowed.
+}
+  \item{phi}{
+  vector of scale parameters.
+}
+  \item{lmd}{
+  vector of skewness parameters. If is 1, reduced to symmetric student t distribution.
+}
+}
+
+\details{
+The random variable y follows a split-t distribution with  \eqn{\nu}>0 degrees of freedom, y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}), if its density function is of the form
+%% FIXME add non-LaTeX alternative \deqn{LaTeX}{non-LaTex}
+\deqn{C K(\mu, \phi, \nu,)I(y\leq\mu) + C K(\mu, \lambda\phi, \nu)I(y>\mu),   }
+where,
+\deqn{K(\mu, \phi, \nu,) =[\nu/(\nu+(y-\mu)^(2) /\phi^{2})]^((\nu+1)/2)   }
+is the kernel of a student \eqn{t} density with variance \eqn{\phi^{2}\nu/(\nu-2)}
+and
+\deqn{c = 2[(1+\lambda)\phi (\sqrt\nu) Beta(\nu/2,1/2)]^(-1)  }is the normalization constant.
+
+If y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}) then,
+\deqn{E(y) = \mu + h ,}
+\deqn{V(y) = (1+\lambda^3)/(1 + \lambda) \nu/(\nu-2)\phi^2 - h^2  , }
+\deqn{E[y - E(y)]^3 = 2h^3 + 2h\phi^(2)(\lambda^2+1)\nu/(\nu-3) - 3h\phi^2(\lambda^3 + 1)/(\lambda+1) \nu/(\nu-2) , }
+\deqn{E[y - E(y)]^4 =(3\nu^2\phi^4(1+\lambda^5))/((1+\lambda)(\nu-2)(\nu-4)) - 4h^4 + (6h^(2)(1+\lambda^3)\nu\phi^2)/((1+\lambda)(\nu-2)) - (8h^(2)(\lambda^(2)\nu\phi^2))/(\nu-3). }
+
+}
+
+\value{
+\code{splitt_mean} {gives the mean.}
+\code{splitt_var} {gives the variance.}
+\code{splitt_skewness} {gives the skewness.}
+\code{splitt_kurtosis} {gives the kurtosis.}
+}
+
+\references{
+Li, F., Villani, M., & Kohn, R. (2009). Flexible modeling of conditional distributions using smooth mixtures of asymmetric student t densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654.
+}
+
+\author{
+Feng Li, Jiayue Zeng
+}
+
+
+\seealso{
+\code{\link{splitt}()} for the split student-t distribution.
+}
+
+\examples{
+mu <- c(0,1,2)
+df <- rep(10,3)
+phi <- c(0.5,1,2)
+lmd <- c(1,2,3)
+
+mean0 <- splitt_mean(mu, df, phi, lmd)
+var0 <- splitt_var(df, phi, lmd)
+skewness0 <- splitt_skewness(df, phi, lmd)
+kurtosis0 <- splitt_kurtosis(df, phi, lmd)
+}
+
+\keyword{ splitt }  %%??
+
