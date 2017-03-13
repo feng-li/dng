@@ -9,7 +9,7 @@
 Numerical Characteristics of the Split student-t distribution
 }
 \description{
-Computes the mean, variance, skewness and kurtosis for the split student-t distribution with \code{df} degrees of freedom.
+Compute the mean, variance, skewness and kurtosis for the split student-t distribution with \code{df} degrees of freedom.
 }
 
 \usage{
@@ -70,7 +70,7 @@ Feng Li, Jiayue Zeng
 
 
 \seealso{
-\code{\link{splitt}()} for the split student-t distribution.
+\code{\link{dsplitt}()}, \code{\link{psplitt}()}, \code{\link{qsplitt}()} and \code{\link{rsplitt}()} for the split-t distribution.
 }
 
 \examples{
@@ -85,5 +85,6 @@ skewness0 <- splitt_skewness(df, phi, lmd)
 kurtosis0 <- splitt_kurtosis(df, phi, lmd)
 }
 
-\keyword{ splitt }  %%??
+\keyword{distribution}
+\keyword{asymmetric student t}
 

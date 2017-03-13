@@ -4,7 +4,7 @@
 \alias{qsplitt}
 \alias{rsplitt}
 \title{
-Split student-t distribution
+Split-t distribution
 }
 
 \description{
@@ -12,7 +12,7 @@ Density, distribution function, quantile function and random generation for the 
 }
 
 \usage{
-dsplitt(x, mu, df, phi, lmd, log0) %??log0 or log
+dsplitt(x, mu, df, phi, lmd, logarithm)
 psplitt(q, mu, df, phi, lmd)
 qsplitt(p, mu, df, phi, lmd)
 rsplitt(n, mu, df, phi, lmd)
@@ -29,7 +29,7 @@ rsplitt(n, mu, df, phi, lmd)
   number of observations. If length(n) > 1, the length is taken to be the number required.
   }
   \item{mu}{
-  vector of modes.
+  vector of location parameter. (The mode of the density)
 }
   \item{df}{
   degrees of freedom (> 0, maybe non-integer). df = Inf is allowed.
@@ -40,7 +40,7 @@ rsplitt(n, mu, df, phi, lmd)
   \item{lmd}{
   vector of skewness parameters. If is 1, reduced to symmetric student t distribution.
 }
-  \item{log}{
+  \item{logarithm}{
   logical; if TRUE, probabilities p are given as log(p).
   }
 }
@@ -80,7 +80,7 @@ Feng Li, Jiayue Zeng
 }
 
 \seealso{
-\code{\link{split-t}()} for numerical characteristics of the Split student-t distribution.
+\code{\link{split_mean}()}, \code{\link{split_var}()},\code{\link{split_skewness}()} and \code{\link{split_kurtosis}()} for numerical characteristics of the Split-t distribution.
 }
 
 \examples{
@@ -93,10 +93,11 @@ df <- rep(10,3)
 phi <- c(0.5,1,2)
 lmd <- c(1,2,3)
 
-dsplitt0 <- dsplitt(x, mu, df, phi, lmd, log0 = TRUE)
+dsplitt0 <- dsplitt(x, mu, df, phi, lmd, logarithm = TRUE)
 psplitt0 <- psplitt(q, mu, df, phi, lmd)
 qsplitt0 <- qsplitt(p, mu, df, phi, lmd)
 rsplitt0 <- rsplitt(n, mu, df, phi, lmd)
 }
 
 \keyword{distribution}
+\keyword{asymmetric student t}

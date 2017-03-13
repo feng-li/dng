@@ -3,7 +3,7 @@ using namespace Rcpp;
 
 
 // [[Rcpp::export]]
-NumericVector dsplitt(NumericVector x,NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd, bool log0)
+NumericVector dsplitt(NumericVector x,NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd, bool logarithm)
 {
   int a[5];
   int n,i,j;
@@ -41,7 +41,7 @@ NumericVector dsplitt(NumericVector x,NumericVector mu, NumericVector df, Numeri
     }
 
 
-  if(!log0)
+  if(!logarithm)
   {
     for(i = 0;i<n;i++){ out[i] = exp(densitylog[i]);   }
   }
