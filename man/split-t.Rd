@@ -6,7 +6,7 @@
 \alias{splitt_kurtosis}
 
 \title{
-Numerical Characteristics of the Split student-t distribution
+Numerical Characteristics of the Split-t distribution
 }
 \description{
 Compute the mean, variance, skewness and kurtosis for the split student-t distribution with \code{df} degrees of freedom.
@@ -22,7 +22,7 @@ splitt_kurtosis(df, phi, lmd)
 
 \arguments{
   \item{mu}{
-  vector of modes.
+  vector of location parameter. (The mode of the density)
 }
   \item{df}{
   degrees of freedom (> 0, maybe non-integer). df = Inf is allowed.
