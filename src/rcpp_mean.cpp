@@ -26,8 +26,7 @@ NumericVector splitt_mean(NumericVector mu, NumericVector df, NumericVector phi,
   NumericVector beta0(n);
 
   for(int i=0;i<n;i++){
-    beta0[i]=R::beta(df[i]*0.5,0.5);//!!
-    //sugar::SugarBlock_2
+    beta0[i]=R::beta(df[i]*0.5,0.5);
     h[i] = 2*pow(df[i],0.5)*phi[i]*(lmd[i]-1)/((df[i]-1)*beta0[i]);
     mean[i] = mu[i]+h[i];
   }

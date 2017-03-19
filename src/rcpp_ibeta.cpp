@@ -13,16 +13,14 @@ double ibeta(double x, double a, double b, bool log0, bool reg)
 
   double ibeta_log,lbeta0, pbeta0,out_log, out;
 
-  pbeta0 = R::pbeta(x,a,b, TRUE, TRUE);
-  lbeta0 = R::lbeta(a,b);
-  //lbeta0 = ::Rf_lbeta(a,b);
-  //pbeta0 = Rcpp::stats::P2<RTYPE,NA,T>pbeta(Rcpp::VectorBase<RTYPE,NA,T>&x,a,b,TRUE,TRUE);
+  pbeta0 = ::Rf_pbeta(x,a,b, TRUE, TRUE);
+  lbeta0 = ::Rf_lbeta(a,b);
   ibeta_log = pbeta0 + lbeta0;
 
   if(reg)
   { out_log = ibeta_log - lbeta0;}
   else
-  {  out_log = ibeta_log;  }
+  { out_log = ibeta_log;  }
 
   if(log0)
   {  out = out_log;}

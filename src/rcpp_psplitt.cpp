@@ -35,15 +35,15 @@ NumericVector psplitt(NumericVector q, NumericVector mu, NumericVector df, Numer
 
   for(i = 0;i<n;i++){
     I0[i] = (q[i]<=mu[i]);
-    I[i] = 1-I0[i];
-    sign[i] = 1*I0[i]+lmd[i]*I[i];
+    I[i]  = 1-I0[i];
+    sign[i]  = 1*I0[i]+lmd[i]*I[i];
     sign2[i] = -1*I0[i]+1*I[i];
 
     A[i] = df[i]*pow(sign[i],2)*pow(phi[i],2)/(df[i]*pow(sign[i],2)*pow(phi[i],2)+pow((q[i]-mu[i]),2));
 
     ibeta0 = ibeta(A[i], df[i]*0.5, 0.5, FALSE, TRUE);
-
     BetaRegUpper[i] = 1-ibeta0;
+
     out[i] = (1/(1+lmd[i]) + sign[i]*sign2[i]/(1+lmd[i])*BetaRegUpper[i]);
 
   }

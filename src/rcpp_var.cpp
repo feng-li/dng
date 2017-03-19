@@ -25,8 +25,7 @@ NumericVector splitt_var(NumericVector df, NumericVector phi, NumericVector lmd)
   NumericVector beta0(n);
 
   for(i = 0;i<n;i++){
-    beta0[i] = R::beta(df[i]*0.5,0.5);//!!!
-    //sugar::SugarBlock_2
+    beta0[i] = R::beta(df[i]*0.5,0.5);
     h[i] = 2*pow(df[i],0.5)*phi[i]*(lmd[i]-1)/((df[i]-1)*beta0[i]);
     var[i] = (1+pow(lmd[i],3))/(1+lmd[i])*df[i]/(df[i]-2)*phi[i]*phi[i]-h[i]*h[i];
 

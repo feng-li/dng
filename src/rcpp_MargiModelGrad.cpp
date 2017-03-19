@@ -19,11 +19,11 @@ List MargiModelGrad(NumericVector y, List par,std::string type, std::string parC
 
   for(i=0;i<n2;i++){
     if(type[i]>=65 && type[i]<=90)
-       type[i]=32+type[i]; }
+       type[i] = 32+type[i]; }
 
   for(i=0;i<n3;i++){
     if(parCaller[i]>=65 && parCaller[i]<=90)
-      parCaller[i]=32+parCaller[i]; }
+      parCaller[i] = 32+parCaller[i]; }
 
 
 

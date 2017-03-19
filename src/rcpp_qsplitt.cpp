@@ -28,7 +28,6 @@ NumericVector qsplitt(NumericVector p,NumericVector mu, NumericVector df, Numeri
   for(i = 0;i<n;i++)
   {
     I0[i] = (p[i]<=(1/(1+lmd[i])));
-    //I[i] = 1-I0[i];
 
     if(I0[i])
     {

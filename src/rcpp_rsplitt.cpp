@@ -10,7 +10,7 @@ NumericVector rsplitt(int n, NumericVector mu, NumericVector df, NumericVector p
   NumericVector u(n),out(n);
   for(int i = 0; i<n; i++)
   {
-    u[i] = R::runif(0,1);//!!!
+    u[i] = R::runif(0,1);
   }
 
   out = qsplitt(u, mu, df, phi, lmd);
