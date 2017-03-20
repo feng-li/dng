@@ -6,6 +6,7 @@ Author: Feng Li; Jiayue Zeng
 Maintainer:  Jiayue Zeng <zengjiayue@126.com>
 Description: This package includes common distributions and their gradients with respect to parameters.
 License: GPL (>=2)
+URL: https://bitbucket.org/fli/dng
 Encoding: UTF-8
 LazyData: true
 Imports: Rcpp (>= 0.12.6)

@@ -1,0 +1,3 @@
+Changes in version 0.1.1 (2017-03-02)
+
+  o Include split-t distribution and related moment functions based on Li, Villani and Kohn (2010).

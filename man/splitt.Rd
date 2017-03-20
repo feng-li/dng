@@ -65,7 +65,7 @@ and
 
 Invalid arguments will result in return value NaN, with a warning.
 
-The length of the result is determined by n for rt, and is the maximum of the lengths of the numerical arguments for the other functions.
+The length of the result is determined by \code{n} for \code{rsplitt}, and is the maximum of the lengths of the numerical arguments for the other functions.
 
 The numerical arguments other than n are recycled to the length of the result. Only the first elements of the logical arguments are used.
 
@@ -80,7 +80,7 @@ Feng Li, Jiayue Zeng
 }
 
 \seealso{
-\code{\link{split_mean}()}, \code{\link{split_var}()},\code{\link{split_skewness}()} and \code{\link{split_kurtosis}()} for numerical characteristics of the Split-t distribution.
+\code{\link{splitt_mean}()}, \code{\link{splitt_var}()},\code{\link{splitt_skewness}()} and \code{\link{splitt_kurtosis}()} for numerical characteristics of the Split-t distribution.
 }
 
 \examples{

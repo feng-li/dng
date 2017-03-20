@@ -6,7 +6,7 @@
 \alias{splitt_kurtosis}
 
 \title{
-Numerical Characteristics of the Split-t distribution
+Moments of the Split-t distribution
 }
 \description{
 Compute the mean, variance, skewness and kurtosis for the split student-t distribution with \code{df} degrees of freedom.
@@ -28,10 +28,10 @@ splitt_kurtosis(df, phi, lmd)
   degrees of freedom (> 0, maybe non-integer). df = Inf is allowed.
 }
   \item{phi}{
-  vector of scale parameters.
+  vector of scale parameters (> 0).
 }
   \item{lmd}{
-  vector of skewness parameters. If is 1, reduced to symmetric student t distribution.
+  vector of skewness parameters (> 0). If is 1, reduced to symmetric student t distribution.
 }
 }
 
@@ -58,6 +58,8 @@ If y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}) then,
 \code{splitt_var} {gives the variance.}
 \code{splitt_skewness} {gives the skewness.}
 \code{splitt_kurtosis} {gives the kurtosis.}
+
+Invalid arguments will result in return value NaN, with a warning.
 }
 
 \references{
