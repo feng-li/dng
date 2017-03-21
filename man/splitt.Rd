@@ -35,10 +35,10 @@ rsplitt(n, mu, df, phi, lmd)
   degrees of freedom (> 0, maybe non-integer). df = Inf is allowed.
 }
   \item{phi}{
-  vector of scale parameters.
+  vector of scale parameters (>0).
 }
   \item{lmd}{
-  vector of skewness parameters. If is 1, reduced to symmetric student t distribution.
+  vector of skewness parameters (>0). If is 1, reduced to symmetric student t distribution.
 }
   \item{logarithm}{
   logical; if TRUE, probabilities p are given as log(p).
@@ -62,6 +62,7 @@ and
 \code{psplitt} {gives the distribution function.}
 \code{qsplitt} {gives the quantile function.}
 \code{rsplitt} {generates random deviates.}
+(\code{dsplitt}, \code{psplitt}, \code{qsplitt} and \code{rsplitt} are all vectors.)
 
 Invalid arguments will result in return value NaN, with a warning.
 

@@ -58,7 +58,7 @@ If y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}) then,
 \code{splitt_var} {gives the variance.}
 \code{splitt_skewness} {gives the skewness.}
 \code{splitt_kurtosis} {gives the kurtosis.}
-
+(\code{splitt_mean}, \code{splitt_var},\code{splitt_skeness} and \code{splitt_kurtosis} are all vectors.)
 Invalid arguments will result in return value NaN, with a warning.
 }
 
