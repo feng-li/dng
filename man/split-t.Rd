@@ -4,10 +4,12 @@
 \alias{splitt_var}
 \alias{splitt_skewness}
 \alias{splitt_kurtosis}
+\alias{dng_splitt_mean}
+\alias{dng_splitt_var}
+\alias{dng_splitt_skewness}
+\alias{dng_splitt_kurtosis}
+\title{Moments of the Split-t distribution}
 
-\title{
-Moments of the Split-t distribution
-}
 \description{
 Compute the mean, variance, skewness and kurtosis for the split student-t distribution with \code{df} degrees of freedom.
 }
@@ -37,28 +39,29 @@ splitt_kurtosis(df, phi, lmd)
 
 \details{
 The random variable y follows a split-t distribution with  \eqn{\nu}>0 degrees of freedom, y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}), if its density function is of the form
-%% FIXME add non-LaTeX alternative \deqn{LaTeX}{non-LaTex}
-\deqn{C K(\mu, \phi, \nu,)I(y\leq\mu) + C K(\mu, \lambda\phi, \nu)I(y>\mu),   }
+
+\deqn{C K(\mu, \phi, \nu,)I(y\leq\mu) + C K(\mu, \lambda \phi, \nu)I(y>\mu),   }
 where,
-\deqn{K(\mu, \phi, \nu,) =[\nu/(\nu+(y-\mu)^(2) /\phi^{2})]^((\nu+1)/2)   }
-is the kernel of a student \eqn{t} density with variance \eqn{\phi^{2}\nu/(\nu-2)}
+\deqn{K(\mu, \phi, \nu,) =[\nu/(\nu+(y-\mu)^2 /\phi ^2)]^{(\nu+1)/2}   }
+is the kernel of a student \eqn{t} density with variance \eqn{\phi ^2\nu/(\nu-2)}
 and
-\deqn{c = 2[(1+\lambda)\phi (\sqrt\nu) Beta(\nu/2,1/2)]^(-1)  }is the normalization constant.
+\deqn{c = 2[(1+\lambda)\phi (\sqrt \nu) Beta(\nu/2,1/2)]^{-1}  }is the normalization constant.
 
 If y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}) then,
-\deqn{E(y) = \mu + h ,}
-\deqn{V(y) = (1+\lambda^3)/(1 + \lambda) \nu/(\nu-2)\phi^2 - h^2  , }
-\deqn{E[y - E(y)]^3 = 2h^3 + 2h\phi^(2)(\lambda^2+1)\nu/(\nu-3) - 3h\phi^2(\lambda^3 + 1)/(\lambda+1) \nu/(\nu-2) , }
-\deqn{E[y - E(y)]^4 =(3\nu^2\phi^4(1+\lambda^5))/((1+\lambda)(\nu-2)(\nu-4)) - 4h^4 + (6h^(2)(1+\lambda^3)\nu\phi^2)/((1+\lambda)(\nu-2)) - (8h^(2)(\lambda^(2)\nu\phi^2))/(\nu-3). }
+\deqn{E(y) = \mu + h},
+\deqn{V(y) = (1+\lambda ^3)/(1 + \lambda) \nu/(\nu-2)\phi^2 - h^2 },
+\deqn{E[y - E(y)]^3 = 2h^3 + 2h\phi ^2(\lambda ^2+1)\nu/(\nu-3) - 3h\phi ^2(\lambda ^3 + 1)/(\lambda+1) \nu/(\nu-2) },
+\deqn{E[y - E(y)]^4 =(3\nu ^2\phi ^4(1+\lambda ^5))/((1+\lambda)(\nu-2)(\nu-4)) - 4h^4 + (6h^(2)(1+\lambda ^3)\nu\phi ^2)/((1+\lambda)(\nu-2)) - (8h^2(\lambda ^2\nu\phi ^2))/(\nu-3). }
 
 }
 
 \value{
-\code{splitt_mean} {gives the mean.}
-\code{splitt_var} {gives the variance.}
-\code{splitt_skewness} {gives the skewness.}
-\code{splitt_kurtosis} {gives the kurtosis.}
+\code{splitt_mean} gives the mean.
+\code{splitt_var} gives the variance.
+\code{splitt_skewness} gives the skewness.
+\code{splitt_kurtosis} gives the kurtosis.
 (\code{splitt_mean}, \code{splitt_var},\code{splitt_skeness} and \code{splitt_kurtosis} are all vectors.)
+
 Invalid arguments will result in return value NaN, with a warning.
 }
 
@@ -88,5 +91,5 @@ kurtosis0 <- splitt_kurtosis(df, phi, lmd)
 }
 
 \keyword{distribution}
-\keyword{asymmetric student t}
+\keyword{asymmetric student-t}
 
