@@ -1,11 +1,11 @@
 #include <Rcpp.h>
 using namespace Rcpp;
-List MargiModelGrad(NumericVector y, List par,std::string type, std::string parCaller,GenericVector denscaller);
+List dng_grad(NumericVector y, List par,std::string type, std::string parCaller,GenericVector denscaller);
 NumericMatrix ghypergeo(NumericMatrix a, NumericMatrix b, NumericVector z,int k);
 double ibeta(double x, double a, double b, bool log0, bool reg);
 
 // [[Rcpp::export]]
-List MargiModelGrad(NumericVector y, List par,std::string type, std::string parCaller,GenericVector denscaller)
+List dng_grad(NumericVector y, List par,std::string type, std::string parCaller,GenericVector denscaller)
 {
   int i,j,a,n1,n2,n3,n4;
 

@@ -6,11 +6,12 @@ Type: Package
 Author: Feng Li, Jiayue Zeng
 Maintainer: Jiayue Zeng <zengjiayue@126.com>
 Depends: R (>= 3.0.0)
-Description: Provides density, distribution function, quantile function and random generation for the split-t distribution, and computes the mean, variance, skewness and kurtosis for the split-t distribution (Li, F, Villani, M. and Kohn, R. (2010) <doi:10.1016/j.jspi.2010.04.031>).
+Description: Provides density, distribution function as well as their gradients, quantile
+function and random generation for the split-t distribution (Li et al. (2010)
+<doi:10.1016/j.jspi.2010.04.031>), and computes the mean, variance, skewness and kurtosis for the split-t distribution.
 License: GPL (>=2)
-URL: https://bitbucket.org/fli/dng
+URL: https://github.com/feng-li/dng
 Encoding: UTF-8
 LazyData: true
 Imports: stats, Rcpp (>= 0.12.9)
 LinkingTo: Rcpp
-
