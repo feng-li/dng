@@ -35,7 +35,7 @@ NumericVector dsplitt(NumericVector x,NumericVector mu, NumericVector df, Numeri
       I0[i] = (x[i]<=mu[i]); // Logical values. 1, if y <= mu; 0, if y >mu.
       I[i] = (x[i]>mu[i]); //Logical values. 1, if y > mu; 0, if y <= mu.
       sign[i] = 1*I0[i]+lmd[i]*I[i]; // sign = 1 if y<=mu; sign = lmd.^2 if y>2
-      densitylog[i] = (log(2)+(1+df[i])/2*(log(df[i])-log(df[i]+pow((-mu[i]+x[i]),2)/(pow(phi[i],2)*pow(sign[i],2))))-log(phi[i])-log(df[i])/2-lbeta0[i]-log(1+lmd[i]));
+      densitylog[i] = (std::log(2)+(1+df[i])/2*(std::log(df[i])-std::log(df[i]+pow((-mu[i]+x[i]),2)/(pow(phi[i],2)*pow(sign[i],2))))-std::log(phi[i])-std::log(df[i])/2-lbeta0[i]-std::log(1+lmd[i]));
       out[i] = densitylog[i];
     }
 
