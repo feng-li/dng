@@ -1,10 +1,8 @@
-\name{splitt}
-\alias{dsplitt}
-\alias{psplitt}
-\alias{qsplitt}
+\name{rsplitt}
 \alias{rsplitt}
+\alias{dng_rsplitt}
 \title{
-Split-t distribution
+random generation for Split-t distribution
 }
 
 \description{
@@ -12,19 +10,11 @@ Density, distribution function, quantile function and random generation for the 
 }
 
 \usage{
-dsplitt(x, mu, df, phi, lmd, logarithm)
-psplitt(q, mu, df, phi, lmd)
-qsplitt(p, mu, df, phi, lmd)
 rsplitt(n, mu, df, phi, lmd)
 }
 
 \arguments{
-  \item{x, q}{
-  vector of quantiles.
-  }
-  \item{p}{
-  vector of probabilities.
-}
+
   \item{n}{
   number of observations. If length(n) > 1, the length is taken to be the number required.
   }
@@ -40,28 +30,23 @@ rsplitt(n, mu, df, phi, lmd)
   \item{lmd}{
   vector of skewness parameters (>0). If is 1, reduced to symmetric student t distribution.
 }
-  \item{logarithm}{
-  logical; if TRUE, probabilities p are given as log(p).
-  }
+
 }
 
 \details{
 The random variable y follows a split-t distribution with  \eqn{\nu}>0 degrees of freedom, y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}), if its density function is of the form
-%% FIXME add non-LaTeX alternative \deqn{LaTeX}{non-LaTex}
-\deqn{C K(\mu, \phi, \nu,)I(y\leq\mu) + C K(\mu, \lambda\phi, \nu)I(y>\mu),   }
+
+\deqn{C K(\mu, \phi, \nu,)I(y\leq\mu) + C K(\mu, \lambda \phi, \nu)I(y>\mu),   }
 where,
-\deqn{K(\mu, \phi, \nu,) =[\nu/(\nu+(y-\mu)^(2) /\phi^{2})]^((\nu+1)/2)   }
-is the kernel of a student \eqn{t} density with variance \eqn{\phi^{2}\nu/(\nu-2)}
+\deqn{K(\mu, \phi, \nu,) =[\nu/(\nu+(y-\mu)^2 /\phi ^2)]^{(\nu+1)/2}   }
+is the kernel of a student \eqn{t} density with variance \eqn{\phi ^2\nu/(\nu-2)}
 and
-\deqn{c = 2[(1+\lambda)\phi (\sqrt\nu) Beta(\nu/2,1/2)]^(-1)  }is the normalization constant.
+\deqn{c = 2[(1+\lambda)\phi (\sqrt \nu) Beta(\nu/2,1/2)]^{-1}  }is the normalization constant.
 
 }
 
 \value{
-\code{dsplitt} {gives the density.}
-\code{psplitt} {gives the distribution function.}
-\code{qsplitt} {gives the quantile function.}
-\code{rsplitt} {generates random deviates.}
+\code{rsplitt} generates random deviates.
 (\code{dsplitt}, \code{psplitt}, \code{qsplitt} and \code{rsplitt} are all vectors.)
 
 Invalid arguments will result in return value NaN, with a warning.
@@ -94,11 +79,8 @@ df <- rep(10,3)
 phi <- c(0.5,1,2)
 lmd <- c(1,2,3)
 
-dsplitt0 <- dsplitt(x, mu, df, phi, lmd, logarithm = TRUE)
-psplitt0 <- psplitt(q, mu, df, phi, lmd)
-qsplitt0 <- qsplitt(p, mu, df, phi, lmd)
 rsplitt0 <- rsplitt(n, mu, df, phi, lmd)
 }
 
 \keyword{distribution}
-\keyword{asymmetric student t}
+\keyword{asymmetric student-t}

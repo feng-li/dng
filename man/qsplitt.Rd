@@ -1,0 +1,87 @@
+\name{qsplitt}
+\alias{qsplitt}
+\alias{dng_qsplitt}
+\title{
+quantile function of Split-t distribution
+}
+
+\description{
+Density, distribution function, quantile function and random generation for the split student-t distribution.
+}
+
+\usage{
+qsplitt(p, mu, df, phi, lmd)
+}
+
+\arguments{
+
+  \item{p}{
+  vector of probabilities.
+}
+
+  \item{mu}{
+  vector of location parameter. (The mode of the density)
+}
+  \item{df}{
+  degrees of freedom (> 0, maybe non-integer). df = Inf is allowed.
+}
+  \item{phi}{
+  vector of scale parameters (>0).
+}
+  \item{lmd}{
+  vector of skewness parameters (>0). If is 1, reduced to symmetric student t distribution.
+}
+
+}
+
+\details{
+The random variable y follows a split-t distribution with  \eqn{\nu}>0 degrees of freedom, y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}), if its density function is of the form
+
+\deqn{C K(\mu, \phi, \nu,)I(y\leq\mu) + C K(\mu, \lambda \phi, \nu)I(y>\mu),   }
+where,
+\deqn{K(\mu, \phi, \nu,) =[\nu/(\nu+(y-\mu)^2 /\phi ^2)]^{(\nu+1)/2}   }
+is the kernel of a student \eqn{t} density with variance \eqn{\phi ^2\nu/(\nu-2)}
+and
+\deqn{c = 2[(1+\lambda)\phi (\sqrt \nu) Beta(\nu/2,1/2)]^{-1}  }is the normalization constant.
+
+}
+
+\value{
+\code{qsplitt} gives the quantile function.
+
+Invalid arguments will result in return value NaN, with a warning.
+
+The length of the result is determined by \code{n} for \code{rsplitt}, and is the maximum of the lengths of the numerical arguments for the other functions.
+
+The numerical arguments other than n are recycled to the length of the result. Only the first elements of the logical arguments are used.
+
+}
+
+\references{
+Li, F., Villani, M., & Kohn, R. (2009). Flexible modeling of conditional distributions using smooth mixtures of asymmetric student t densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654.
+}
+
+\author{
+Feng Li, Jiayue Zeng
+}
+
+\seealso{
+\code{\link{splitt_mean}()}, \code{\link{splitt_var}()},\code{\link{splitt_skewness}()} and \code{\link{splitt_kurtosis}()} for numerical characteristics of the Split-t distribution.
+}
+
+\examples{
+n <- 5
+x <- c(0.25,0.5,0.75)
+q <- c(0.25,0.5,0.75)
+p <- c(0.25,0.5,0.75)
+mu <- c(0,1,2)
+df <- rep(10,3)
+phi <- c(0.5,1,2)
+lmd <- c(1,2,3)
+
+qsplitt0 <- qsplitt(p, mu, df, phi, lmd)
+
+}
+
+\keyword{distribution}
+\keyword{asymmetric student-t}
