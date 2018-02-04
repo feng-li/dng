@@ -51,8 +51,6 @@ and
 
 Invalid arguments will result in return value NaN, with a warning.
 
-The length of the result is determined by \code{n} for \code{rsplitt}, and is the maximum of the lengths of the numerical arguments for the other functions.
-
 The numerical arguments other than n are recycled to the length of the result. Only the first elements of the logical arguments are used.
 
 }

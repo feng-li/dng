@@ -2,7 +2,7 @@
 using namespace Rcpp;
 List dng_grad(NumericVector y, List par,std::string type, std::string parCaller,GenericVector denscaller);
 NumericMatrix ghypergeo(NumericMatrix a, NumericMatrix b, NumericVector z,int k);
-double ibeta(double x, double a, double b, bool log0, bool reg);
+
 
 // [[Rcpp::export]]
 List dng_grad(NumericVector y, List par,std::string type, std::string parCaller,GenericVector denscaller)
@@ -14,8 +14,8 @@ List dng_grad(NumericVector y, List par,std::string type, std::string parCaller,
   n3=parCaller.size();
   n4=denscaller.size();
 
-  NumericVector mu(n1),df(n1),phi(n1),lmd(n1),logMargiDens(n1),outu(n1),outd(n1);
-
+  NumericVector mu(n1),df(n1),phi(n1),lmd(n1),logMargiDens(n1);
+  NumericVector outu(n1),outd(n1);
 
   for(i=0;i<n2;i++){
     if(type[i]>=65 && type[i]<=90)
@@ -32,6 +32,7 @@ List dng_grad(NumericVector y, List par,std::string type, std::string parCaller,
   {
       mu  = par["mu"];
       phi = par["phi"];
+
     for(i=0;i<n1;i++)
     {logMargiDens[i]=R::dnorm4(y[i],mu[i],phi[i], TRUE);}
 
@@ -76,7 +77,9 @@ List dng_grad(NumericVector y, List par,std::string type, std::string parCaller,
     {
       if(std::strncmp(denscaller[0],"u",1)==0)
       {
-      NumericVector I0(n1),I(n1), sign(n1),beta0(n1);
+      NumericVector I0(n1),I(n1);
+      NumericVector sign(n1);
+      NumericVector beta0(n1);
 
       for(int a=0;a<n1;a++)
       {
@@ -117,12 +120,15 @@ List dng_grad(NumericVector y, List par,std::string type, std::string parCaller,
 
     else if(parCaller == "df")
     {
-
         if(std::strncmp(denscaller[i],"u",1)==0)
         {
           double ibeta0;
-          NumericVector I0(n1),I(n1), sign(n1),sign2(n1),Z(n1),beta0(n1),digamma0,digamma1,ghy0(n1);
+          NumericVector I0(n1),I(n1);
+          NumericVector sign(n1),sign2(n1);
+          NumericVector Z(n1),beta0(n1),ghy0(n1);
+          NumericVector digamma0(n1),digamma1(n1); //NumericVector digamma0,digamma1;
           NumericMatrix A(n1,3), B(n1,2),ghy(n1,1);
+
           for(int a=0;a<n1;a++){
             I0[a]=(y[a]<=mu[a]);
             I[a]= 1-I0[a];
@@ -137,13 +143,15 @@ List dng_grad(NumericVector y, List par,std::string type, std::string parCaller,
             A(a,2)=df[a]/2;
             B(a,0)=1+df[a/2];
             B(a,1)=1+df[a/2];
+
             Z[a]=(df[a]*pow(phi[a],2)*pow(sign[a],2))/(pow((y[a]-mu[a]),2)+pow(sign[a],2)*df[a]*pow(phi[a],2));
           }
           ghy = ghypergeo(A, B, Z, 10);
 
           for(j=0;j<n1;j++)
           {
-            ibeta0=ibeta(Z[j], df[j]*0.5, 0.5, FALSE, TRUE);
+            //ibeta0=ibeta(Z[j], df[j]*0.5, 0.5, FALSE, TRUE);
+            ibeta0 = exp(::Rf_pbeta(Z[j],df[j]*0.5, 0.5, TRUE, TRUE));
             ghy0[j] = ghy(j,1);
             outu[j] = (sign[j]/(2*(1+lmd[j])*pow(df[j],2)*beta0[j]))*
               (sign2[j]*4*pow(Z[j],(df[j]/2))*ghy0[j]+(df[j]*(
@@ -156,8 +164,12 @@ List dng_grad(NumericVector y, List par,std::string type, std::string parCaller,
 
         if(std::strncmp(denscaller[i],"d",1)==0)
         {
-          NumericVector I0(n1),I(n1), Sign(n1), C1(n1), C0(n1), C3(n1), DigammaM(n1);
+          NumericVector I0(n1),I(n1);
+          NumericVector Sign(n1);
+          NumericVector C1(n1), C0(n1), C3(n1);
+          NumericVector DigammaM(n1);
           NumericMatrix A(n1,3), B(n1,2),ghy(n1,1);
+
           for(int a=0;a<n1;a++){
             I0[a]=(y[a]<=mu[a]);
             I[a]= 1-I0[a];
@@ -180,7 +192,9 @@ List dng_grad(NumericVector y, List par,std::string type, std::string parCaller,
       if(std::strncmp(denscaller[i],"u",1)==0)
       {
         // NOTE: This is the gradient with respect to the CDF function(not the log form) .
-        NumericVector I0(n1),I(n1), sign(n1),beta0(n1);
+        NumericVector I0(n1),I(n1);
+        NumericVector sign(n1);
+        NumericVector beta0(n1);
 
         for(int a=0;a<n1;a++){
           I0[a]=(y[a]<=mu[a]);
@@ -199,8 +213,10 @@ List dng_grad(NumericVector y, List par,std::string type, std::string parCaller,
       if(std::strncmp(denscaller[i],"d",1)==0)
       {
         // NOTE: This is the gradient with respect to the log density
-        NumericVector I0(n1),I(n1), Sign(n1),beta0(n1),C1(n1),C0(n1);
-
+        NumericVector I0(n1),I(n1);
+        NumericVector Sign(n1);
+        NumericVector beta0(n1);
+        NumericVector C1(n1),C0(n1);
 
         for(int a=0;a<n1;a++){
           I0[a]=(y[a]<=mu[a]);
@@ -215,22 +231,28 @@ List dng_grad(NumericVector y, List par,std::string type, std::string parCaller,
 
     }
 
-    else if(parCaller == "lmd")
-      {
 
+    else if(parCaller == "lmd")
+    {
       if(std::strncmp(denscaller[i],"u",1)==0)
       {
-        NumericVector I0(n1),I(n1), C1(n1), A(n1), B(n1), Sign(n1);
+        NumericVector I0(n1),I(n1);
+        NumericVector C1(n1), A(n1), B(n1);
+        NumericVector Sign(n1);
         double ibeta0;
-        for(int a=0;a<n1;a++){
-          I0[a]=(y[a]<=mu[a]);
-          I[a]= 1-I0[a];
-          outu=mu;
-          for(int i=0;i<n1;i++){
+
+        for(int a=0;a<n1;a++)
+          {
+          I0[a] =(y[a]<=mu[a]);
+          I[a] = 1-I0[a];
+          outu = mu;
+          for(int i=0;i<n1;i++)
+            {
           if(I0[i]==TRUE)
           {
-            A[i]    = df[i]*pow(phi[i],2)/(pow((y[i]-mu[i]),2)+df[i]*pow(phi[i],2));
-            ibeta0  = ibeta(A[i], df[i]*0.5, 0.5, FALSE, TRUE);
+            A[i] = df[i]*pow(phi[i],2)/(pow((y[i]-mu[i]),2)+df[i]*pow(phi[i],2));
+            //ibeta0  = ibeta(A[i], df[i]*0.5, 0.5, FALSE, TRUE);
+            ibeta0 = exp(::Rf_pbeta(A[i], df[i]*0.5, 0.5, TRUE, TRUE));
             outu[i] = -ibeta0/pow((1+lmd[i]),2);
 
           }
@@ -239,20 +261,22 @@ List dng_grad(NumericVector y, List par,std::string type, std::string parCaller,
           {
             B[i] = (pow((y[i]-mu[i]),2)+df[i]*pow(phi[i],2)*pow(lmd[i],2));
             A[i] = df[i]*pow(phi[i],2)*pow(lmd[i],2)/B[i];
-            ibeta0  = ibeta(A[i], df[i]*0.5, 0.5, FALSE, FALSE);
+            //ibeta0  = ibeta(A[i], df[i]*0.5, 0.5, FALSE, FALSE);
+            ibeta0 = exp(::Rf_pbeta(A[i], df[i]*0.5, 0.5, TRUE, TRUE)+::Rf_lbeta(df[i]*0.5, 0.5));
 
             outu[i] = -(2*(1+lmd[i])*(y[i]-mu[i])*sqrt(1/B[i])*pow(A[i],(df[i]/2))+
               ibeta0/(pow((1+lmd[i]),2)*R::beta(df[i]/2,1/2)));
 
           }
           }
+          }
       }
-
-
-
       if(std::strncmp(denscaller[i],"d",1)==0)
       {
-        NumericVector I0(n1),I(n1), C1(n1) , Sign(n1);
+        NumericVector I0(n1),I(n1);
+        NumericVector C1(n1);
+        NumericVector Sign(n1);
+
         for(int a=0;a<n1;a++){
           I0[a]=(y[a]<=mu[a]);
           I[a]= 1-I0[a];
@@ -265,10 +289,7 @@ List dng_grad(NumericVector y, List par,std::string type, std::string parCaller,
         {outd[j]=-1/(1+lmd[j])*Sign[j];}
 
       }
-      }
-
-      }
-
+    }
 
     else
     { stop("No such parameter!");}
