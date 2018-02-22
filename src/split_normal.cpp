@@ -3,13 +3,13 @@ using namespace Rcpp;
 
 
 // [[Rcpp::export]]
-List AsymNormPDF_cpp(NumericVector y,NumericVector mu, NumericVector sigma, NumericVector lmd, bool cum, bool sumStat)
+List AsymNormPDF(NumericVector y,NumericVector mu, NumericVector sigma, NumericVector lmd, bool cum, bool sumStat)
 {
-  int i,j,n,len,a;
+  int len;
   len = y.size();
   NumericVector density(len),densMean(len),densStd(len);
   NumericVector I0(len),I(len), sign(len);
-  
+
   if(cum) //cum=1 PDF
   {
     for(int a=0;a<len;a++)
@@ -21,9 +21,9 @@ List AsymNormPDF_cpp(NumericVector y,NumericVector mu, NumericVector sigma, Nume
         exp(-pow((y[a]-mu[a]),2)/(2*sigma[a]*sigma[a]*sign[a]))/
           ((1+lmd[a])*sigma[a]);
     }
-    
+
   }
-  
+
   else if(!cum) //cum=0 CDF
   {
     for(int a=0;a<len;a++)
@@ -34,21 +34,21 @@ List AsymNormPDF_cpp(NumericVector y,NumericVector mu, NumericVector sigma, Nume
       if(y[a]<=mu[a])
       {
         density[a] =2/(1+lmd[a])*R::pnorm5(y[a],mu[a],sigma[a],1,0);
-        
+
       }
       else if(y[a]>mu[a])
       {
-        density[a] = 1/(1+lmd[a]) + 
-          2*lmd[a]/(1+lmd[a])*(R::pnorm5(y[a],mu[a],sigma[a],1,0)-1/2); 
+        density[a] = 1/(1+lmd[a]) +
+          2*lmd[a]/(1+lmd[a])*(R::pnorm5(y[a],mu[a],sigma[a],1,0)-1/2);
       }
     }
   }
-  
-  
+
+
   if(sumStat)
   {
     NumericVector PostC(len),Var(len);
-    
+
     for(int a=0;a<len;a++)
     {
       PostC[a] = sqrt(2/3.1415926)*sigma[a]*(lmd[a]-1);
@@ -56,19 +56,14 @@ List AsymNormPDF_cpp(NumericVector y,NumericVector mu, NumericVector sigma, Nume
       Var[a] = pow(pow(((3.1415926-2)/3.1415926*pow((lmd[a]-1),2)+lmd[a]),sigma[a]),2);
       densStd[a] = sqrt(Var[a]);
     }
-    
+
   }
-  else if(!sumStat)
-  {
-    densMean = NA;
-    densStd = NA;
-    
-  }
-  
+
+
   List out= List::create(_["density"] = density,
                          _["densMean"] = densMean,
                          _["densStd"] = densStd ) ;
-  
+
   return out;
-  
+
 }
