@@ -7,7 +7,7 @@ Distribution function of Split-normal distribution
 Density, distribution function, quantile function and random generation for the split normal distribution.
 }
 \usage{
-psplitn(q, mu, sigma, lmd)
+psplitn(q, mu, sigma, lmd, logarithm)
 }
 
 \arguments{
@@ -23,12 +23,18 @@ vector of standard deviations.
   \item{lmd}{
 vector of skewness parameters (>0). If is 1, reduced to symmetric student t distribution.
 }
+  \item{logarithm}{
+logical; if TRUE, probabilities p are given as log(p).
+}
 }
 \details{
 Computing the CDF of the Asymmetric Normal distribution. The random variable y follows a split-normal distribution, y~N(\eqn{\mu}, \eqn{\sigma}, \eqn{\lmd}).
 }
 \value{
-Computing the CDF of the Asymmetric Normal distribution. The random variable y follows a split-normal distribution, y~N(\eqn{\mu}, \eqn{\sigma}, \eqn{\lmd}).
+Computing the CDF of the Asymmetric Normal distribution. The random variable y follows a split-normal distribution, y~N(\eqn{\mu}, \eqn{\sigma}, \eqn{\lmd}), which has density:
+\deqn{1/(1+\lambda)\sigma \sqrt(2/\pi) exp{-(y-\mu)*2/2\sigma^2}, if y<=\mu}
+\deqn{1/(1+\lambda)\sigma \sqrt(2/\pi) exp{-(y-\mu)*2/2\sigma^2 \lambda^2}, if y>\mu}
+where \eqn{\sigma>0} and \eqn{\lambda>0}. The Split-normal distribution reduce to normal distribution when \eqn{\lmd=1}.
 }
 \references{
 Li, F., Villani, M., & Kohn, R. (2009). Flexible modeling of conditional distributions using smooth mixtures of asymmetric student t densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654.
