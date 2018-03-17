@@ -2,11 +2,11 @@
 \alias{qsplitt}
 \alias{dng_qsplitt}
 \title{
-quantile function of Split-t distribution
+  quantile function of Split-t distribution
 }
 
 \description{
-Density, distribution function, quantile function and random generation for the split student-t distribution.
+  Density, distribution function, quantile function and random generation for the split student-t distribution.
 }
 
 \usage{
@@ -16,55 +16,55 @@ qsplitt(p, mu, df, phi, lmd)
 \arguments{
 
   \item{p}{
-  vector of probabilities.
-}
+    vector of probabilities.
+  }
 
   \item{mu}{
-  vector of location parameter. (The mode of the density)
-}
+    vector of location parameter. (The mode of the density)
+  }
   \item{df}{
-  degrees of freedom (> 0, maybe non-integer). df = Inf is allowed.
-}
+    degrees of freedom (> 0, maybe non-integer). df = Inf is allowed.
+  }
   \item{phi}{
-  vector of scale parameters (>0).
-}
+    vector of scale parameters (>0).
+  }
   \item{lmd}{
-  vector of skewness parameters (>0). If is 1, reduced to symmetric student t distribution.
-}
+    vector of skewness parameters (>0). If is 1, reduced to symmetric student t distribution.
+  }
 
 }
 
 \details{
-The random variable y follows a split-t distribution with  \eqn{\nu}>0 degrees of freedom, y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}), if its density function is of the form
+  The random variable y follows a split-t distribution with  \eqn{\nu}>0 degrees of freedom, y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}), if its density function is of the form
 
-\deqn{C K(\mu, \phi, \nu,)I(y\leq\mu) + C K(\mu, \lambda \phi, \nu)I(y>\mu),   }
-where,
-\deqn{K(\mu, \phi, \nu,) =[\nu/(\nu+(y-\mu)^2 /\phi ^2)]^{(\nu+1)/2}   }
-is the kernel of a student \eqn{t} density with variance \eqn{\phi ^2\nu/(\nu-2)}
-and
-\deqn{c = 2[(1+\lambda)\phi (\sqrt \nu) Beta(\nu/2,1/2)]^{-1}  }is the normalization constant.
+  \deqn{C K(\mu, \phi, \nu,)I(y\leq\mu) + C K(\mu, \lambda \phi, \nu)I(y>\mu),   }
+  where,
+  \deqn{K(\mu, \phi, \nu,) =[\nu/(\nu+(y-\mu)^2 /\phi ^2)]^{(\nu+1)/2}   }
+  is the kernel of a student \eqn{t} density with variance \eqn{\phi ^2\nu/(\nu-2)}
+  and
+  \deqn{c = 2[(1+\lambda)\phi (\sqrt \nu) Beta(\nu/2,1/2)]^{-1}  }is the normalization constant.
 
 }
 
 \value{
-\code{qsplitt} gives the quantile function.
+  \code{qsplitt} gives the quantile function.
 
-Invalid arguments will result in return value NaN, with a warning.
+  Invalid arguments will result in return value NaN, with a warning.
 
-The numerical arguments other than n are recycled to the length of the result. Only the first elements of the logical arguments are used.
+  The numerical arguments other than n are recycled to the length of the result. Only the first elements of the logical arguments are used.
 
 }
 
 \references{
-Li, F., Villani, M., & Kohn, R. (2009). Flexible modeling of conditional distributions using smooth mixtures of asymmetric student t densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654.
+  Li, F., Villani, M., & Kohn, R. (2010). Flexible modeling of conditional distributions using smooth mixtures of asymmetric student t densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654.
 }
 
 \author{
-Feng Li, Jiayue Zeng
+  Feng Li, Jiayue Zeng
 }
 
 \seealso{
-\code{\link{splitt_mean}()}, \code{\link{splitt_var}()},\code{\link{splitt_skewness}()} and \code{\link{splitt_kurtosis}()} for numerical characteristics of the Split-t distribution.
+  \code{\link{splitt_mean}()}, \code{\link{splitt_var}()},\code{\link{splitt_skewness}()} and \code{\link{splitt_kurtosis}()} for numerical characteristics of the Split-t distribution.
 }
 
 \examples{
