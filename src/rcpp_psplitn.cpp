@@ -3,7 +3,7 @@ using namespace Rcpp;
 
 
 // [[Rcpp::export]]
-NumericVector psplitn(NumericVector q,NumericVector mu, NumericVector sigma, NumericVector lmd, bool logarithm)
+NumericVector psplitn(NumericVector q,NumericVector mu, NumericVector sigma, NumericVector lmd)
 {
   int a[4];
   int n,i,j;
@@ -44,13 +44,6 @@ NumericVector psplitn(NumericVector q,NumericVector mu, NumericVector sigma, Num
         2*lmd[a]/(1+lmd[a])*(R::pnorm5(q[a],mu[a],sigma[a]*lmd[a],1,0)-1/2);
     }
   }
-
-  if(!logarithm)
-  {
-    for(int i = 0;i<len;i++)
-    { out[i] = exp(density[i]);   }
-  }
-  else {out = density;}
 
   return out;
 
