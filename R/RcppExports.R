@@ -2,82 +2,114 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 gradFun4delta <- function(u, theta, delta) {
-    .Call('dng_gradFun4delta', PACKAGE = 'dng', u, theta, delta)
+    .Call('_dng_gradFun4delta', PACKAGE = 'dng', u, theta, delta)
 }
 
 gradFun4df <- function(i, rho, df, u_quantile) {
-    .Call('dng_gradFun4df', PACKAGE = 'dng', i, rho, df, u_quantile)
+    .Call('_dng_gradFun4df', PACKAGE = 'dng', i, rho, df, u_quantile)
 }
 
 gradFun4theta <- function(u, theta, delta) {
-    .Call('dng_gradFun4theta', PACKAGE = 'dng', u, theta, delta)
+    .Call('_dng_gradFun4theta', PACKAGE = 'dng', u, theta, delta)
 }
 
 dCpl <- function(CplNM, u, parCpl, log0) {
-    .Call('dng_dCpl', PACKAGE = 'dng', CplNM, u, parCpl, log0)
+    .Call('_dng_dCpl', PACKAGE = 'dng', CplNM, u, parCpl, log0)
 }
 
 dmvNormVecFun <- function(i, x, rho) {
-    .Call('dng_dmvNormVecFun', PACKAGE = 'dng', i, x, rho)
+    .Call('_dng_dmvNormVecFun', PACKAGE = 'dng', i, x, rho)
+}
+
+dng_grad <- function(y, par, type, parCaller, denscaller) {
+    .Call('_dng_dng_grad', PACKAGE = 'dng', y, par, type, parCaller, denscaller)
+}
+
+dsplitn <- function(x, mu, sigma, lmd, logarithm) {
+    .Call('_dng_dsplitn', PACKAGE = 'dng', x, mu, sigma, lmd, logarithm)
 }
 
 dsplitt <- function(x, mu, df, phi, lmd, logarithm) {
-    .Call('dng_dsplitt', PACKAGE = 'dng', x, mu, df, phi, lmd, logarithm)
+    .Call('_dng_dsplitt', PACKAGE = 'dng', x, mu, df, phi, lmd, logarithm)
 }
 
 FUN <- function(i, x, mu, df, rho, uIdx) {
-    .Call('dng_FUN', PACKAGE = 'dng', i, x, mu, df, rho, uIdx)
+    .Call('_dng_FUN', PACKAGE = 'dng', i, x, mu, df, rho, uIdx)
 }
 
 ghypergeo <- function(a, b, z, k) {
-    .Call('dng_ghypergeo', PACKAGE = 'dng', a, b, z, k)
+    .Call('_dng_ghypergeo', PACKAGE = 'dng', a, b, z, k)
 }
 
 ibeta <- function(x, a, b, log0, reg) {
-    .Call('dng_ibeta', PACKAGE = 'dng', x, a, b, log0, reg)
+    .Call('_dng_ibeta', PACKAGE = 'dng', x, a, b, log0, reg)
 }
 
 splitt_kurtosis <- function(df, phi, lmd) {
-    .Call('dng_splitt_kurtosis', PACKAGE = 'dng', df, phi, lmd)
+    .Call('_dng_splitt_kurtosis', PACKAGE = 'dng', df, phi, lmd)
 }
 
 logCplGrad <- function(CplNM, u, parCpl, parCaller) {
-    .Call('dng_logCplGrad', PACKAGE = 'dng', CplNM, u, parCpl, parCaller)
+    .Call('_dng_logCplGrad', PACKAGE = 'dng', CplNM, u, parCpl, parCaller)
 }
 
 logDensFun <- function(u, theta, delta) {
-    .Call('dng_logDensFun', PACKAGE = 'dng', u, theta, delta)
+    .Call('_dng_logDensFun', PACKAGE = 'dng', u, theta, delta)
 }
 
-MargiModelGrad <- function(y, par, type, parCaller, denscaller) {
-    .Call('dng_MargiModelGrad', PACKAGE = 'dng', y, par, type, parCaller, denscaller)
+splitn_mean <- function(mu, sigma, lmd) {
+    .Call('_dng_splitn_mean', PACKAGE = 'dng', mu, sigma, lmd)
 }
 
 splitt_mean <- function(mu, df, phi, lmd) {
-    .Call('dng_splitt_mean', PACKAGE = 'dng', mu, df, phi, lmd)
+    .Call('_dng_splitt_mean', PACKAGE = 'dng', mu, df, phi, lmd)
 }
 
 pochhammer <- function(a, n, log0) {
-    .Call('dng_pochhammer', PACKAGE = 'dng', a, n, log0)
+    .Call('_dng_pochhammer', PACKAGE = 'dng', a, n, log0)
+}
+
+psplitn <- function(q, mu, sigma, lmd, logarithm) {
+    .Call('_dng_psplitn', PACKAGE = 'dng', q, mu, sigma, lmd, logarithm)
 }
 
 psplitt <- function(q, mu, df, phi, lmd) {
-    .Call('dng_psplitt', PACKAGE = 'dng', q, mu, df, phi, lmd)
+    .Call('_dng_psplitt', PACKAGE = 'dng', q, mu, df, phi, lmd)
+}
+
+qsplitn <- function(p, mu, sigma, lmd) {
+    .Call('_dng_qsplitn', PACKAGE = 'dng', p, mu, sigma, lmd)
 }
 
 qsplitt <- function(p, mu, df, phi, lmd) {
-    .Call('dng_qsplitt', PACKAGE = 'dng', p, mu, df, phi, lmd)
+    .Call('_dng_qsplitt', PACKAGE = 'dng', p, mu, df, phi, lmd)
+}
+
+rsplitn <- function(n, mu, sigma, lmd) {
+    .Call('_dng_rsplitn', PACKAGE = 'dng', n, mu, sigma, lmd)
 }
 
 rsplitt <- function(n, mu, df, phi, lmd) {
-    .Call('dng_rsplitt', PACKAGE = 'dng', n, mu, df, phi, lmd)
+    .Call('_dng_rsplitt', PACKAGE = 'dng', n, mu, df, phi, lmd)
 }
 
 splitt_skewness <- function(df, phi, lmd) {
-    .Call('dng_splitt_skewness', PACKAGE = 'dng', df, phi, lmd)
+    .Call('_dng_splitt_skewness', PACKAGE = 'dng', df, phi, lmd)
+}
+
+splitn_kurtosis <- function(lmd) {
+    .Call('_dng_splitn_kurtosis', PACKAGE = 'dng', lmd)
+}
+
+splitn_skewness <- function(sigma, lmd) {
+    .Call('_dng_splitn_skewness', PACKAGE = 'dng', sigma, lmd)
+}
+
+splitn_var <- function(sigma, lmd) {
+    .Call('_dng_splitn_var', PACKAGE = 'dng', sigma, lmd)
 }
 
 splitt_var <- function(df, phi, lmd) {
-    .Call('dng_splitt_var', PACKAGE = 'dng', df, phi, lmd)
+    .Call('_dng_splitt_var', PACKAGE = 'dng', df, phi, lmd)
 }
 
