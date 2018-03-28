@@ -1,7 +1,10 @@
 **/*.Rcheck/
 **/..Rcheck/
+**/symbols.rds
 *.RData
-*.Rhistrory
+*.Rhistory
 *.Rbuildignore
 *.Rproj
 *.o
+R/RcppExports.R
+src/RcppExports.cpp
