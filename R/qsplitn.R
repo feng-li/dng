@@ -22,5 +22,3 @@ qsplitn <- function(p,mu,sigma,lmd)
   return(quantile)
 
 }
-
-
