@@ -13,4 +13,5 @@ Encoding: UTF-8
 LazyData: true
 Imports: stats, Rcpp (>= 0.12.9)
 LinkingTo: Rcpp
-
+Suggests: testthat
+RoxygenNote: 6.0.1
