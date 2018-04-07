@@ -6,5 +6,5 @@
 *.Rbuildignore
 *.Rproj
 *.o
-R/RcppExports.R
-src/RcppExports.cpp
+*.so
+*.dll
