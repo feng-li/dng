@@ -411,34 +411,434 @@ rsplitt <- function(n, mu, df, phi, lmd) {
     .Call('_dng_rsplitt', PACKAGE = 'dng', n, mu, df, phi, lmd)
 }
 
+#' Moments of the Split Normal distribution
+#'
+#' Compute the mean, variance, skewness and kurtosis for the split normal
+#' distribution.
+#'
+#' The random variable y follows a split-normal distribution, which has
+#' density: \deqn{1/(1+\lambda)\sigma \sqrt(2/\pi) exp{-(y-\mu)*2/2\sigma^2},
+#' if y<=\mu} \deqn{1/(1+\lambda)\sigma \sqrt(2/\pi) exp{-(y-\mu)*2/2\sigma^2
+#' \lambda^2}, if y>\mu} where \eqn{\sigma>0} and \eqn{\lambda>0}. The
+#' Split-normal distribution reduce to normal distribution when \eqn{\lmd=1}.
+#'
+#' @aliases splitn_mean splitn_var splitn_skewness splitn_kurtosis
+#' dng_splitn_mean dng_splitn_var dng_splitn_skewness dng_splitn_kurtosis
+#' @param mu vector of location parameter. (The mode of the density)
+#' @param sigma vector of standard deviations.
+#' @param lmd vector of skewness parameters (>0). If is 1, reduce to normal
+#' distribution.
+#' @return \code{splitn_mean} gives the mean.  \code{splitn_var} gives the
+#' variance.  \code{splitn_skewness} gives the skewness.
+#' \code{splitn_kurtosis} gives the kurtosis.  (\code{splitn_mean},
+#' \code{splitn_var},\code{splitn_skeness} and \code{splitn_kurtosis} are all
+#' vectors.
+#' @author Feng Li, Jiayue Zeng
+#' @seealso \code{\link{psplitn}()} \code{\link{dsplitn}()} and for the
+#' split-normal distribution.
+#' @references Li, F., Villani, M., & Kohn, R. (2010). Flexible modeling of
+#' conditional distributions using smooth mixtures of asymmetric student t
+#' densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654.
+#' and Villani, M., & Larsson, R. (2006) The Multivariate Split Normal
+#' Distribution and Asymmetric Principal Components Analysis. Sveriges
+#' Riksbank Working Paper Series, No. 175.
+#' @keywords distribution asymmetric normal
+#' @examples
+#'
+#' mu <- c(0,1,2)
+#' sigma <- c(0.5,1,2)
+#' lmd <- c(1,2,3)
+#'
+#' mean0 <- splitn_mean(mu, sigma, lmd)
+#' var0 <- splitn_var(sigma, lmd)
+#' skewness0 <- splitn_skewness(sigma, lmd)
+#' kurtosis0 <- splitn_kurtosis(lmd)
+#' @export
 splitn_kurtosis <- function(lmd) {
     .Call('_dng_splitn_kurtosis', PACKAGE = 'dng', lmd)
 }
 
+#' Moments of the Split Normal distribution
+#'
+#' Compute the mean, variance, skewness and kurtosis for the split normal
+#' distribution.
+#'
+#' The random variable y follows a split-normal distribution, which has
+#' density: \deqn{1/(1+\lambda)\sigma \sqrt(2/\pi) exp{-(y-\mu)*2/2\sigma^2},
+#' if y<=\mu} \deqn{1/(1+\lambda)\sigma \sqrt(2/\pi) exp{-(y-\mu)*2/2\sigma^2
+#' \lambda^2}, if y>\mu} where \eqn{\sigma>0} and \eqn{\lambda>0}. The
+#' Split-normal distribution reduce to normal distribution when \eqn{\lmd=1}.
+#'
+#' @aliases splitn_mean splitn_var splitn_skewness splitn_kurtosis
+#' dng_splitn_mean dng_splitn_var dng_splitn_skewness dng_splitn_kurtosis
+#' @param mu vector of location parameter. (The mode of the density)
+#' @param sigma vector of standard deviations.
+#' @param lmd vector of skewness parameters (>0). If is 1, reduce to normal
+#' distribution.
+#' @return \code{splitn_mean} gives the mean.  \code{splitn_var} gives the
+#' variance.  \code{splitn_skewness} gives the skewness.
+#' \code{splitn_kurtosis} gives the kurtosis.  (\code{splitn_mean},
+#' \code{splitn_var},\code{splitn_skeness} and \code{splitn_kurtosis} are all
+#' vectors.
+#' @author Feng Li, Jiayue Zeng
+#' @seealso \code{\link{psplitn}()} \code{\link{dsplitn}()} and for the
+#' split-normal distribution.
+#' @references Li, F., Villani, M., & Kohn, R. (2010). Flexible modeling of
+#' conditional distributions using smooth mixtures of asymmetric student t
+#' densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654.
+#' and Villani, M., & Larsson, R. (2006) The Multivariate Split Normal
+#' Distribution and Asymmetric Principal Components Analysis. Sveriges
+#' Riksbank Working Paper Series, No. 175.
+#' @keywords distribution asymmetric normal
+#' @examples
+#'
+#' mu <- c(0,1,2)
+#' sigma <- c(0.5,1,2)
+#' lmd <- c(1,2,3)
+#'
+#' mean0 <- splitn_mean(mu, sigma, lmd)
+#' var0 <- splitn_var(sigma, lmd)
+#' skewness0 <- splitn_skewness(sigma, lmd)
+#' kurtosis0 <- splitn_kurtosis(lmd)
+#' @export
 splitn_mean <- function(mu, sigma, lmd) {
     .Call('_dng_splitn_mean', PACKAGE = 'dng', mu, sigma, lmd)
 }
 
+#' Moments of the Split Normal distribution
+#'
+#' Compute the mean, variance, skewness and kurtosis for the split normal
+#' distribution.
+#'
+#' The random variable y follows a split-normal distribution, which has
+#' density: \deqn{1/(1+\lambda)\sigma \sqrt(2/\pi) exp{-(y-\mu)*2/2\sigma^2},
+#' if y<=\mu} \deqn{1/(1+\lambda)\sigma \sqrt(2/\pi) exp{-(y-\mu)*2/2\sigma^2
+#' \lambda^2}, if y>\mu} where \eqn{\sigma>0} and \eqn{\lambda>0}. The
+#' Split-normal distribution reduce to normal distribution when \eqn{\lmd=1}.
+#'
+#' @aliases splitn_mean splitn_var splitn_skewness splitn_kurtosis
+#' dng_splitn_mean dng_splitn_var dng_splitn_skewness dng_splitn_kurtosis
+#' @param mu vector of location parameter. (The mode of the density)
+#' @param sigma vector of standard deviations.
+#' @param lmd vector of skewness parameters (>0). If is 1, reduce to normal
+#' distribution.
+#' @return \code{splitn_mean} gives the mean.  \code{splitn_var} gives the
+#' variance.  \code{splitn_skewness} gives the skewness.
+#' \code{splitn_kurtosis} gives the kurtosis.  (\code{splitn_mean},
+#' \code{splitn_var},\code{splitn_skeness} and \code{splitn_kurtosis} are all
+#' vectors.
+#' @author Feng Li, Jiayue Zeng
+#' @seealso \code{\link{psplitn}()} \code{\link{dsplitn}()} and for the
+#' split-normal distribution.
+#' @references Li, F., Villani, M., & Kohn, R. (2010). Flexible modeling of
+#' conditional distributions using smooth mixtures of asymmetric student t
+#' densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654.
+#' and Villani, M., & Larsson, R. (2006) The Multivariate Split Normal
+#' Distribution and Asymmetric Principal Components Analysis. Sveriges
+#' Riksbank Working Paper Series, No. 175.
+#' @keywords distribution asymmetric normal
+#' @examples
+#'
+#' mu <- c(0,1,2)
+#' sigma <- c(0.5,1,2)
+#' lmd <- c(1,2,3)
+#'
+#' mean0 <- splitn_mean(mu, sigma, lmd)
+#' var0 <- splitn_var(sigma, lmd)
+#' skewness0 <- splitn_skewness(sigma, lmd)
+#' kurtosis0 <- splitn_kurtosis(lmd)
+#' @export
 splitn_skewness <- function(sigma, lmd) {
     .Call('_dng_splitn_skewness', PACKAGE = 'dng', sigma, lmd)
 }
 
+#' Moments of the Split Normal distribution
+#'
+#' Compute the mean, variance, skewness and kurtosis for the split normal
+#' distribution.
+#'
+#' The random variable y follows a split-normal distribution, which has
+#' density: \deqn{1/(1+\lambda)\sigma \sqrt(2/\pi) exp{-(y-\mu)*2/2\sigma^2},
+#' if y<=\mu} \deqn{1/(1+\lambda)\sigma \sqrt(2/\pi) exp{-(y-\mu)*2/2\sigma^2
+#' \lambda^2}, if y>\mu} where \eqn{\sigma>0} and \eqn{\lambda>0}. The
+#' Split-normal distribution reduce to normal distribution when \eqn{\lmd=1}.
+#'
+#' @aliases splitn_mean splitn_var splitn_skewness splitn_kurtosis
+#' dng_splitn_mean dng_splitn_var dng_splitn_skewness dng_splitn_kurtosis
+#' @param mu vector of location parameter. (The mode of the density)
+#' @param sigma vector of standard deviations.
+#' @param lmd vector of skewness parameters (>0). If is 1, reduce to normal
+#' distribution.
+#' @return \code{splitn_mean} gives the mean.  \code{splitn_var} gives the
+#' variance.  \code{splitn_skewness} gives the skewness.
+#' \code{splitn_kurtosis} gives the kurtosis.  (\code{splitn_mean},
+#' \code{splitn_var},\code{splitn_skeness} and \code{splitn_kurtosis} are all
+#' vectors.
+#' @author Feng Li, Jiayue Zeng
+#' @seealso \code{\link{psplitn}()} \code{\link{dsplitn}()} and for the
+#' split-normal distribution.
+#' @references Li, F., Villani, M., & Kohn, R. (2010). Flexible modeling of
+#' conditional distributions using smooth mixtures of asymmetric student t
+#' densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654.
+#' and Villani, M., & Larsson, R. (2006) The Multivariate Split Normal
+#' Distribution and Asymmetric Principal Components Analysis. Sveriges
+#' Riksbank Working Paper Series, No. 175.
+#' @keywords distribution asymmetric normal
+#' @examples
+#'
+#' mu <- c(0,1,2)
+#' sigma <- c(0.5,1,2)
+#' lmd <- c(1,2,3)
+#'
+#' mean0 <- splitn_mean(mu, sigma, lmd)
+#' var0 <- splitn_var(sigma, lmd)
+#' skewness0 <- splitn_skewness(sigma, lmd)
+#' kurtosis0 <- splitn_kurtosis(lmd)
+#' @export
 splitn_var <- function(sigma, lmd) {
     .Call('_dng_splitn_var', PACKAGE = 'dng', sigma, lmd)
 }
 
+#' Moments of the Split-t distribution
+#'
+#' Compute the mean, variance, skewness and kurtosis for the split student-t
+#' distribution with \code{df} degrees of freedom.
+#'
+#' The random variable y follows a split-t distribution with \eqn{\nu}>0
+#' degrees of freedom, y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}),
+#' if its density function is of the form
+#'
+#' \deqn{C K(\mu, \phi, \nu,)I(y\leq\mu) + C K(\mu, \lambda \phi,
+#' \nu)I(y>\mu), } where, \deqn{K(\mu, \phi, \nu,) =[\nu/(\nu+(y-\mu)^2 /\phi
+#' ^2)]^{(\nu+1)/2} } is the kernel of a student \eqn{t} density with variance
+#' \eqn{\phi ^2\nu/(\nu-2)} and \deqn{c = 2[(1+\lambda)\phi (\sqrt \nu)
+#' Beta(\nu/2,1/2)]^{-1} }is the normalization constant.
+#'
+#' If y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}) then, \deqn{E(y) =
+#' \mu + h}, \deqn{V(y) = (1+\lambda ^3)/(1 + \lambda) \nu/(\nu-2)\phi^2 - h^2
+#' }, \deqn{E[y - E(y)]^3 = 2h^3 + 2h\phi ^2(\lambda ^2+1)\nu/(\nu-3) - 3h\phi
+#' ^2(\lambda ^3 + 1)/(\lambda+1) \nu/(\nu-2) }, \deqn{E[y - E(y)]^4 =(3\nu
+#' ^2\phi ^4(1+\lambda ^5))/((1+\lambda)(\nu-2)(\nu-4)) - 4h^4 +
+#' (6h^(2)(1+\lambda ^3)\nu\phi ^2)/((1+\lambda)(\nu-2)) - (8h^2(\lambda
+#' ^2\nu\phi ^2))/(\nu-3). }
+#'
+#' @aliases splitt_mean splitt_var splitt_skewness splitt_kurtosis
+#' dng_splitt_mean dng_splitt_var dng_splitt_skewness dng_splitt_kurtosis
+#' @param mu vector of location parameter. (The mode of the density)
+#' @param df degrees of freedom (> 0, maybe non-integer). df = Inf is allowed.
+#' @param phi vector of scale parameters (> 0).
+#' @param lmd vector of skewness parameters (> 0). If is 1, reduced to
+#' symmetric student t distribution.
+#' @return \code{splitt_mean} gives the mean. \code{splitt_var} gives the
+#' variance. \code{splitt_skewness} gives the skewness. \code{splitt_kurtosis}
+#' gives the kurtosis. (\code{splitt_mean},
+#' \code{splitt_var},\code{splitt_skeness} and \code{splitt_kurtosis} are all
+#' vectors.)
+#'
+#' Invalid arguments will result in return value NaN, with a warning.
+#' @author Feng Li, Jiayue Zeng
+#' @seealso \code{\link{dsplitt}()}, \code{\link{psplitt}()},
+#' \code{\link{qsplitt}()} and \code{\link{rsplitt}()} for the split-t
+#' distribution.
+#' @references Li, F., Villani, M., & Kohn, R. (2009). Flexible modeling of
+#' conditional distributions using smooth mixtures of asymmetric student t
+#' densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654.
+#' @keywords distribution asymmetric student-t
+#' @examples
+#'
+#' mu <- c(0,1,2)
+#' df <- rep(10,3)
+#' phi <- c(0.5,1,2)
+#' lmd <- c(1,2,3)
+#'
+#' mean0 <- splitt_mean(mu, df, phi, lmd)
+#' var0 <- splitt_var(df, phi, lmd)
+#' skewness0 <- splitt_skewness(df, phi, lmd)
+#' kurtosis0 <- splitt_kurtosis(df, phi, lmd)
+#' @export
 splitt_kurtosis <- function(df, phi, lmd) {
     .Call('_dng_splitt_kurtosis', PACKAGE = 'dng', df, phi, lmd)
 }
 
+#' Moments of the Split-t distribution
+#'
+#' Compute the mean, variance, skewness and kurtosis for the split student-t
+#' distribution with \code{df} degrees of freedom.
+#'
+#' The random variable y follows a split-t distribution with \eqn{\nu}>0
+#' degrees of freedom, y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}),
+#' if its density function is of the form
+#'
+#' \deqn{C K(\mu, \phi, \nu,)I(y\leq\mu) + C K(\mu, \lambda \phi,
+#' \nu)I(y>\mu), } where, \deqn{K(\mu, \phi, \nu,) =[\nu/(\nu+(y-\mu)^2 /\phi
+#' ^2)]^{(\nu+1)/2} } is the kernel of a student \eqn{t} density with variance
+#' \eqn{\phi ^2\nu/(\nu-2)} and \deqn{c = 2[(1+\lambda)\phi (\sqrt \nu)
+#' Beta(\nu/2,1/2)]^{-1} }is the normalization constant.
+#'
+#' If y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}) then, \deqn{E(y) =
+#' \mu + h}, \deqn{V(y) = (1+\lambda ^3)/(1 + \lambda) \nu/(\nu-2)\phi^2 - h^2
+#' }, \deqn{E[y - E(y)]^3 = 2h^3 + 2h\phi ^2(\lambda ^2+1)\nu/(\nu-3) - 3h\phi
+#' ^2(\lambda ^3 + 1)/(\lambda+1) \nu/(\nu-2) }, \deqn{E[y - E(y)]^4 =(3\nu
+#' ^2\phi ^4(1+\lambda ^5))/((1+\lambda)(\nu-2)(\nu-4)) - 4h^4 +
+#' (6h^(2)(1+\lambda ^3)\nu\phi ^2)/((1+\lambda)(\nu-2)) - (8h^2(\lambda
+#' ^2\nu\phi ^2))/(\nu-3). }
+#'
+#' @aliases splitt_mean splitt_var splitt_skewness splitt_kurtosis
+#' dng_splitt_mean dng_splitt_var dng_splitt_skewness dng_splitt_kurtosis
+#' @param mu vector of location parameter. (The mode of the density)
+#' @param df degrees of freedom (> 0, maybe non-integer). df = Inf is allowed.
+#' @param phi vector of scale parameters (> 0).
+#' @param lmd vector of skewness parameters (> 0). If is 1, reduced to
+#' symmetric student t distribution.
+#' @return \code{splitt_mean} gives the mean. \code{splitt_var} gives the
+#' variance. \code{splitt_skewness} gives the skewness. \code{splitt_kurtosis}
+#' gives the kurtosis. (\code{splitt_mean},
+#' \code{splitt_var},\code{splitt_skeness} and \code{splitt_kurtosis} are all
+#' vectors.)
+#'
+#' Invalid arguments will result in return value NaN, with a warning.
+#' @author Feng Li, Jiayue Zeng
+#' @seealso \code{\link{dsplitt}()}, \code{\link{psplitt}()},
+#' \code{\link{qsplitt}()} and \code{\link{rsplitt}()} for the split-t
+#' distribution.
+#' @references Li, F., Villani, M., & Kohn, R. (2009). Flexible modeling of
+#' conditional distributions using smooth mixtures of asymmetric student t
+#' densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654.
+#' @keywords distribution asymmetric student-t
+#' @examples
+#'
+#' mu <- c(0,1,2)
+#' df <- rep(10,3)
+#' phi <- c(0.5,1,2)
+#' lmd <- c(1,2,3)
+#'
+#' mean0 <- splitt_mean(mu, df, phi, lmd)
+#' var0 <- splitt_var(df, phi, lmd)
+#' skewness0 <- splitt_skewness(df, phi, lmd)
+#' kurtosis0 <- splitt_kurtosis(df, phi, lmd)
+#' @export
 splitt_mean <- function(mu, df, phi, lmd) {
     .Call('_dng_splitt_mean', PACKAGE = 'dng', mu, df, phi, lmd)
 }
 
+#' Moments of the Split-t distribution
+#'
+#' Compute the mean, variance, skewness and kurtosis for the split student-t
+#' distribution with \code{df} degrees of freedom.
+#'
+#' The random variable y follows a split-t distribution with \eqn{\nu}>0
+#' degrees of freedom, y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}),
+#' if its density function is of the form
+#'
+#' \deqn{C K(\mu, \phi, \nu,)I(y\leq\mu) + C K(\mu, \lambda \phi,
+#' \nu)I(y>\mu), } where, \deqn{K(\mu, \phi, \nu,) =[\nu/(\nu+(y-\mu)^2 /\phi
+#' ^2)]^{(\nu+1)/2} } is the kernel of a student \eqn{t} density with variance
+#' \eqn{\phi ^2\nu/(\nu-2)} and \deqn{c = 2[(1+\lambda)\phi (\sqrt \nu)
+#' Beta(\nu/2,1/2)]^{-1} }is the normalization constant.
+#'
+#' If y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}) then, \deqn{E(y) =
+#' \mu + h}, \deqn{V(y) = (1+\lambda ^3)/(1 + \lambda) \nu/(\nu-2)\phi^2 - h^2
+#' }, \deqn{E[y - E(y)]^3 = 2h^3 + 2h\phi ^2(\lambda ^2+1)\nu/(\nu-3) - 3h\phi
+#' ^2(\lambda ^3 + 1)/(\lambda+1) \nu/(\nu-2) }, \deqn{E[y - E(y)]^4 =(3\nu
+#' ^2\phi ^4(1+\lambda ^5))/((1+\lambda)(\nu-2)(\nu-4)) - 4h^4 +
+#' (6h^(2)(1+\lambda ^3)\nu\phi ^2)/((1+\lambda)(\nu-2)) - (8h^2(\lambda
+#' ^2\nu\phi ^2))/(\nu-3). }
+#'
+#' @aliases splitt_mean splitt_var splitt_skewness splitt_kurtosis
+#' dng_splitt_mean dng_splitt_var dng_splitt_skewness dng_splitt_kurtosis
+#' @param mu vector of location parameter. (The mode of the density)
+#' @param df degrees of freedom (> 0, maybe non-integer). df = Inf is allowed.
+#' @param phi vector of scale parameters (> 0).
+#' @param lmd vector of skewness parameters (> 0). If is 1, reduced to
+#' symmetric student t distribution.
+#' @return \code{splitt_mean} gives the mean. \code{splitt_var} gives the
+#' variance. \code{splitt_skewness} gives the skewness. \code{splitt_kurtosis}
+#' gives the kurtosis. (\code{splitt_mean},
+#' \code{splitt_var},\code{splitt_skeness} and \code{splitt_kurtosis} are all
+#' vectors.)
+#'
+#' Invalid arguments will result in return value NaN, with a warning.
+#' @author Feng Li, Jiayue Zeng
+#' @seealso \code{\link{dsplitt}()}, \code{\link{psplitt}()},
+#' \code{\link{qsplitt}()} and \code{\link{rsplitt}()} for the split-t
+#' distribution.
+#' @references Li, F., Villani, M., & Kohn, R. (2009). Flexible modeling of
+#' conditional distributions using smooth mixtures of asymmetric student t
+#' densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654.
+#' @keywords distribution asymmetric student-t
+#' @examples
+#'
+#' mu <- c(0,1,2)
+#' df <- rep(10,3)
+#' phi <- c(0.5,1,2)
+#' lmd <- c(1,2,3)
+#'
+#' mean0 <- splitt_mean(mu, df, phi, lmd)
+#' var0 <- splitt_var(df, phi, lmd)
+#' skewness0 <- splitt_skewness(df, phi, lmd)
+#' kurtosis0 <- splitt_kurtosis(df, phi, lmd)
+#' @export
 splitt_skewness <- function(df, phi, lmd) {
     .Call('_dng_splitt_skewness', PACKAGE = 'dng', df, phi, lmd)
 }
 
+#' Moments of the Split-t distribution
+#'
+#' Compute the mean, variance, skewness and kurtosis for the split student-t
+#' distribution with \code{df} degrees of freedom.
+#'
+#' The random variable y follows a split-t distribution with \eqn{\nu}>0
+#' degrees of freedom, y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}),
+#' if its density function is of the form
+#'
+#' \deqn{C K(\mu, \phi, \nu,)I(y\leq\mu) + C K(\mu, \lambda \phi,
+#' \nu)I(y>\mu), } where, \deqn{K(\mu, \phi, \nu,) =[\nu/(\nu+(y-\mu)^2 /\phi
+#' ^2)]^{(\nu+1)/2} } is the kernel of a student \eqn{t} density with variance
+#' \eqn{\phi ^2\nu/(\nu-2)} and \deqn{c = 2[(1+\lambda)\phi (\sqrt \nu)
+#' Beta(\nu/2,1/2)]^{-1} }is the normalization constant.
+#'
+#' If y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}) then, \deqn{E(y) =
+#' \mu + h}, \deqn{V(y) = (1+\lambda ^3)/(1 + \lambda) \nu/(\nu-2)\phi^2 - h^2
+#' }, \deqn{E[y - E(y)]^3 = 2h^3 + 2h\phi ^2(\lambda ^2+1)\nu/(\nu-3) - 3h\phi
+#' ^2(\lambda ^3 + 1)/(\lambda+1) \nu/(\nu-2) }, \deqn{E[y - E(y)]^4 =(3\nu
+#' ^2\phi ^4(1+\lambda ^5))/((1+\lambda)(\nu-2)(\nu-4)) - 4h^4 +
+#' (6h^(2)(1+\lambda ^3)\nu\phi ^2)/((1+\lambda)(\nu-2)) - (8h^2(\lambda
+#' ^2\nu\phi ^2))/(\nu-3). }
+#'
+#' @aliases splitt_mean splitt_var splitt_skewness splitt_kurtosis
+#' dng_splitt_mean dng_splitt_var dng_splitt_skewness dng_splitt_kurtosis
+#' @param mu vector of location parameter. (The mode of the density)
+#' @param df degrees of freedom (> 0, maybe non-integer). df = Inf is allowed.
+#' @param phi vector of scale parameters (> 0).
+#' @param lmd vector of skewness parameters (> 0). If is 1, reduced to
+#' symmetric student t distribution.
+#' @return \code{splitt_mean} gives the mean. \code{splitt_var} gives the
+#' variance. \code{splitt_skewness} gives the skewness. \code{splitt_kurtosis}
+#' gives the kurtosis. (\code{splitt_mean},
+#' \code{splitt_var},\code{splitt_skeness} and \code{splitt_kurtosis} are all
+#' vectors.)
+#'
+#' Invalid arguments will result in return value NaN, with a warning.
+#' @author Feng Li, Jiayue Zeng
+#' @seealso \code{\link{dsplitt}()}, \code{\link{psplitt}()},
+#' \code{\link{qsplitt}()} and \code{\link{rsplitt}()} for the split-t
+#' distribution.
+#' @references Li, F., Villani, M., & Kohn, R. (2009). Flexible modeling of
+#' conditional distributions using smooth mixtures of asymmetric student t
+#' densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654.
+#' @keywords distribution asymmetric student-t
+#' @examples
+#'
+#' mu <- c(0,1,2)
+#' df <- rep(10,3)
+#' phi <- c(0.5,1,2)
+#' lmd <- c(1,2,3)
+#'
+#' mean0 <- splitt_mean(mu, df, phi, lmd)
+#' var0 <- splitt_var(df, phi, lmd)
+#' skewness0 <- splitt_skewness(df, phi, lmd)
+#' kurtosis0 <- splitt_kurtosis(df, phi, lmd)
+#' @export
 splitt_var <- function(df, phi, lmd) {
     .Call('_dng_splitt_var', PACKAGE = 'dng', df, phi, lmd)
 }
