@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // dsplitn
 NumericVector dsplitn(NumericVector x, NumericVector mu, NumericVector sigma, NumericVector lmd, bool logarithm);
-RcppExport SEXP _dng_dsplitn(SEXP xSEXP, SEXP muSEXP, SEXP sigmaSEXP, SEXP lmdSEXP, SEXP logarithmSEXP) {
+RcppExport SEXP dng_dsplitn(SEXP xSEXP, SEXP muSEXP, SEXP sigmaSEXP, SEXP lmdSEXP, SEXP logarithmSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -22,7 +22,7 @@ END_RCPP
 }
 // dsplitt
 NumericVector dsplitt(NumericVector x, NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd, bool logarithm);
-RcppExport SEXP _dng_dsplitt(SEXP xSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP, SEXP logarithmSEXP) {
+RcppExport SEXP dng_dsplitt(SEXP xSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP, SEXP logarithmSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -36,51 +36,9 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// ghypergeo
-NumericVector ghypergeo(NumericMatrix a, NumericMatrix b, NumericVector z, int k);
-RcppExport SEXP _dng_ghypergeo(SEXP aSEXP, SEXP bSEXP, SEXP zSEXP, SEXP kSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type a(aSEXP);
-    Rcpp::traits::input_parameter< NumericMatrix >::type b(bSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type z(zSEXP);
-    Rcpp::traits::input_parameter< int >::type k(kSEXP);
-    rcpp_result_gen = Rcpp::wrap(ghypergeo(a, b, z, k));
-    return rcpp_result_gen;
-END_RCPP
-}
-// ibeta
-double ibeta(double x, double a, double b, bool log0, bool reg);
-RcppExport SEXP _dng_ibeta(SEXP xSEXP, SEXP aSEXP, SEXP bSEXP, SEXP log0SEXP, SEXP regSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type x(xSEXP);
-    Rcpp::traits::input_parameter< double >::type a(aSEXP);
-    Rcpp::traits::input_parameter< double >::type b(bSEXP);
-    Rcpp::traits::input_parameter< bool >::type log0(log0SEXP);
-    Rcpp::traits::input_parameter< bool >::type reg(regSEXP);
-    rcpp_result_gen = Rcpp::wrap(ibeta(x, a, b, log0, reg));
-    return rcpp_result_gen;
-END_RCPP
-}
-// pochhammer
-NumericMatrix pochhammer(NumericVector a, IntegerVector n, bool log0);
-RcppExport SEXP _dng_pochhammer(SEXP aSEXP, SEXP nSEXP, SEXP log0SEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type a(aSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type n(nSEXP);
-    Rcpp::traits::input_parameter< bool >::type log0(log0SEXP);
-    rcpp_result_gen = Rcpp::wrap(pochhammer(a, n, log0));
-    return rcpp_result_gen;
-END_RCPP
-}
 // psplitn
 NumericVector psplitn(NumericVector q, NumericVector mu, NumericVector sigma, NumericVector lmd);
-RcppExport SEXP _dng_psplitn(SEXP qSEXP, SEXP muSEXP, SEXP sigmaSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_psplitn(SEXP qSEXP, SEXP muSEXP, SEXP sigmaSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -94,7 +52,7 @@ END_RCPP
 }
 // psplitt
 NumericVector psplitt(NumericVector q, NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd);
-RcppExport SEXP _dng_psplitt(SEXP qSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_psplitt(SEXP qSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -109,7 +67,7 @@ END_RCPP
 }
 // qsplitn
 NumericVector qsplitn(NumericVector p, NumericVector mu, NumericVector sigma, NumericVector lmd);
-RcppExport SEXP _dng_qsplitn(SEXP pSEXP, SEXP muSEXP, SEXP sigmaSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_qsplitn(SEXP pSEXP, SEXP muSEXP, SEXP sigmaSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -123,7 +81,7 @@ END_RCPP
 }
 // qsplitt
 NumericVector qsplitt(NumericVector p, NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd);
-RcppExport SEXP _dng_qsplitt(SEXP pSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_qsplitt(SEXP pSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -138,7 +96,7 @@ END_RCPP
 }
 // rsplitn
 NumericVector rsplitn(int n, NumericVector mu, NumericVector sigma, NumericVector lmd);
-RcppExport SEXP _dng_rsplitn(SEXP nSEXP, SEXP muSEXP, SEXP sigmaSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_rsplitn(SEXP nSEXP, SEXP muSEXP, SEXP sigmaSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -152,7 +110,7 @@ END_RCPP
 }
 // rsplitt
 NumericVector rsplitt(int n, NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd);
-RcppExport SEXP _dng_rsplitt(SEXP nSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_rsplitt(SEXP nSEXP, SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -167,7 +125,7 @@ END_RCPP
 }
 // splitn_kurtosis
 NumericVector splitn_kurtosis(NumericVector lmd);
-RcppExport SEXP _dng_splitn_kurtosis(SEXP lmdSEXP) {
+RcppExport SEXP dng_splitn_kurtosis(SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -178,7 +136,7 @@ END_RCPP
 }
 // splitn_mean
 NumericVector splitn_mean(NumericVector mu, NumericVector sigma, NumericVector lmd);
-RcppExport SEXP _dng_splitn_mean(SEXP muSEXP, SEXP sigmaSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_splitn_mean(SEXP muSEXP, SEXP sigmaSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -191,7 +149,7 @@ END_RCPP
 }
 // splitn_skewness
 NumericVector splitn_skewness(NumericVector sigma, NumericVector lmd);
-RcppExport SEXP _dng_splitn_skewness(SEXP sigmaSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_splitn_skewness(SEXP sigmaSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -203,7 +161,7 @@ END_RCPP
 }
 // splitn_var
 NumericVector splitn_var(NumericVector sigma, NumericVector lmd);
-RcppExport SEXP _dng_splitn_var(SEXP sigmaSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_splitn_var(SEXP sigmaSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -215,7 +173,7 @@ END_RCPP
 }
 // splitt_kurtosis
 NumericVector splitt_kurtosis(NumericVector df, NumericVector phi, NumericVector lmd);
-RcppExport SEXP _dng_splitt_kurtosis(SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_splitt_kurtosis(SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -228,7 +186,7 @@ END_RCPP
 }
 // splitt_mean
 NumericVector splitt_mean(NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd);
-RcppExport SEXP _dng_splitt_mean(SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_splitt_mean(SEXP muSEXP, SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -242,7 +200,7 @@ END_RCPP
 }
 // splitt_skewness
 NumericVector splitt_skewness(NumericVector df, NumericVector phi, NumericVector lmd);
-RcppExport SEXP _dng_splitt_skewness(SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_splitt_skewness(SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -255,7 +213,7 @@ END_RCPP
 }
 // splitt_var
 NumericVector splitt_var(NumericVector df, NumericVector phi, NumericVector lmd);
-RcppExport SEXP _dng_splitt_var(SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
+RcppExport SEXP dng_splitt_var(SEXP dfSEXP, SEXP phiSEXP, SEXP lmdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -268,25 +226,22 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_dng_dsplitn", (DL_FUNC) &_dng_dsplitn, 5},
-    {"_dng_dsplitt", (DL_FUNC) &_dng_dsplitt, 6},
-    {"_dng_ghypergeo", (DL_FUNC) &_dng_ghypergeo, 4},
-    {"_dng_ibeta", (DL_FUNC) &_dng_ibeta, 5},
-    {"_dng_pochhammer", (DL_FUNC) &_dng_pochhammer, 3},
-    {"_dng_psplitn", (DL_FUNC) &_dng_psplitn, 4},
-    {"_dng_psplitt", (DL_FUNC) &_dng_psplitt, 5},
-    {"_dng_qsplitn", (DL_FUNC) &_dng_qsplitn, 4},
-    {"_dng_qsplitt", (DL_FUNC) &_dng_qsplitt, 5},
-    {"_dng_rsplitn", (DL_FUNC) &_dng_rsplitn, 4},
-    {"_dng_rsplitt", (DL_FUNC) &_dng_rsplitt, 5},
-    {"_dng_splitn_kurtosis", (DL_FUNC) &_dng_splitn_kurtosis, 1},
-    {"_dng_splitn_mean", (DL_FUNC) &_dng_splitn_mean, 3},
-    {"_dng_splitn_skewness", (DL_FUNC) &_dng_splitn_skewness, 2},
-    {"_dng_splitn_var", (DL_FUNC) &_dng_splitn_var, 2},
-    {"_dng_splitt_kurtosis", (DL_FUNC) &_dng_splitt_kurtosis, 3},
-    {"_dng_splitt_mean", (DL_FUNC) &_dng_splitt_mean, 4},
-    {"_dng_splitt_skewness", (DL_FUNC) &_dng_splitt_skewness, 3},
-    {"_dng_splitt_var", (DL_FUNC) &_dng_splitt_var, 3},
+    {"dng_dsplitn", (DL_FUNC) &dng_dsplitn, 5},
+    {"dng_dsplitt", (DL_FUNC) &dng_dsplitt, 6},
+    {"dng_psplitn", (DL_FUNC) &dng_psplitn, 4},
+    {"dng_psplitt", (DL_FUNC) &dng_psplitt, 5},
+    {"dng_qsplitn", (DL_FUNC) &dng_qsplitn, 4},
+    {"dng_qsplitt", (DL_FUNC) &dng_qsplitt, 5},
+    {"dng_rsplitn", (DL_FUNC) &dng_rsplitn, 4},
+    {"dng_rsplitt", (DL_FUNC) &dng_rsplitt, 5},
+    {"dng_splitn_kurtosis", (DL_FUNC) &dng_splitn_kurtosis, 1},
+    {"dng_splitn_mean", (DL_FUNC) &dng_splitn_mean, 3},
+    {"dng_splitn_skewness", (DL_FUNC) &dng_splitn_skewness, 2},
+    {"dng_splitn_var", (DL_FUNC) &dng_splitn_var, 2},
+    {"dng_splitt_kurtosis", (DL_FUNC) &dng_splitt_kurtosis, 3},
+    {"dng_splitt_mean", (DL_FUNC) &dng_splitt_mean, 4},
+    {"dng_splitt_skewness", (DL_FUNC) &dng_splitt_skewness, 3},
+    {"dng_splitt_var", (DL_FUNC) &dng_splitt_var, 3},
     {NULL, NULL, 0}
 };
 

@@ -13,7 +13,6 @@ using namespace Rcpp;
 //'
 //' @aliases splitn_mean splitn_var splitn_skewness splitn_kurtosis
 //' dng_splitn_mean dng_splitn_var dng_splitn_skewness dng_splitn_kurtosis
-//' @param mu vector of location parameter. (The mode of the density)
 //' @param sigma vector of standard deviations.
 //' @param lmd vector of skewness parameters (>0). If is 1, reduce to normal
 //' distribution.
@@ -64,7 +63,7 @@ NumericVector splitn_var(NumericVector sigma, NumericVector lmd)
 
   NumericVector var(n),b(n);
 
-  for(int i=0;i<n;i++){
+  for(i=0;i<n;i++){
     b[i] = -2/pi*pow((lmd[i]-1),2)+lmd[i]*(lmd[i]-1)+1;
     var[i] = b[i]*pow(sigma[i],2);
   }

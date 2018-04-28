@@ -14,7 +14,6 @@ using namespace Rcpp;
 //' @param sigma vector of standard deviations.
 //' @param lmd vector of skewness parameters (>0). If is 1, reduced to
 //' symmetric student t distribution.
-//' @param logarithm logical; if TRUE, probabilities p are given as log(p).
 //' @return Computing the CDF of the Asymmetric Normal distribution. The random
 //' variable y follows a split-normal distribution, y~N(\eqn{\mu},
 //' \eqn{\sigma}, \eqn{\lmd}), which has density: \deqn{1/(1+\lambda)\sigma
@@ -37,7 +36,7 @@ using namespace Rcpp;
 //' mu <- c(0,1,2)
 //' sigma <- c(0.5,1,2)
 //' lmd <- c(1,2,3)
-//' dsplitn0 = psplitn(q,mu,sigma,lmd)
+//' psplitn0 = psplitn(q,mu,sigma,lmd)
 //'
 //' @export
 // [[Rcpp::export]]
@@ -55,7 +54,7 @@ NumericVector psplitn(NumericVector q,NumericVector mu, NumericVector sigma, Num
   else
   {
     n = a[0];
-    for(i = 1;i<=4;i++)   { if(a[i]>n) n = a[i];}
+    for(i = 1;i<=3;i++)   { if(a[i]>n) n = a[i];}
     for(j = a[0];j<n;j++) { q[j] = q[j-a[0]];}
     for(j = a[1];j<n;j++) { mu[j] = mu[j-a[1]];}
     for(j = a[2];j<n;j++) { sigma[j] = sigma[j-a[2]];}

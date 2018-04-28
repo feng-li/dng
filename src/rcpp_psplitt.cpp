@@ -53,12 +53,10 @@ using namespace Rcpp;
 //'
 //' @export
 // [[Rcpp::export]]
-NumericVector psplitt(NumericVector q, NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd);
-extern double ibeta(double x, double a, double b, bool log0, bool reg);
-
 NumericVector psplitt(NumericVector q, NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd)
 {
   double ibeta0;
+  double pbeta0;
   int a[5];
   int n,i,j;
   a[0] = q.size();
@@ -71,7 +69,7 @@ NumericVector psplitt(NumericVector q, NumericVector mu, NumericVector df, Numer
   else
   {
     n = a[0];
-    for(i = 1;i<=5;i++)   { if(a[i]>n) n = a[i];}
+    for(i = 1;i<=4;i++)   { if(a[i]>n) n = a[i];}
 
     for(j = a[0];j<n;j++) { q[j] = q[j-a[0]];}
     for(j = a[1];j<n;j++) { mu[j] = mu[j-a[1]];}
@@ -92,7 +90,9 @@ NumericVector psplitt(NumericVector q, NumericVector mu, NumericVector df, Numer
 
     A[i] = df[i]*pow(sign[i],2)*pow(phi[i],2)/(df[i]*pow(sign[i],2)*pow(phi[i],2)+pow((q[i]-mu[i]),2));
 
-    ibeta0 = ibeta(A[i], df[i]*0.5, 0.5, FALSE, TRUE);
+    pbeta0 = ::Rf_pbeta(A[i],df[i]*0.5, 0.5, TRUE, TRUE);
+    ibeta0 = exp(pbeta0);
+
     BetaRegUpper[i] = 1-ibeta0;
 
     out[i] = (1/(1+lmd[i]) + sign[i]*sign2[i]/(1+lmd[i])*BetaRegUpper[i]);
@@ -101,3 +101,5 @@ NumericVector psplitt(NumericVector q, NumericVector mu, NumericVector df, Numer
 
   return out;
 }
+
+

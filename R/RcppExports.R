@@ -40,7 +40,7 @@
 #' dsplitn0 = dsplitn(x, mu, sigma,lmd, TRUE)
 #' @export
 dsplitn <- function(x, mu, sigma, lmd, logarithm) {
-    .Call('_dng_dsplitn', PACKAGE = 'dng', x, mu, sigma, lmd, logarithm)
+    .Call('dng_dsplitn', PACKAGE = 'dng', x, mu, sigma, lmd, logarithm)
 }
 
 #' Split-t distribution
@@ -94,19 +94,7 @@ dsplitn <- function(x, mu, sigma, lmd, logarithm) {
 #'
 #' @export
 dsplitt <- function(x, mu, df, phi, lmd, logarithm) {
-    .Call('_dng_dsplitt', PACKAGE = 'dng', x, mu, df, phi, lmd, logarithm)
-}
-
-ghypergeo <- function(a, b, z, k) {
-    .Call('_dng_ghypergeo', PACKAGE = 'dng', a, b, z, k)
-}
-
-ibeta <- function(x, a, b, log0, reg) {
-    .Call('_dng_ibeta', PACKAGE = 'dng', x, a, b, log0, reg)
-}
-
-pochhammer <- function(a, n, log0) {
-    .Call('_dng_pochhammer', PACKAGE = 'dng', a, n, log0)
+    .Call('dng_dsplitt', PACKAGE = 'dng', x, mu, df, phi, lmd, logarithm)
 }
 
 #' Distribution function of Split-normal distribution
@@ -123,7 +111,6 @@ pochhammer <- function(a, n, log0) {
 #' @param sigma vector of standard deviations.
 #' @param lmd vector of skewness parameters (>0). If is 1, reduced to
 #' symmetric student t distribution.
-#' @param logarithm logical; if TRUE, probabilities p are given as log(p).
 #' @return Computing the CDF of the Asymmetric Normal distribution. The random
 #' variable y follows a split-normal distribution, y~N(\eqn{\mu},
 #' \eqn{\sigma}, \eqn{\lmd}), which has density: \deqn{1/(1+\lambda)\sigma
@@ -146,11 +133,11 @@ pochhammer <- function(a, n, log0) {
 #' mu <- c(0,1,2)
 #' sigma <- c(0.5,1,2)
 #' lmd <- c(1,2,3)
-#' dsplitn0 = psplitn(q,mu,sigma,lmd)
+#' psplitn0 = psplitn(q,mu,sigma,lmd)
 #'
 #' @export
 psplitn <- function(q, mu, sigma, lmd) {
-    .Call('_dng_psplitn', PACKAGE = 'dng', q, mu, sigma, lmd)
+    .Call('dng_psplitn', PACKAGE = 'dng', q, mu, sigma, lmd)
 }
 
 #' Distribution function of Split-t distribution
@@ -206,7 +193,7 @@ psplitn <- function(q, mu, sigma, lmd) {
 #'
 #' @export
 psplitt <- function(q, mu, df, phi, lmd) {
-    .Call('_dng_psplitt', PACKAGE = 'dng', q, mu, df, phi, lmd)
+    .Call('dng_psplitt', PACKAGE = 'dng', q, mu, df, phi, lmd)
 }
 
 #' quantile function of split-normal distribution
@@ -249,7 +236,7 @@ psplitt <- function(q, mu, df, phi, lmd) {
 #'
 #' @export
 qsplitn <- function(p, mu, sigma, lmd) {
-    .Call('_dng_qsplitn', PACKAGE = 'dng', p, mu, sigma, lmd)
+    .Call('dng_qsplitn', PACKAGE = 'dng', p, mu, sigma, lmd)
 }
 
 #' quantile function of Split-t distribution
@@ -304,7 +291,7 @@ qsplitn <- function(p, mu, sigma, lmd) {
 #'
 #' @export
 qsplitt <- function(p, mu, df, phi, lmd) {
-    .Call('_dng_qsplitt', PACKAGE = 'dng', p, mu, df, phi, lmd)
+    .Call('dng_qsplitt', PACKAGE = 'dng', p, mu, df, phi, lmd)
 }
 
 #' random generation for Split-Normal distribution
@@ -352,7 +339,7 @@ qsplitt <- function(p, mu, df, phi, lmd) {
 #'
 #' @export
 rsplitn <- function(n, mu, sigma, lmd) {
-    .Call('_dng_rsplitn', PACKAGE = 'dng', n, mu, sigma, lmd)
+    .Call('dng_rsplitn', PACKAGE = 'dng', n, mu, sigma, lmd)
 }
 
 #' random generation for Split-t distribution
@@ -408,7 +395,7 @@ rsplitn <- function(n, mu, sigma, lmd) {
 #' rsplitt0 <- rsplitt(n, mu, df, phi, lmd)
 #' @export
 rsplitt <- function(n, mu, df, phi, lmd) {
-    .Call('_dng_rsplitt', PACKAGE = 'dng', n, mu, df, phi, lmd)
+    .Call('dng_rsplitt', PACKAGE = 'dng', n, mu, df, phi, lmd)
 }
 
 #' Moments of the Split Normal distribution
@@ -424,8 +411,6 @@ rsplitt <- function(n, mu, df, phi, lmd) {
 #'
 #' @aliases splitn_mean splitn_var splitn_skewness splitn_kurtosis
 #' dng_splitn_mean dng_splitn_var dng_splitn_skewness dng_splitn_kurtosis
-#' @param mu vector of location parameter. (The mode of the density)
-#' @param sigma vector of standard deviations.
 #' @param lmd vector of skewness parameters (>0). If is 1, reduce to normal
 #' distribution.
 #' @return \code{splitn_mean} gives the mean.  \code{splitn_var} gives the
@@ -455,7 +440,7 @@ rsplitt <- function(n, mu, df, phi, lmd) {
 #' kurtosis0 <- splitn_kurtosis(lmd)
 #' @export
 splitn_kurtosis <- function(lmd) {
-    .Call('_dng_splitn_kurtosis', PACKAGE = 'dng', lmd)
+    .Call('dng_splitn_kurtosis', PACKAGE = 'dng', lmd)
 }
 
 #' Moments of the Split Normal distribution
@@ -502,7 +487,7 @@ splitn_kurtosis <- function(lmd) {
 #' kurtosis0 <- splitn_kurtosis(lmd)
 #' @export
 splitn_mean <- function(mu, sigma, lmd) {
-    .Call('_dng_splitn_mean', PACKAGE = 'dng', mu, sigma, lmd)
+    .Call('dng_splitn_mean', PACKAGE = 'dng', mu, sigma, lmd)
 }
 
 #' Moments of the Split Normal distribution
@@ -518,7 +503,6 @@ splitn_mean <- function(mu, sigma, lmd) {
 #'
 #' @aliases splitn_mean splitn_var splitn_skewness splitn_kurtosis
 #' dng_splitn_mean dng_splitn_var dng_splitn_skewness dng_splitn_kurtosis
-#' @param mu vector of location parameter. (The mode of the density)
 #' @param sigma vector of standard deviations.
 #' @param lmd vector of skewness parameters (>0). If is 1, reduce to normal
 #' distribution.
@@ -549,7 +533,7 @@ splitn_mean <- function(mu, sigma, lmd) {
 #' kurtosis0 <- splitn_kurtosis(lmd)
 #' @export
 splitn_skewness <- function(sigma, lmd) {
-    .Call('_dng_splitn_skewness', PACKAGE = 'dng', sigma, lmd)
+    .Call('dng_splitn_skewness', PACKAGE = 'dng', sigma, lmd)
 }
 
 #' Moments of the Split Normal distribution
@@ -565,7 +549,6 @@ splitn_skewness <- function(sigma, lmd) {
 #'
 #' @aliases splitn_mean splitn_var splitn_skewness splitn_kurtosis
 #' dng_splitn_mean dng_splitn_var dng_splitn_skewness dng_splitn_kurtosis
-#' @param mu vector of location parameter. (The mode of the density)
 #' @param sigma vector of standard deviations.
 #' @param lmd vector of skewness parameters (>0). If is 1, reduce to normal
 #' distribution.
@@ -596,7 +579,7 @@ splitn_skewness <- function(sigma, lmd) {
 #' kurtosis0 <- splitn_kurtosis(lmd)
 #' @export
 splitn_var <- function(sigma, lmd) {
-    .Call('_dng_splitn_var', PACKAGE = 'dng', sigma, lmd)
+    .Call('dng_splitn_var', PACKAGE = 'dng', sigma, lmd)
 }
 
 #' Moments of the Split-t distribution
@@ -657,7 +640,7 @@ splitn_var <- function(sigma, lmd) {
 #' kurtosis0 <- splitt_kurtosis(df, phi, lmd)
 #' @export
 splitt_kurtosis <- function(df, phi, lmd) {
-    .Call('_dng_splitt_kurtosis', PACKAGE = 'dng', df, phi, lmd)
+    .Call('dng_splitt_kurtosis', PACKAGE = 'dng', df, phi, lmd)
 }
 
 #' Moments of the Split-t distribution
@@ -718,7 +701,7 @@ splitt_kurtosis <- function(df, phi, lmd) {
 #' kurtosis0 <- splitt_kurtosis(df, phi, lmd)
 #' @export
 splitt_mean <- function(mu, df, phi, lmd) {
-    .Call('_dng_splitt_mean', PACKAGE = 'dng', mu, df, phi, lmd)
+    .Call('dng_splitt_mean', PACKAGE = 'dng', mu, df, phi, lmd)
 }
 
 #' Moments of the Split-t distribution
@@ -779,7 +762,7 @@ splitt_mean <- function(mu, df, phi, lmd) {
 #' kurtosis0 <- splitt_kurtosis(df, phi, lmd)
 #' @export
 splitt_skewness <- function(df, phi, lmd) {
-    .Call('_dng_splitt_skewness', PACKAGE = 'dng', df, phi, lmd)
+    .Call('dng_splitt_skewness', PACKAGE = 'dng', df, phi, lmd)
 }
 
 #' Moments of the Split-t distribution
@@ -840,6 +823,6 @@ splitt_skewness <- function(df, phi, lmd) {
 #' kurtosis0 <- splitt_kurtosis(df, phi, lmd)
 #' @export
 splitt_var <- function(df, phi, lmd) {
-    .Call('_dng_splitt_var', PACKAGE = 'dng', df, phi, lmd)
+    .Call('dng_splitt_var', PACKAGE = 'dng', df, phi, lmd)
 }
 
