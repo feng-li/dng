@@ -2,7 +2,8 @@
 using namespace Rcpp;
 //' Split-t distribution
 //'
-//' Density function for the split student-t distribution.
+//' Density, distribution function, quantile function and random generation for the normal
+//' distribution for the split student-t distribution.
 //'
 //' The random variable y follows a split-t distribution with \eqn{\nu}>0
 //' degrees of freedom, y~t(\eqn{\mu}, \eqn{\phi}, \eqn{\lambda}, \eqn{\nu}),
@@ -14,40 +15,47 @@ using namespace Rcpp;
 //' \eqn{\phi ^2\nu/(\nu-2)} and \deqn{c = 2[(1+\lambda)\phi (\sqrt \nu)
 //' Beta(\nu/2,1/2)]^{-1} }is the normalization constant.
 //'
-//' @aliases dng_dsplitt dsplitt
+//' @name splitt
+//'
 //' @param x vector of quantiles.
 //' @param mu vector of location parameter. (The mode of the density)
-//' @param df degrees of freedom (> 0, maybe non-integer). df = Inf is allowed.
+//' @param df degrees of freedom (> 0, can be non-integer). df = Inf is also allowed.
 //' @param phi vector of scale parameters (>0).
-//' @param lmd vector of skewness parameters (>0). If is 1, reduced to
+//' @param lmd vector of skewness parameters (>0). If is 1, reduced to the
 //' symmetric student t distribution.
 //' @param logarithm logical; if TRUE, probabilities p are given as log(p).
-//' @return \code{dsplitt} gives the density.  Invalid arguments will result in
-//' return value NaN, with a warning.
+//' @return \code{dsplitt} gives the density; \code{psplitt} gives the percentile;
+//' \code{qsplitt} gives the quantile; and \code{rsplitt} gives the random
+//' variables. Invalid arguments will result in return value NaN, with a warning.
 //'
 //' The numerical arguments other than n are recycled to the length of the
 //' result. Only the first elements of the logical arguments are used.
+//'
 //' @author Feng Li, Jiayue Zeng
 //' @seealso \code{\link{splitt_mean}()},
 //' \code{\link{splitt_var}()},\code{\link{splitt_skewness}()} and
 //' \code{\link{splitt_kurtosis}()} for numerical characteristics of the
 //' Split-t distribution.
-//' @references Li, F., Villani, M., & Kohn, R. (2010). Flexible modeling of
+//'
+//' @references
+//' Li, F., Villani, M., & Kohn, R. (2010). Flexible modeling of
 //' conditional distributions using smooth mixtures of asymmetric student t
 //' densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654.
 //' @keywords distribution asymmetric student-t
+//'
 //' @examples
 //'
-//' n <- 5
-//' x <- c(0.25,0.5,0.75)
-//' q <- c(0.25,0.5,0.75)
-//' p <- c(0.25,0.5,0.75)
+//' n <- 3
 //' mu <- c(0,1,2)
 //' df <- rep(10,3)
 //' phi <- c(0.5,1,2)
 //' lmd <- c(1,2,3)
 //'
-//' dsplitt0 <- dsplitt(x, mu, df, phi, lmd, logarithm = TRUE)
+//' q0 <- rsplitt(n, mu, df, phi, lmd)
+//' d0 <- dsplitt(q0, mu, df, phi, lmd, logarithm = FALSE)
+//' p0 <- psplitt(q0, mu, df, phi, lmd)
+//' q1 <- qsplitt(p0,mu, df, phi, lmd)
+//' all.equal(q0, q1)
 //'
 //' @export
 // [[Rcpp::export]]

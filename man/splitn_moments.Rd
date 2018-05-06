@@ -2,16 +2,19 @@
 % Please edit documentation in R/RcppExports.R
 \name{splitn_kurtosis}
 \alias{splitn_kurtosis}
+\alias{splitn_moments}
 \alias{splitn_mean}
-\alias{splitn_var}
 \alias{splitn_skewness}
-\alias{dng_splitn_mean}
-\alias{dng_splitn_var}
-\alias{dng_splitn_skewness}
-\alias{dng_splitn_kurtosis}
-\title{Moments of the Split Normal distribution}
+\alias{splitn_var}
+\title{Moments of the split normal distribution}
 \usage{
 splitn_kurtosis(lmd)
+
+splitn_mean(mu, sigma, lmd)
+
+splitn_skewness(sigma, lmd)
+
+splitn_var(sigma, lmd)
 }
 \arguments{
 \item{lmd}{vector of skewness parameters (>0). If is 1, reduce to normal
@@ -29,16 +32,18 @@ variance.  \code{splitn_skewness} gives the skewness.
 vectors.
 }
 \description{
-Compute the mean, variance, skewness and kurtosis for the split normal
+Computing the mean, variance, skewness and kurtosis for the split-normal
 distribution.
 }
-\details{
-The random variable y follows a split-normal distribution, which has
-density: \deqn{1/(1+\lambda)\sigma \sqrt(2/\pi) exp{-(y-\mu)*2/2\sigma^2},
-if y<=\mu} \deqn{1/(1+\lambda)\sigma \sqrt(2/\pi) exp{-(y-\mu)*2/2\sigma^2
-\lambda^2}, if y>\mu} where \eqn{\sigma>0} and \eqn{\lambda>0}. The
-Split-normal distribution reduce to normal distribution when \eqn{\lmd=1}.
-}
+\section{Functions}{
+\itemize{
+\item \code{splitn_kurtosis}: Kurtosis for the split-normal distribution.
+
+\item \code{splitn_skewness}: Skewness for the split-normal distribution.
+
+\item \code{splitn_var}: Variance for the split-normal distribution.
+}}
+
 \examples{
 
 mu <- c(0,1,2)
@@ -51,16 +56,13 @@ skewness0 <- splitn_skewness(sigma, lmd)
 kurtosis0 <- splitn_kurtosis(lmd)
 }
 \references{
-Li, F., Villani, M., & Kohn, R. (2010). Flexible modeling of
-conditional distributions using smooth mixtures of asymmetric student t
-densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654.
-and Villani, M., & Larsson, R. (2006) The Multivariate Split Normal
+Villani, M., & Larsson, R. (2006) The Multivariate Split Normal
 Distribution and Asymmetric Principal Components Analysis. Sveriges
 Riksbank Working Paper Series, No. 175.
 }
 \seealso{
-\code{\link{psplitn}()} \code{\link{dsplitn}()} and for the
-split-normal distribution.
+\code{\link{psplitn}()} \code{\link{dsplitn}()} \code{\link{qsplitn}()} and
+\code{\link{rsplitn}()} for the split-normal distribution.
 }
 \author{
 Feng Li, Jiayue Zeng
