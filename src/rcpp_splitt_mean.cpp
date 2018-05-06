@@ -25,7 +25,7 @@ using namespace Rcpp;
 //' distribution.
 //'
 //' @references
-//' Li, F., Villani, M., & Kohn, R. (2009). Flexible modeling of
+//' Li, F., Villani, M., & Kohn, R. (2010). Flexible modeling of
 //' conditional distributions using smooth mixtures of asymmetric student t
 //' densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654.
 //' @keywords distribution asymmetric student-t

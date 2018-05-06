@@ -61,7 +61,7 @@ skewness0 <- splitt_skewness(df, phi, lmd)
 kurtosis0 <- splitt_kurtosis(df, phi, lmd)
 }
 \references{
-Li, F., Villani, M., & Kohn, R. (2009). Flexible modeling of
+Li, F., Villani, M., & Kohn, R. (2010). Flexible modeling of
 conditional distributions using smooth mixtures of asymmetric student t
 densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654.
 }
