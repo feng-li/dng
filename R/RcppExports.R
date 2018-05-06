@@ -46,7 +46,7 @@
 #' sigma <- c(1,2,3)
 #' lmd <- c(1,2,3)
 #'
-#' q0 <- rsplitn(3, mu, sigma, lmd)
+#' q0 <- rsplitn(n, mu, sigma, lmd)
 #' d0 <- dsplitn(q0, mu, sigma, lmd, logarithm = FALSE)
 #' p0 <- psplitn(q0, mu, sigma, lmd)
 #' q1 <- qsplitn(p0,mu, sigma, lmd)
