@@ -36,48 +36,6 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// ghypergeo
-NumericVector ghypergeo(NumericMatrix a, NumericMatrix b, NumericVector z, int k);
-RcppExport SEXP _dng_ghypergeo(SEXP aSEXP, SEXP bSEXP, SEXP zSEXP, SEXP kSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type a(aSEXP);
-    Rcpp::traits::input_parameter< NumericMatrix >::type b(bSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type z(zSEXP);
-    Rcpp::traits::input_parameter< int >::type k(kSEXP);
-    rcpp_result_gen = Rcpp::wrap(ghypergeo(a, b, z, k));
-    return rcpp_result_gen;
-END_RCPP
-}
-// ibeta
-double ibeta(double x, double a, double b, bool log0, bool reg);
-RcppExport SEXP _dng_ibeta(SEXP xSEXP, SEXP aSEXP, SEXP bSEXP, SEXP log0SEXP, SEXP regSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< double >::type x(xSEXP);
-    Rcpp::traits::input_parameter< double >::type a(aSEXP);
-    Rcpp::traits::input_parameter< double >::type b(bSEXP);
-    Rcpp::traits::input_parameter< bool >::type log0(log0SEXP);
-    Rcpp::traits::input_parameter< bool >::type reg(regSEXP);
-    rcpp_result_gen = Rcpp::wrap(ibeta(x, a, b, log0, reg));
-    return rcpp_result_gen;
-END_RCPP
-}
-// pochhammer
-NumericMatrix pochhammer(NumericVector a, IntegerVector n, bool log0);
-RcppExport SEXP _dng_pochhammer(SEXP aSEXP, SEXP nSEXP, SEXP log0SEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericVector >::type a(aSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type n(nSEXP);
-    Rcpp::traits::input_parameter< bool >::type log0(log0SEXP);
-    rcpp_result_gen = Rcpp::wrap(pochhammer(a, n, log0));
-    return rcpp_result_gen;
-END_RCPP
-}
 // psplitn
 NumericVector psplitn(NumericVector q, NumericVector mu, NumericVector sigma, NumericVector lmd);
 RcppExport SEXP _dng_psplitn(SEXP qSEXP, SEXP muSEXP, SEXP sigmaSEXP, SEXP lmdSEXP) {
@@ -270,9 +228,6 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_dng_dsplitn", (DL_FUNC) &_dng_dsplitn, 5},
     {"_dng_dsplitt", (DL_FUNC) &_dng_dsplitt, 6},
-    {"_dng_ghypergeo", (DL_FUNC) &_dng_ghypergeo, 4},
-    {"_dng_ibeta", (DL_FUNC) &_dng_ibeta, 5},
-    {"_dng_pochhammer", (DL_FUNC) &_dng_pochhammer, 3},
     {"_dng_psplitn", (DL_FUNC) &_dng_psplitn, 4},
     {"_dng_psplitt", (DL_FUNC) &_dng_psplitt, 5},
     {"_dng_qsplitn", (DL_FUNC) &_dng_qsplitn, 4},

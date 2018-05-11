@@ -18,6 +18,9 @@ using namespace Rcpp;
 //' @param sigma vector of standard deviations.
 //' @param lmd vector of skewness parameters (>0). If is 1, reduced to
 //' symmetric normal distribution.
+//' @param p vector of probability.
+//' @param q vector of quantiles.
+//' @param n number of observations. If length(n) > 1, the length is taken to be the number required.
 //' @param logarithm logical; if TRUE, probabilities p are given as log(p).
 //' @return \code{dsplitn} gives the density; \code{psplitn} gives the percentile;
 //' \code{qsplitn} gives the quantile; and \code{rsplitn} gives the random

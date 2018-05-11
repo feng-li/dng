@@ -19,6 +19,9 @@
 #' @param sigma vector of standard deviations.
 #' @param lmd vector of skewness parameters (>0). If is 1, reduced to
 #' symmetric normal distribution.
+#' @param p vector of probability.
+#' @param q vector of quantiles.
+#' @param n number of observations. If length(n) > 1, the length is taken to be the number required.
 #' @param logarithm logical; if TRUE, probabilities p are given as log(p).
 #' @return \code{dsplitn} gives the density; \code{psplitn} gives the percentile;
 #' \code{qsplitn} gives the quantile; and \code{rsplitn} gives the random
@@ -79,6 +82,9 @@ dsplitn <- function(x, mu, sigma, lmd, logarithm) {
 #' @param phi vector of scale parameters (>0).
 #' @param lmd vector of skewness parameters (>0). If is 1, reduced to the
 #' symmetric student t distribution.
+#' @param p vector of probability.
+#' @param q vector of quantiles.
+#' @param n number of observations. If length(n) > 1, the length is taken to be the number required.
 #' @param logarithm logical; if TRUE, probabilities p are given as log(p).
 #' @return \code{dsplitt} gives the density; \code{psplitt} gives the percentile;
 #' \code{qsplitt} gives the quantile; and \code{rsplitt} gives the random
@@ -116,18 +122,6 @@ dsplitn <- function(x, mu, sigma, lmd, logarithm) {
 #' @export
 dsplitt <- function(x, mu, df, phi, lmd, logarithm) {
     .Call('_dng_dsplitt', PACKAGE = 'dng', x, mu, df, phi, lmd, logarithm)
-}
-
-ghypergeo <- function(a, b, z, k) {
-    .Call('_dng_ghypergeo', PACKAGE = 'dng', a, b, z, k)
-}
-
-ibeta <- function(x, a, b, log0, reg) {
-    .Call('_dng_ibeta', PACKAGE = 'dng', x, a, b, log0, reg)
-}
-
-pochhammer <- function(a, n, log0) {
-    .Call('_dng_pochhammer', PACKAGE = 'dng', a, n, log0)
 }
 
 #' @describeIn splitn Percentile for the split-normal distribution.

@@ -23,6 +23,9 @@ using namespace Rcpp;
 //' @param phi vector of scale parameters (>0).
 //' @param lmd vector of skewness parameters (>0). If is 1, reduced to the
 //' symmetric student t distribution.
+//' @param p vector of probability.
+//' @param q vector of quantiles.
+//' @param n number of observations. If length(n) > 1, the length is taken to be the number required.
 //' @param logarithm logical; if TRUE, probabilities p are given as log(p).
 //' @return \code{dsplitt} gives the density; \code{psplitt} gives the percentile;
 //' \code{qsplitt} gives the quantile; and \code{rsplitt} gives the random

@@ -27,6 +27,12 @@ rsplitn(n, mu, sigma, lmd)
 symmetric normal distribution.}
 
 \item{logarithm}{logical; if TRUE, probabilities p are given as log(p).}
+
+\item{q}{vector of quantiles.}
+
+\item{p}{vector of probability.}
+
+\item{n}{number of observations. If length(n) > 1, the length is taken to be the number required.}
 }
 \value{
 \code{dsplitn} gives the density; \code{psplitn} gives the percentile;
