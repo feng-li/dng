@@ -42,7 +42,7 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 NumericVector splitn_mean(NumericVector mu, NumericVector sigma, NumericVector lmd)
 {
-  int a[3];
+  IntegerVector a(3);
   int n,i,j;
   double pi;
   pi = 3.1415926535897932;

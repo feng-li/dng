@@ -64,25 +64,13 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 NumericVector dsplitt(NumericVector x,NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd, bool logarithm)
 {
-  int a[5];
-  int n,i,j;
-  a[0] = x.size();
-  a[1] = mu.size();
-  a[2] = df.size();
-  a[3] = phi.size();
-  a[4] = lmd.size();
+  int n,i;
 
-  if(a[0]==a[1] && a[0]==a[2] && a[0]==a[3] && a[0]==a[4] ) {n = a[0];}
-  else
-  {
-    n = a[0];
-    for(i = 1;i<=4;i++)   { if(a[i]>n) n = a[i];}
-    for(j = a[0];j<n;j++) { x[j] = x[j-a[0]];}
-    for(j = a[1];j<n;j++) { mu[j] = mu[j-a[1]];}
-    for(j = a[2];j<n;j++) { df[j] = df[j-a[2]];}
-    for(j = a[3];j<n;j++) { phi[j] = phi[j-a[3]];}
-    for(j = a[4];j<n;j++) { lmd[j] = lmd[j-a[4]];}
-  }
+  n = x.size();
+  mu = rep_len(mu, n);
+  df = rep_len(df, n);
+  phi = rep_len(phi, n);
+  lmd = rep_len(lmd, n);
 
   NumericVector I0(n),I(n);
   NumericVector sign(n),densitylog(n),out(n);

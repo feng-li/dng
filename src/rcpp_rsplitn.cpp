@@ -5,28 +5,20 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 NumericVector rsplitn(int n, NumericVector mu, NumericVector sigma, NumericVector lmd)
 {
-  int i,j;
+  int i;
   NumericVector u(n),out(n);
   for(i = 0; i<n; i++)
   {
     u[i] = R::runif(0,1);
   }
 
-  int a[4];
-  a[0] = u.size();
-  a[1] = mu.size();
-  a[2] = sigma.size();
-  a[3] = lmd.size();
-
-  for(j = a[1];j<n;j++) { mu[j] = mu[j-a[1]];}
-  for(j = a[2];j<n;j++) { sigma[j] = sigma[j-a[2]];}
-  for(j = a[3];j<n;j++) { lmd[j] = lmd[j-a[3]];}
+  mu = rep_len(mu, n);
+  sigma = rep_len(sigma, n);
+  lmd = rep_len(lmd, n);
 
   NumericVector mu_long(n),df_long(n),phi_long(n),lmd_long(n);
   NumericVector I0(n),I(n);
   NumericVector p0std(n), y0std(n);
-
-
 
   for(i = 0;i<n;i++)
   {

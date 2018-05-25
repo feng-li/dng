@@ -1,16 +1,17 @@
 #include <Rcpp.h>
+#include <algorithm>
 using namespace Rcpp;
 //' @describeIn splitt_moments Kurtosis for the split-t distribution.
 //' @export
 // [[Rcpp::export]]
 NumericVector splitt_kurtosis(NumericVector df, NumericVector phi, NumericVector lmd)
 {
-  int a[3];
+  IntegerVector a(3);
   int n,i,j;
   a[0] = df.size();
   a[1] = phi.size();
   a[2] = lmd.size();
-
+  
   if(a[0]==a[1] && a[0]==a[2]) {n = a[0];}
   else
   {
@@ -20,7 +21,7 @@ NumericVector splitt_kurtosis(NumericVector df, NumericVector phi, NumericVector
     for(j = a[1];j<n;j++) { phi[j] = phi[j-a[1]];}
     for(j = a[2];j<n;j++) { lmd[j] = lmd[j-a[2]];}
   }
-
+  
   NumericVector h(n),var(n),m4(n),kurtosis(n);
   NumericVector beta0(n);
 

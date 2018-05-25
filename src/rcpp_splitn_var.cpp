@@ -5,7 +5,7 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 NumericVector splitn_var(NumericVector sigma, NumericVector lmd)
 {
-  int a[2];
+  IntegerVector a(2);
   int n,i,j;
   double pi;
   pi = 3.1415926535897932;

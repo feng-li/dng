@@ -7,27 +7,14 @@ NumericVector psplitt(NumericVector q, NumericVector mu, NumericVector df, Numer
 {
   double ibeta0;
   double pbeta0;
-  int a[5];
-  int n,i,j;
-  a[0] = q.size();
-  a[1] = mu.size();
-  a[2] = df.size();
-  a[3] = phi.size();
-  a[4] = lmd.size();
+  int n,i;
 
-  if(a[0]==a[1] && a[0]==a[2] && a[0]==a[3] && a[0]==a[4]) {n = a[0];}
-  else
-  {
-    n = a[0];
-    for(i = 1;i<=4;i++)   { if(a[i]>n) n = a[i];}
-
-    for(j = a[0];j<n;j++) { q[j] = q[j-a[0]];}
-    for(j = a[1];j<n;j++) { mu[j] = mu[j-a[1]];}
-    for(j = a[2];j<n;j++) { df[j] = df[j-a[2]];}
-    for(j = a[3];j<n;j++) { phi[j] = phi[j-a[3]];}
-    for(j = a[4];j<n;j++) { lmd[j] = lmd[j-a[4]];}
-  }
-
+  n = q.size();
+  mu = rep_len(mu, n);
+  df = rep_len(df, n);
+  phi = rep_len(phi, n);
+  lmd = rep_len(lmd, n);
+  
   NumericVector I0(n),I(n), sign(n), sign2(n);
   NumericVector A(n),BetaRegUpper(n);
   NumericVector out(n);

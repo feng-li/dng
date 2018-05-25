@@ -44,7 +44,7 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 NumericVector splitt_mean(NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd)
 {
-  int a[4];
+  IntegerVector a(4);
   int n,i,j;
   a[0] = mu.size();
   a[1] = df.size();

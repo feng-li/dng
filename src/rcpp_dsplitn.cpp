@@ -57,24 +57,12 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 NumericVector dsplitn(NumericVector x, NumericVector mu, NumericVector sigma, NumericVector lmd, bool logarithm)
 {
-  int a[4];
-  int n,i,j;
-  a[0] = x.size();
-  a[1] = mu.size();
-  a[2] = sigma.size();
-  a[3] = lmd.size();
+  int n;
 
-
-  if(a[0]==a[1] && a[0]==a[2] && a[0]==a[3] ) {n = a[0];}
-  else
-  {
-    n = a[0];
-    for(i = 1;i<=3;i++)   { if(a[i]>n) n = a[i];}
-    for(j = a[0];j<n;j++) { x[j] = x[j-a[0]];}
-    for(j = a[1];j<n;j++) { mu[j] = mu[j-a[1]];}
-    for(j = a[2];j<n;j++) { sigma[j] = sigma[j-a[2]];}
-    for(j = a[3];j<n;j++) { lmd[j] = lmd[j-a[3]];}
-  }
+  n = x.size();
+  mu = rep_len(mu, n);
+  sigma = rep_len(sigma, n);
+  lmd = rep_len(lmd, n);
 
   int len;
   double pi;
@@ -82,7 +70,6 @@ NumericVector dsplitn(NumericVector x, NumericVector mu, NumericVector sigma, Nu
   len = n;
   NumericVector densitq(len),out(len);
   NumericVector I0(len),I(len), sign(len);
-
 
   for(int a=0;a<len;a++)
   {
@@ -94,7 +81,7 @@ NumericVector dsplitn(NumericVector x, NumericVector mu, NumericVector sigma, Nu
         ((1+lmd[a])*sigma[a]);
   }
 
-  if(!logarithm)
+  if(logarithm)
   {
     for(int i = 0;i<len;i++)
     { out[i] = exp(densitq[i]);   }

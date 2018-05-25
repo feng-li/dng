@@ -1,12 +1,15 @@
 #include <Rcpp.h>
 using namespace Rcpp;
+//' @describeIn splitt ghypergeo for the split-t distribution.
+//' @export
+// [[Rcpp::export]]
 NumericMatrix ghypergeo(NumericMatrix a, NumericMatrix b, NumericVector z,int k);
 List gsplitt(NumericVector y, List par, std::string parCaller, GenericVector denscaller)
 {
-  int i,j,a,n1,n2,n3,n4;
+  int i,j,n1,n2,n3,n4;
 
   n1=y.size();
-  // n2=type.size();
+  //n2=type.size();
   n3=parCaller.size();
   n4=denscaller.size();
 

@@ -5,7 +5,7 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 NumericVector splitt_skewness(NumericVector df, NumericVector phi, NumericVector lmd)
 {
-  int a[3];
+  IntegerVector a(3);
   int n,i,j;
   a[0] = df.size();
   a[1] = phi.size();

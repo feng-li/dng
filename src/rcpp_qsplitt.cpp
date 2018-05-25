@@ -5,19 +5,12 @@ using namespace Rcpp;
 // [[Rcpp::export]]
 NumericVector qsplitt(NumericVector p,NumericVector mu, NumericVector df, NumericVector phi, NumericVector lmd)
 {
-  int a[5];
-  int n,i,j;
+  int n,i;
   n = p.size();
-  a[0] = p.size();
-  a[1] = mu.size();
-  a[2] = df.size();
-  a[3] = phi.size();
-  a[4] = lmd.size();
-
-  for(j = a[1];j<n;j++) { mu[j] = mu[j-a[1]];}
-  for(j = a[2];j<n;j++) { df[j] = df[j-a[2]];}
-  for(j = a[3];j<n;j++) { phi[j] = phi[j-a[3]];}
-  for(j = a[4];j<n;j++) { lmd[j] = lmd[j-a[4]];}
+  mu = rep_len(mu, n);
+  df = rep_len(df, n);
+  phi = rep_len(phi, n);
+  lmd = rep_len(lmd, n);
 
   NumericVector mu_long(n),df_long(n),phi_long(n),lmd_long(n);
   NumericVector I0(n),I(n);
