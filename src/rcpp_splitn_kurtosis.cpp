@@ -11,7 +11,7 @@ NumericVector splitn_kurtosis(NumericVector lmd)
   pi = 3.1415926535897932;
 
   NumericVector kurtosis(n);
-  NumericVector k1(n),k2(n),k3;
+  NumericVector k1(n),k2(n),k3(n);
 
   for(int i=0;i<n;i++){
     k1[i] = pow((lmd[i]-1),2);
