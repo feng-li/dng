@@ -24,7 +24,7 @@ NumericVector splitn_skewness(NumericVector sigma, NumericVector lmd)
   NumericVector skewness(n),nu(n),dm(n);
 
   for(int i=0;i<n;i++){
-    nu[i] = sqrt(2)*(lmd[i]-1)*((-4)*pow((lmd[i]-1),2)+pi*(lmd[i]-3)*lmd[i]+pi)*pow(sigma[i],3);
+    nu[i] = pow(2,0.5)*(lmd[i]-1)*((-4)*pow((lmd[i]-1),2)+pi*(lmd[i]-3)*lmd[i]+pi)*pow(sigma[i],3);
     dm[i] = pow(((-2*pow((lmd[i]-1),2)+pi*lmd[i]*(lmd[i]-1)+pi)*pow(sigma[i],2)),(3/2));
 
     skewness[i] = nu[i]/dm[i];

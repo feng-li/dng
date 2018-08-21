@@ -7,11 +7,11 @@
 #' the split normal distribution.
 #'
 #' The random ' variable y follows a split-normal distribution, y~N(\eqn{\mu}, '
-#' \eqn{\sigma}, \eqn{\lmd}), which has density: \deqn{1/(1+\lambda)\sigma ' \sqrt(2/\pi)
+#' \eqn{\sigma}, \eqn{\lambda}), which has density: \deqn{1/(1+\lambda)\sigma ' \sqrt(2/\pi)
 #' exp{-(y-\mu)*2/2\sigma^2}, if y<=\mu} ' \deqn{1/(1+\lambda)\sigma \sqrt(2/\pi)
 #' exp{-(y-\mu)*2/2\sigma^2 \lambda^2}, ' if y>\mu} where \eqn{\sigma>0} and
 #' \eqn{\lambda>0}. The Split-normal ' distribution reduce to normal distribution when
-#' \eqn{\lmd=1}.
+#' \eqn{\lambda=1}.
 #'
 #' @name splitn
 #' @param x vector of quantiles.

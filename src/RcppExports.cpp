@@ -225,8 +225,6 @@ BEGIN_RCPP
 END_RCPP
 }
 
-RcppExport SEXP _dng_ghypergeo(SEXP, SEXP, SEXP, SEXP);
-
 static const R_CallMethodDef CallEntries[] = {
     {"_dng_dsplitn", (DL_FUNC) &_dng_dsplitn, 5},
     {"_dng_dsplitt", (DL_FUNC) &_dng_dsplitt, 6},
@@ -244,7 +242,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_dng_splitt_mean", (DL_FUNC) &_dng_splitt_mean, 4},
     {"_dng_splitt_skewness", (DL_FUNC) &_dng_splitt_skewness, 3},
     {"_dng_splitt_var", (DL_FUNC) &_dng_splitt_var, 3},
-    {"_dng_ghypergeo",       (DL_FUNC) &_dng_ghypergeo,       4},
     {NULL, NULL, 0}
 };
 
