@@ -1,38 +1,38 @@
-citHeader("To cite package dng in publications use")
+citHeader("To cite dng in publications use:")
 
-## Rcpp (>= 0.12.6) passes package metadata to citation().
-if(!exists("meta") || is.null(meta)) meta <- packageDescription("dng")
-year <- sub("-.*", "", meta$Date)
-note <- sprintf("R package version %s", meta$Version)
-
-citEntry(entry = "Manual",
-         title = "{dng}: Split normal and Split-t distributions",
-         author = personList(as.person("Feng Li"),
-                             as.person("Jiayue Zeng")),
-         year = year,
-         note = note,
-         url = "https://bitbucket.org/fli/dng",
-
-         textVersion =
-         paste("Feng Li, Jiayue Zeng",
-   	       sprintf("(%s).", year),
-               "dng: Split normal and Split-t distributions.",
-	       paste(note, ".", sep = ""),
-               "URL https://bitbucket.org/fli/dng")
+citEntry(
+  entry    = "Manual",
+  title    = "{dng}: Distribution and Gradient Functions for the Split-t and Split Normal densities",
+  author   = personList(as.person("Feng Li"),
+                        as.person("Jiayue Zeng")),
+  year     = "2023",
+  note = "R package version 0.3.0",
+  url      = "https://CRAN.R-project.org/package=dng",
+  textVersion = paste("Li, F. and Zeng, J. (2023).",
+                      "{dng}: Distribution and Gradient Functions for split-t and split normal densities.",
+                      "URL https://CRAN.R-project.org/package=dng")
 )
 
-citEntry(entry="Article",
-         title = "Flexible modeling of conditional
-distributions using smooth mixtures of asymmetric student t densities",
-         author = personList(as.person("Feng Li"),
-                             as.person(" Villani Mattias"),
-                             as.person(" Kohn Robert")),
-
-         series = "Lecture Notes in Statistics",
-         Journal = "Journal of Statistical Planning and Inference",
-         Year = "2010",
-         Number = "12",
-         Pages = "3638--3654",
-         Volume = "140",
-         textVersion = "Li, F., Villani, M., & Kohn, R. (2009). Flexible modeling of conditional distributions using smooth mixtures of asymmetric student t densities. Journal of Statistical Planning & Inference, 140(12), 3638-3654."
+citEntry(
+  entry    = "Article",
+  title = "Flexible modeling of conditional distributions using smooth mixtures of asymmetric student t densities",
+  author   = personList(as.person("Feng Li"),
+                        as.person("Mattias Villani"),
+                        as.person("Robert Kohn")),
+  journal = "Journal of Statistical Planning and Inference",
+  year = "2010",
+  volume = "140",
+  number = "12",
+  pages = "3638--3654",
+  doi = "10.1016/j.jspi.2010.04.031",
+  journal  = "Statistical Analysis and Data Mining",
+  year     = "2020",
+  volume   = "13",
+  number   = "4",
+  pages    = "354--376",
+  doi      = "10.1002/sam.11461",
+  textVersion = paste("Feng Li, Mattias Villani and Robert Kohn (2010).",
+                      "Flexible modeling of conditional distributions using smooth mixtures of asymmetric student t densities",
+                      "Journal of Statistical Planning and Inference.",
+                      "Vol. 140(12), pp. 3638-3654.")
 )

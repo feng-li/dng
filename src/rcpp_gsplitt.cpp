@@ -6,12 +6,12 @@ using namespace Rcpp;
 NumericMatrix ghypergeo(NumericMatrix a, NumericMatrix b, NumericVector z,int k);
 List gsplitt(NumericVector y, List par, std::string parCaller, GenericVector denscaller)
 {
-  int i,j,n1,n2,n3,n4;
+  int i,j,n1,n3;
 
   n1=y.size();
-  //n2=type.size();
+  // n2=type.size();
   n3=parCaller.size();
-  n4=denscaller.size();
+  // n4=denscaller.size();
 
   NumericVector mu(n1),df(n1),phi(n1),lmd(n1),logMargiDens(n1);
   NumericVector outu(n1),outd(n1);

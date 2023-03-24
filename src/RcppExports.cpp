@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // dsplitn
 NumericVector dsplitn(NumericVector x, NumericVector mu, NumericVector sigma, NumericVector lmd, bool logarithm);
 RcppExport SEXP _dng_dsplitn(SEXP xSEXP, SEXP muSEXP, SEXP sigmaSEXP, SEXP lmdSEXP, SEXP logarithmSEXP) {
@@ -33,6 +38,20 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< NumericVector >::type lmd(lmdSEXP);
     Rcpp::traits::input_parameter< bool >::type logarithm(logarithmSEXP);
     rcpp_result_gen = Rcpp::wrap(dsplitt(x, mu, df, phi, lmd, logarithm));
+    return rcpp_result_gen;
+END_RCPP
+}
+// ghypergeo
+NumericMatrix ghypergeo(NumericMatrix a, NumericMatrix b, NumericVector z, int k);
+RcppExport SEXP _dng_ghypergeo(SEXP aSEXP, SEXP bSEXP, SEXP zSEXP, SEXP kSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type a(aSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type b(bSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type z(zSEXP);
+    Rcpp::traits::input_parameter< int >::type k(kSEXP);
+    rcpp_result_gen = Rcpp::wrap(ghypergeo(a, b, z, k));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -228,6 +247,7 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_dng_dsplitn", (DL_FUNC) &_dng_dsplitn, 5},
     {"_dng_dsplitt", (DL_FUNC) &_dng_dsplitt, 6},
+    {"_dng_ghypergeo", (DL_FUNC) &_dng_ghypergeo, 4},
     {"_dng_psplitn", (DL_FUNC) &_dng_psplitn, 4},
     {"_dng_psplitt", (DL_FUNC) &_dng_psplitt, 5},
     {"_dng_qsplitn", (DL_FUNC) &_dng_qsplitn, 4},

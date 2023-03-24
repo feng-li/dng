@@ -124,6 +124,12 @@ dsplitt <- function(x, mu, df, phi, lmd, logarithm) {
     .Call('_dng_dsplitt', PACKAGE = 'dng', x, mu, df, phi, lmd, logarithm)
 }
 
+#' @describeIn splitt ghypergeo for the split-t distribution.
+#' @export
+ghypergeo <- function(a, b, z, k) {
+    .Call('_dng_ghypergeo', PACKAGE = 'dng', a, b, z, k)
+}
+
 #' @describeIn splitn Percentile for the split-normal distribution.
 #' @export
 psplitn <- function(q, mu, sigma, lmd) {
