@@ -3,8 +3,8 @@ Type: Package
 Title: Distributions and Gradients
 Version: 0.2.1
 Authors@R: c(
-    person("Feng", "Li", role =  c("aut", "cre"), email = "feng.li@cufe.edu.cn")
-    person("Jiayue", "Zeng", role = c("aut"), email = "zengjiayue@126.com"),
+    person("Feng", "Li", role =  c("aut", "cre"), email = "feng.li@cufe.edu.cn"),
+    person("Jiayue", "Zeng", role = c("aut"), email = "zengjiayue@126.com")
     )
 Depends: R (>= 3.0.0)
 Description: Provides density, distribution function, quantile function and random
