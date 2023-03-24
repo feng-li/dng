@@ -1,6 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# gratis <img src="man/figures/splitt.png" align="right" height="210"/>
+# dng <img src="man/figures/splitt.png" align="right" height="210"/>
 
 <!-- badges: start -->
 
@@ -9,7 +9,7 @@ status](https://github.com/feng-li/dng/workflows/R-CMD-check/badge.svg)](https:/
 [![](https://cranlogs.r-pkg.org/badges/dng)](https://CRAN.R-project.org/package=dng)
 <!-- badges: end -->
 
-The R package `dng` (distributions and gradients)  provides efficient algorithms for density, distribution function, quantile function and random generation for the split normal and split-t distributions, and computes their mean, variance, skewness and kurtosis for the two distributions.
+The R package `dng` (`d`istributions a`n`d `g`radients)  provides efficient algorithms for density, distribution function, quantile function and random generation for the split normal and split-t distributions, and computes their mean, variance, skewness and kurtosis for the two distributions.
 
 
 ## Installation
