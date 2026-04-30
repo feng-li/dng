@@ -3,7 +3,8 @@ Type: Package
 Title: Distributions and Gradients
 Version: 1.0.0
 Authors@R: c(
-    person("Feng", "Li", email = "feng.li@gsm.pku.edu.cn", role = c("aut", "cre")),
+    person("Feng", "Li", email = "feng.li@gsm.pku.edu.cn", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-4248-9778")),
     person("Jiayue", "Zeng", email = "zengjiayue@126.com", role = "aut")
     )
 Depends: R (>= 3.0.0)
