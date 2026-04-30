@@ -129,11 +129,20 @@ bool invalid_parameters(const double nu, const double phi, const double lambda)
 
 } // namespace
 
-//' @describeIn splitt Generalized hypergeometric function for split-t gradient calculations.
+//' Generalized hypergeometric function
+//'
+//' Evaluate generalized hypergeometric series used by the split-t gradient
+//' calculations.
+//'
 //' @param a matrix of upper hypergeometric parameters.
 //' @param b matrix of lower hypergeometric parameters.
 //' @param z vector of hypergeometric function arguments.
-//' @param k maximum number of hypergeometric series terms.
+//' @param k maximum number of hypergeometric series terms. Non-positive values
+//' use the package default.
+//' @return A one-column numeric matrix of generalized hypergeometric function
+//' values. Rows of \code{a}, rows of \code{b}, and values of \code{z} are
+//' recycled to the output length.
+//' @seealso \code{\link{gsplitt}()}
 //' @export
 // [[Rcpp::export]]
 NumericMatrix ghypergeo(NumericMatrix a, NumericMatrix b, NumericVector z, int k)

@@ -91,8 +91,7 @@ dsplitn <- function(x, mu, sigma, lmd, logarithm) {
 #' @return \code{dsplitt} gives the density; \code{psplitt} gives the percentile;
 #' \code{qsplitt} gives the quantile; and \code{rsplitt} gives the random
 #' variables. \code{gsplitt} returns a list with elements \code{u} and \code{d}
-#' containing gradients of the CDF and log-density. \code{ghypergeo} returns a
-#' matrix of generalized hypergeometric function values. Invalid arguments will
+#' containing gradients of the CDF and log-density. Invalid arguments will
 #' result in return value NaN, with a warning.
 #'
 #' The numerical arguments other than n are recycled to the length of the
@@ -141,11 +140,20 @@ gsplitn <- function(y, par, parCaller, denscaller) {
     .Call('_dng_gsplitn', PACKAGE = 'dng', y, par, parCaller, denscaller)
 }
 
-#' @describeIn splitt Generalized hypergeometric function for split-t gradient calculations.
+#' Generalized hypergeometric function
+#'
+#' Evaluate generalized hypergeometric series used by the split-t gradient
+#' calculations.
+#'
 #' @param a matrix of upper hypergeometric parameters.
 #' @param b matrix of lower hypergeometric parameters.
 #' @param z vector of hypergeometric function arguments.
-#' @param k maximum number of hypergeometric series terms.
+#' @param k maximum number of hypergeometric series terms. Non-positive values
+#' use the package default.
+#' @return A one-column numeric matrix of generalized hypergeometric function
+#' values. Rows of \code{a}, rows of \code{b}, and values of \code{z} are
+#' recycled to the output length.
+#' @seealso \code{\link{gsplitt}()}
 #' @export
 ghypergeo <- function(a, b, z, k) {
     .Call('_dng_ghypergeo', PACKAGE = 'dng', a, b, z, k)

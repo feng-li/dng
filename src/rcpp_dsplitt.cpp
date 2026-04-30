@@ -30,8 +30,7 @@ using namespace Rcpp;
 //' @return \code{dsplitt} gives the density; \code{psplitt} gives the percentile;
 //' \code{qsplitt} gives the quantile; and \code{rsplitt} gives the random
 //' variables. \code{gsplitt} returns a list with elements \code{u} and \code{d}
-//' containing gradients of the CDF and log-density. \code{ghypergeo} returns a
-//' matrix of generalized hypergeometric function values. Invalid arguments will
+//' containing gradients of the CDF and log-density. Invalid arguments will
 //' result in return value NaN, with a warning.
 //'
 //' The numerical arguments other than n are recycled to the length of the
