@@ -29,7 +29,10 @@ using namespace Rcpp;
 //' @param logarithm logical; if TRUE, probabilities p are given as log(p).
 //' @return \code{dsplitt} gives the density; \code{psplitt} gives the percentile;
 //' \code{qsplitt} gives the quantile; and \code{rsplitt} gives the random
-//' variables. Invalid arguments will result in return value NaN, with a warning.
+//' variables. \code{gsplitt} returns a list with elements \code{u} and \code{d}
+//' containing gradients of the CDF and log-density. \code{ghypergeo} returns a
+//' matrix of generalized hypergeometric function values. Invalid arguments will
+//' result in return value NaN, with a warning.
 //'
 //' The numerical arguments other than n are recycled to the length of the
 //' result. Only the first elements of the logical arguments are used.
