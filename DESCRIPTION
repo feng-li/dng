@@ -1,7 +1,7 @@
 Package: dng
 Type: Package
 Title: Distributions and Gradients
-Version: 0.2.1
+Version: 1.0.0
 Authors@R: c(
     person("Feng", "Li", email = "feng.li@gsm.pku.edu.cn", role = c("aut", "cre")),
     person("Jiayue", "Zeng", email = "zengjiayue@126.com", role = "aut")
