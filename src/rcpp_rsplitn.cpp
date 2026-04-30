@@ -28,14 +28,14 @@ NumericVector rsplitn(int n, NumericVector mu, NumericVector sigma, NumericVecto
     {
       p0std[i] = u[i]*(1+lmd[i])/2;
       y0std[i] = R::qnorm5(p0std[i],mu[i], sigma[i], TRUE, FALSE);
-      out[i] = y0std[i]*sigma[i]+mu[i] ;
+      out[i] = y0std[i];
     }
 
     else
     {
       p0std[i] = (u[i]-1/(1+lmd[i]))*(1+lmd[i])/(2*lmd[i])+0.5;
-      y0std[i] = R::qnorm5(p0std[i], mu[i],sigma[i], TRUE, FALSE);
-      out[i] = y0std[i]*(sigma[i]*lmd[i])+mu[i] ;
+      y0std[i] = R::qnorm5(p0std[i], mu[i],sigma[i]*lmd[i], TRUE, FALSE);
+      out[i] = y0std[i];
     }
 
   }

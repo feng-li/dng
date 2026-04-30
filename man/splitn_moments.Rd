@@ -37,13 +37,13 @@ distribution.
 }
 \section{Functions}{
 \itemize{
-\item \code{splitn_kurtosis}: Kurtosis for the split-normal distribution.
+\item \code{splitn_kurtosis()}: Kurtosis for the split-normal distribution.
 
-\item \code{splitn_skewness}: Skewness for the split-normal distribution.
+\item \code{splitn_skewness()}: Skewness for the split-normal distribution.
 
-\item \code{splitn_var}: Variance for the split-normal distribution.
+\item \code{splitn_var()}: Variance for the split-normal distribution.
+
 }}
-
 \examples{
 
 mu <- c(0,1,2)

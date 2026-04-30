@@ -29,12 +29,11 @@ NumericVector psplitn(NumericVector q,NumericVector mu, NumericVector sigma, Num
     else if(q[a]>mu[a])
     {
       out[a] = (1-lmd[a])/(1+lmd[a]) +
-        2*lmd[a]/(1+lmd[a])*(R::pnorm5(q[a],mu[a],sigma[a]*lmd[a],1,0)-1/2);
+        2*lmd[a]/(1+lmd[a])*R::pnorm5(q[a],mu[a],sigma[a]*lmd[a],1,0);
     }
   }
 
   return out;
 
 }
-
 

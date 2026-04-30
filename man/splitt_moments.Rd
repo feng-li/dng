@@ -41,13 +41,13 @@ distribution.
 }
 \section{Functions}{
 \itemize{
-\item \code{splitt_kurtosis}: Kurtosis for the split-t distribution.
+\item \code{splitt_kurtosis()}: Kurtosis for the split-t distribution.
 
-\item \code{splitt_skewness}: Skewness for the split-t distribution.
+\item \code{splitt_skewness()}: Skewness for the split-t distribution.
 
-\item \code{splitt_var}: Variance for the split-t distribution.
+\item \code{splitt_var()}: Variance for the split-t distribution.
+
 }}
-
 \examples{
 
 mu <- c(0,1,2)

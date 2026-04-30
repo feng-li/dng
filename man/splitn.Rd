@@ -3,12 +3,15 @@
 \name{splitn}
 \alias{splitn}
 \alias{dsplitn}
+\alias{gsplitn}
 \alias{psplitn}
 \alias{qsplitn}
 \alias{rsplitn}
 \title{Split-normal distribution}
 \usage{
 dsplitn(x, mu, sigma, lmd, logarithm)
+
+gsplitn(y, par, parCaller, denscaller)
 
 psplitn(q, mu, sigma, lmd)
 
@@ -28,6 +31,16 @@ symmetric normal distribution.}
 
 \item{logarithm}{logical; if TRUE, probabilities p are given as log(p).}
 
+\item{y}{vector of quantiles for gradient evaluation.}
+
+\item{par}{list with \code{mu}, \code{sigma}, and \code{lmd} parameter vectors.}
+
+\item{parCaller}{character scalar naming the parameter to differentiate:
+\code{"mu"}, \code{"sigma"}, or \code{"lmd"}.}
+
+\item{denscaller}{character vector selecting gradients to compute. Use
+\code{"u"} for the CDF gradient and \code{"d"} for the log-density gradient.}
+
 \item{q}{vector of quantiles.}
 
 \item{p}{vector of probability.}
@@ -37,7 +50,9 @@ symmetric normal distribution.}
 \value{
 \code{dsplitn} gives the density; \code{psplitn} gives the percentile;
 \code{qsplitn} gives the quantile; and \code{rsplitn} gives the random
-variables. Invalid arguments will result in return value NaN, with a warning.
+variables. \code{gsplitn} returns a list with elements \code{u} and \code{d}
+containing gradients of the CDF and log-density. Invalid arguments will result
+in return value NaN, with a warning.
 
 The numerical arguments other than n are recycled to the length of the
 result. Only the first elements of the logical arguments are used.
@@ -56,13 +71,15 @@ exp{-(y-\mu)*2/2\sigma^2 \lambda^2}, ' if y>\mu} where \eqn{\sigma>0} and
 }
 \section{Functions}{
 \itemize{
-\item \code{psplitn}: Percentile for the split-normal distribution.
+\item \code{gsplitn()}: Gradients for the split-normal CDF and log-density.
 
-\item \code{qsplitn}: Quantile for the split-normal distribution.
+\item \code{psplitn()}: Percentile for the split-normal distribution.
 
-\item \code{rsplitn}: Randon variables from the split-normal distribution.
+\item \code{qsplitn()}: Quantile for the split-normal distribution.
+
+\item \code{rsplitn()}: Randon variables from the split-normal distribution.
+
 }}
-
 \examples{
 
 n <- 3

@@ -24,7 +24,9 @@ using namespace Rcpp;
 //' @param logarithm logical; if TRUE, probabilities p are given as log(p).
 //' @return \code{dsplitn} gives the density; \code{psplitn} gives the percentile;
 //' \code{qsplitn} gives the quantile; and \code{rsplitn} gives the random
-//' variables. Invalid arguments will result in return value NaN, with a warning.
+//' variables. \code{gsplitn} returns a list with elements \code{u} and \code{d}
+//' containing gradients of the CDF and log-density. Invalid arguments will result
+//' in return value NaN, with a warning.
 //'
 //' The numerical arguments other than n are recycled to the length of the
 //' result. Only the first elements of the logical arguments are used.
@@ -84,7 +86,7 @@ NumericVector dsplitn(NumericVector x, NumericVector mu, NumericVector sigma, Nu
   if(logarithm)
   {
     for(int i = 0;i<len;i++)
-    { out[i] = exp(densitq[i]);   }
+    { out[i] = log(densitq[i]);   }
   }
   else {out = densitq;}
   return out;

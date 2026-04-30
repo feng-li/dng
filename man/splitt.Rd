@@ -3,12 +3,18 @@
 \name{splitt}
 \alias{splitt}
 \alias{dsplitt}
+\alias{ghypergeo}
+\alias{gsplitt}
 \alias{psplitt}
 \alias{qsplitt}
 \alias{rsplitt}
 \title{Split-t distribution}
 \usage{
 dsplitt(x, mu, df, phi, lmd, logarithm)
+
+ghypergeo(a, b, z, k)
+
+gsplitt(y, par, parCaller, denscaller)
 
 psplitt(q, mu, df, phi, lmd)
 
@@ -30,6 +36,24 @@ symmetric student t distribution.}
 
 \item{logarithm}{logical; if TRUE, probabilities p are given as log(p).}
 
+\item{a}{matrix of upper hypergeometric parameters.}
+
+\item{b}{matrix of lower hypergeometric parameters.}
+
+\item{z}{vector of hypergeometric function arguments.}
+
+\item{k}{maximum number of hypergeometric series terms.}
+
+\item{y}{vector of quantiles for gradient evaluation.}
+
+\item{par}{list with \code{mu}, \code{df}, \code{phi}, and \code{lmd} parameter vectors.}
+
+\item{parCaller}{character scalar naming the parameter to differentiate:
+\code{"mu"}, \code{"df"}, \code{"phi"}, or \code{"lmd"}.}
+
+\item{denscaller}{character vector selecting gradients to compute. Use
+\code{"u"} for the CDF gradient and \code{"d"} for the log-density gradient.}
+
 \item{q}{vector of quantiles.}
 
 \item{p}{vector of probability.}
@@ -39,7 +63,10 @@ symmetric student t distribution.}
 \value{
 \code{dsplitt} gives the density; \code{psplitt} gives the percentile;
 \code{qsplitt} gives the quantile; and \code{rsplitt} gives the random
-variables. Invalid arguments will result in return value NaN, with a warning.
+variables. \code{gsplitt} returns a list with elements \code{u} and \code{d}
+containing gradients of the CDF and log-density. \code{ghypergeo} returns a
+matrix of generalized hypergeometric function values. Invalid arguments will
+result in return value NaN, with a warning.
 
 The numerical arguments other than n are recycled to the length of the
 result. Only the first elements of the logical arguments are used.
@@ -61,13 +88,17 @@ Beta(\nu/2,1/2)]^{-1} }is the normalization constant.
 }
 \section{Functions}{
 \itemize{
-\item \code{psplitt}: Percentile for the split-t distribution.
+\item \code{ghypergeo()}: Generalized hypergeometric function for split-t gradient calculations.
 
-\item \code{qsplitt}: Quantile for the split-t distribution.
+\item \code{gsplitt()}: Gradients for the split-t CDF and log-density.
 
-\item \code{rsplitt}: Randon variables from the split-t distribution.
+\item \code{psplitt()}: Percentile for the split-t distribution.
+
+\item \code{qsplitt()}: Quantile for the split-t distribution.
+
+\item \code{rsplitt()}: Randon variables from the split-t distribution.
+
 }}
-
 \examples{
 
 n <- 3
