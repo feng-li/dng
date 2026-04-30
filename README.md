@@ -1,72 +1,111 @@
-<!-- README.md is generated from README.Rmd. Please edit that file -->
-
 # dng <img src="man/figures/splitt.png" align="right" height="210"/>
 
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/feng-li/dng/workflows/R-CMD-check/badge.svg)](https://github.com/feng-li/dng/actions)
+[![R build status](https://github.com/feng-li/dng/workflows/R-CMD-check/badge.svg)](https://github.com/feng-li/dng/actions)
 [![](https://cranlogs.r-pkg.org/badges/dng)](https://CRAN.R-project.org/package=dng)
+
 <!-- badges: end -->
 
-The R package `dng` (`d`istributions a`n`d `g`radients)  provides efficient algorithms for density, distribution function, quantile function and random generation for the split normal and split-t distributions, and computes their mean, variance, skewness and kurtosis for the two distributions.
-
+`dng` provides distribution and gradient functions for split-normal and
+split-t distributions. It includes density, distribution, quantile, random
+generation, moment, and analytical gradient routines implemented with Rcpp.
 
 ## Installation
 
-### [CRAN version](https://CRAN.R-project.org/package=dng)
+Install the CRAN release with:
 
-``` r
+```r
 install.packages("dng")
 ```
 
-### Development version
+Install the development version from GitHub with:
 
-You can install the **development** version of `dng` package from
-[GitHub Repository](https://github.com/feng-li/dng) with:
-
-``` r
-devtools::install_github("feng-li/dng")
+```r
+remotes::install_github("feng-li/dng")
 ```
 
-## Usage
+## Split-Normal Distribution
 
-### Split normal distributions
-
-``` r
+```r
 library(dng)
+
 n <- 3
-mu <- c(0,1,2)
-sigma <- c(1,2,3)
-lmd <- c(1,2,3)
-q0 <- rsplitn(n, mu, sigma, lmd)
-d0 <- dsplitn(q0, mu, sigma, lmd, logarithm = FALSE)
-p0 <- psplitn(q0, mu, sigma, lmd)
-q1 <- qsplitn(p0,mu, sigma, lmd)
-all.equal(q0, q1)
+mu <- c(0, 1, 2)
+sigma <- c(1, 2, 3)
+lmd <- c(1, 2, 3)
+
+x <- rsplitn(n, mu, sigma, lmd)
+d <- dsplitn(x, mu, sigma, lmd, logarithm = FALSE)
+p <- psplitn(x, mu, sigma, lmd)
+q <- qsplitn(p, mu, sigma, lmd)
+
+all.equal(x, q)
 ```
 
-### Split-t distributions
-``` r
-n <- 3
-mu <- c(0,1,2)
-sigma <- c(1,2,3)
-lmd <- c(1,2,3)
-q0 <- rsplitn(n, mu, sigma, lmd)
-d0 <- dsplitn(q0, mu, sigma, lmd, logarithm = FALSE)
-p0 <- psplitn(q0, mu, sigma, lmd)
-q1 <- qsplitn(p0,mu, sigma, lmd)
-all.equal(q0, q1)
+Moment helpers are also available:
+
+```r
+splitn_mean(mu, sigma, lmd)
+splitn_var(sigma, lmd)
+splitn_skewness(sigma, lmd)
+splitn_kurtosis(lmd)
 ```
 
-## References
+Gradients of the CDF and log-density are available through `gsplitn()`:
 
--   Li, Feng, Villani, Mattias, & Kohn, Robert. (2010). "Flexible modeling of conditional distributions using smooth mixtures of asymmetric student t densities". _Journal of Statistical Planning & Inference_, 140(12), 3638-3654.
+```r
+gsplitn(
+  x,
+  list(mu = mu, sigma = sigma, lmd = lmd),
+  parCaller = "mu",
+  denscaller = c("u", "d")
+)
+```
+
+## Split-t Distribution
+
+```r
+mu <- c(0, 1, 2)
+df <- rep(10, 3)
+phi <- c(0.5, 1, 2)
+lmd <- c(1, 2, 3)
+
+x <- rsplitt(n, mu, df, phi, lmd)
+d <- dsplitt(x, mu, df, phi, lmd, logarithm = FALSE)
+p <- psplitt(x, mu, df, phi, lmd)
+q <- qsplitt(p, mu, df, phi, lmd)
+
+all.equal(x, q)
+```
+
+Moment helpers are also available:
+
+```r
+splitt_mean(mu, df, phi, lmd)
+splitt_var(df, phi, lmd)
+splitt_skewness(df, phi, lmd)
+splitt_kurtosis(df, phi, lmd)
+```
+
+Gradients of the CDF and log-density are available through `gsplitt()`:
+
+```r
+gsplitt(
+  x,
+  list(mu = mu, df = df, phi = phi, lmd = lmd),
+  parCaller = "mu",
+  denscaller = c("u", "d")
+)
+```
+
+## Reference
+
+Li, F., Villani, M., and Kohn, R. (2010). Flexible modeling of conditional
+distributions using smooth mixtures of asymmetric student t densities.
+*Journal of Statistical Planning and Inference*, 140(12), 3638-3654.
+<https://doi.org/10.1016/j.jspi.2010.04.031>
 
 ## License
 
-This package is free and open source software, licensed under GPL-3.
-
-## Acknowledgements
-
-Feng Li is supported by the National Natural Science Foundation of China.
+GPL (>= 2)
