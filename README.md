@@ -11,9 +11,11 @@
 split-t distributions. It includes density, distribution, quantile, random
 generation, moment, and analytical gradient routines implemented with Rcpp.
 
+The package is collected in [CRAN Task View: Probability Distributions](https://cran.r-project.org/web/views/Distributions.html)
+
 ## Installation
 
-Install the CRAN release with:
+Install the [CRAN release version](https://cran.r-project.org/web/packages/dng/index.html) with:
 
 ```r
 install.packages("dng")
